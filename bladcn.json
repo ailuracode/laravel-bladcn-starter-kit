@@ -1,0 +1,29 @@
+{
+    "$schema": "./vendor/ailuracode/bladcn/resources/bladcn.schema.json",
+    "componentsPath": "resources/views/components/ui",
+    "registryBranch": "main",
+    "resolved": [
+        "abstract",
+        "alert",
+        "alert-dialog",
+        "avatar",
+        "badge",
+        "body-scroll-lock",
+        "breadcrumb",
+        "button",
+        "card",
+        "checkbox",
+        "dialog",
+        "dropdown-menu",
+        "field",
+        "icon",
+        "input",
+        "input-otp",
+        "label",
+        "separator",
+        "sidebar",
+        "sonner",
+        "typography"
+    ],
+    "registry": "../bladcn-components"
+}
