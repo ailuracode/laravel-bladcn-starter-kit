@@ -132,7 +132,7 @@ new class extends Component {
 
 <div>
     @if ($showModal)
-    <x-ui.dialog open x-init="$watch('isOpen', value => { if (! value) $wire.closeModal() })">
+    <x-ui.dialog open x-init="$watch(() => $store.dialog.isOpen(id), value => { if (! value) $wire.closeModal() })">
         <x-ui.dialog.content class="max-w-md">
             <x-ui.dialog.header class="text-center sm:text-center">
                 <div class="mx-auto mb-4 flex size-12 items-center justify-center rounded-full border bg-muted">

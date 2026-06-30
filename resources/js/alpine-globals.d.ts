@@ -8,11 +8,15 @@ declare module "alpinejs" {
             theme: import("@ailuracode/alpine-theme").ThemeStore;
             sidebar: import("@ailuracode/alpine-sidebar").SidebarStore;
             scroll: import("@ailuracode/alpine-scroll").ScrollStore;
+            dialog: import("@ailuracode/alpine-dialog").DialogStore;
+            menu: import("@ailuracode/alpine-menu").MenuStore;
         }
 
         interface Magics<T> {
             $theme: import("@ailuracode/alpine-theme").ThemeStore;
             $sidebar: import("@ailuracode/alpine-sidebar").SidebarStore;
+            $dialog: import("@ailuracode/alpine-dialog").DialogStore;
+            $menu: import("@ailuracode/alpine-menu").MenuStore;
         }
     }
 }
@@ -21,17 +25,14 @@ declare global {
     interface Window {
         Alpine: AlpineInstance;
         Passkeys: typeof import("@laravel/passkeys").Passkeys;
-        bladcnBodyScrollLock?: {
-            count: number;
-            originalPaddingRight: string;
-            getScrollbarWidth(): number;
-            lock(): void;
-            unlock(): void;
-        };
         bladcnOnAlpine(callback: (Alpine: AlpineInstance) => void): void;
         bladcnRegister(
             name: string,
             factory: (config?: Record<string, unknown>) => Record<string, unknown>,
+        ): void;
+        bladcnRegisterMenu(
+            id: string,
+            options?: import("@ailuracode/alpine-menu").MenuInstanceOptions,
         ): void;
     }
 
@@ -39,6 +40,10 @@ declare global {
     function bladcnRegister(
         name: string,
         factory: (config?: Record<string, unknown>) => Record<string, unknown>,
+    ): void;
+    function bladcnRegisterMenu(
+        id: string,
+        options?: import("@ailuracode/alpine-menu").MenuInstanceOptions,
     ): void;
 }
 

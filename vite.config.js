@@ -27,6 +27,9 @@ export default defineConfig({
             '@ailuracode/alpine-theme',
             '@ailuracode/alpine-sidebar',
             '@ailuracode/alpine-scroll',
+            '@ailuracode/alpine-dialog',
+            '@ailuracode/alpine-menu',
+            '@alpinejs/anchor',
         ],
     },
     server: {
