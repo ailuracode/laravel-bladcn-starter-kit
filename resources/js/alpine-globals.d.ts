@@ -21,13 +21,6 @@ declare global {
     interface Window {
         Alpine: AlpineInstance;
         Passkeys: typeof import("@laravel/passkeys").Passkeys;
-        bladcnBodyScrollLock?: {
-            count: number;
-            originalPaddingRight: string;
-            getScrollbarWidth(): number;
-            lock(): void;
-            unlock(): void;
-        };
         bladcnOnAlpine(callback: (Alpine: AlpineInstance) => void): void;
         bladcnRegister(
             name: string,

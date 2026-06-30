@@ -6,6 +6,9 @@ import type { AlpineInstance } from "./types/alpine";
 /** localStorage key for desktop sidebar expanded (compact when `false`). */
 export const SIDEBAR_EXPANDED_STORAGE_KEY = "sidebar-expanded";
 
+/** Mobile drawer close animation — must match sidebar `duration-300` utilities. */
+export const SIDEBAR_MOBILE_CLOSE_MS = 300;
+
 export function readSidebarExpanded(): boolean {
   try {
     return localStorage.getItem(SIDEBAR_EXPANDED_STORAGE_KEY) !== "false";
@@ -42,7 +45,8 @@ function scrollStore(): ScrollStore | undefined {
 }
 
 /**
- * @see https://github.com/ailuracode/alpinejs-toolkit/blob/master/docs/plugins/sidebar.md
+ * Scroll lock composition — same pattern as apps/demo/src/demo/plugin-registry.ts
+ * @see https://github.com/ailuracode/alpinejs-toolkit/blob/master/docs/plugins/scroll.md
  */
 export const sidebarPluginOptions: SidebarPluginOptions = sidebarOptions({
   breakpoint: DESKTOP_SIDEBAR_BREAKPOINT,
@@ -50,10 +54,12 @@ export const sidebarPluginOptions: SidebarPluginOptions = sidebarOptions({
   closeOnOverlayClick: true,
   onShow() {
     document.documentElement.setAttribute("data-sidebar", "");
-    document.documentElement.style.scrollbarGutter = "stable";
 
-    if (!isDesktopSidebar()) {
-      scrollStore()?.lock();
+    if (isDesktopSidebar()) {
+      document.documentElement.style.scrollbarGutter = "stable";
+    } else {
+      // `axis: 'both'` fixes body in place — overflow-only lock breaks `fixed` overlays on body.
+      scrollStore()?.lock({ axis: "both" });
     }
   },
   onHide() {
@@ -85,12 +91,30 @@ export function registerSidebarResponsiveCleanup(Alpine: AlpineInstance): void {
   });
 }
 
-/** Alpine state for `<x-ui.sidebar.provider>` — persists desktop expanded/collapsed. */
+interface SidebarProviderContext {
+  expanded: boolean;
+  mobilePresent: boolean;
+  mobileAnimationState: "open" | "closed";
+  mobileClosing: boolean;
+  mobileCloseTimer: ReturnType<typeof setTimeout> | null;
+  $el: HTMLElement;
+  $nextTick(callback: () => void): void;
+  $store: { sidebar: SidebarStore };
+  openMobile(): void;
+  finishMobileClose(options?: { hideStore?: boolean }): void;
+  syncSidebarGroupDom(): void;
+}
+
+/** Alpine state for `<x-ui.sidebar.provider>` — desktop expand/collapse + mobile drawer animation. */
 export function registerSidebarProvider(Alpine: AlpineInstance): void {
   Alpine.data("bladcnSidebarProvider", () => ({
     expanded: readSidebarExpanded(),
+    mobilePresent: false,
+    mobileAnimationState: "closed" as "open" | "closed",
+    mobileClosing: false,
+    mobileCloseTimer: null as ReturnType<typeof setTimeout> | null,
 
-    init() {
+    init(this: SidebarProviderContext & { $watch: (source: unknown, callback: (value: boolean) => void) => void }) {
       syncSidebarExpandedDom(this.expanded);
       this.syncSidebarGroupDom();
 
@@ -100,13 +124,107 @@ export function registerSidebarProvider(Alpine: AlpineInstance): void {
         this.syncSidebarGroupDom();
       });
 
-      // Release button/menu FOUC guard after Alpine bindings are active.
+      this.$watch(
+        () => this.$store.sidebar.visible,
+        (visible: boolean) => {
+          if (this.$store.sidebar.matchesBreakpoint) {
+            return;
+          }
+
+          if (visible) {
+            this.openMobile();
+
+            return;
+          }
+
+          if (this.mobilePresent && !this.mobileClosing) {
+            this.finishMobileClose();
+          }
+        },
+      );
+
+      this.$watch(
+        () => this.$store.sidebar.matchesBreakpoint,
+        (matches: boolean) => {
+          if (!matches) {
+            return;
+          }
+
+          clearTimeout(this.mobileCloseTimer ?? undefined);
+          this.mobilePresent = false;
+          this.mobileAnimationState = "closed";
+          this.mobileClosing = false;
+
+          if (this.$store.sidebar.visible) {
+            this.$store.sidebar.hide();
+          }
+        },
+      );
+
       this.$nextTick(() => {
         document.documentElement.setAttribute("data-alpine-initialized", "");
       });
     },
 
-    syncSidebarGroupDom() {
+    destroy(this: SidebarProviderContext) {
+      clearTimeout(this.mobileCloseTimer ?? undefined);
+    },
+
+    openMobile(this: SidebarProviderContext) {
+      clearTimeout(this.mobileCloseTimer ?? undefined);
+      this.mobileClosing = false;
+      this.mobilePresent = true;
+      this.mobileAnimationState = "closed";
+
+      this.$nextTick(() => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            this.mobileAnimationState = "open";
+          });
+        });
+      });
+    },
+
+    finishMobileClose(this: SidebarProviderContext, { hideStore = false }: { hideStore?: boolean } = {}) {
+      if (!this.mobilePresent || this.mobileClosing) {
+        return;
+      }
+
+      clearTimeout(this.mobileCloseTimer ?? undefined);
+      this.mobileClosing = true;
+      this.mobileAnimationState = "closed";
+
+      this.mobileCloseTimer = setTimeout(() => {
+        if (hideStore && this.$store.sidebar.visible) {
+          this.$store.sidebar.hide();
+        }
+
+        this.mobilePresent = false;
+        this.mobileClosing = false;
+      }, SIDEBAR_MOBILE_CLOSE_MS);
+    },
+
+    closeMobileSidebar(this: SidebarProviderContext) {
+      this.finishMobileClose({ hideStore: true });
+    },
+
+    handleMobileNavClick(this: SidebarProviderContext, event: Event) {
+      if (this.$store.sidebar.matchesBreakpoint || !this.$store.sidebar.visible) {
+        return;
+      }
+
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      if (target.closest('a[href]:not([target=_blank]), button[type=submit]')) {
+        this.$store.sidebar.hide();
+      }
+    },
+
+    syncSidebarGroupDom(this: SidebarProviderContext) {
       const sidebar = this.$el.querySelector('[data-slot="sidebar"]');
 
       if (!sidebar) {
@@ -124,7 +242,7 @@ export function registerSidebarProvider(Alpine: AlpineInstance): void {
       }
     },
 
-    toggleExpanded() {
+    toggleExpanded(this: SidebarProviderContext) {
       this.expanded = !this.expanded;
     },
   }));

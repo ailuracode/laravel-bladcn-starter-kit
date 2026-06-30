@@ -39,7 +39,7 @@
             : '';
 
     $overlayClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'fixed inset-0 z-40 bg-black/50 backdrop-blur-md transition-opacity ease-in-out md:hidden data-[state=open]:opacity-100 data-[state=open]:duration-500 data-[state=closed]:opacity-0 data-[state=closed]:duration-300',
+        'fixed inset-0 z-40 h-svh w-full bg-black/50 backdrop-blur-md transition-opacity ease-in-out md:hidden data-[state=open]:opacity-100 data-[state=open]:duration-500 data-[state=closed]:opacity-0 data-[state=closed]:duration-300',
     );
 
     $mobilePanelAnimationClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
@@ -56,14 +56,17 @@
         );
 @endphp
 
-<div @class($overlayClass)
-    aria-hidden="true"
-    data-state="closed"
-    x-bind:aria-hidden="mobileAnimationState === 'closed'"
-    x-bind:data-state="mobileAnimationState"
-    x-cloak
-    x-on:click="closeMobileSidebar()"
-    x-show="mobilePresent && !$store.sidebar.matchesBreakpoint"></div>
+<template x-teleport="html">
+    <div @class($overlayClass)
+        aria-hidden="true"
+        data-slot="sidebar-overlay"
+        data-state="closed"
+        x-bind:aria-hidden="mobileAnimationState === 'closed'"
+        x-bind:data-state="mobileAnimationState"
+        x-cloak
+        x-on:click="closeMobileSidebar()"
+        x-show="mobilePresent && !$store.sidebar.matchesBreakpoint"></div>
+</template>
 
 <div {{ $attributes->class(['group peer text-sidebar-foreground', $class]) }}
     @if (filled($style)) style="{{ $style }}" @endif

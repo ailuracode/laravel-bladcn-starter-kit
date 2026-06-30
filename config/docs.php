@@ -4,7 +4,6 @@ return [
 
     'excluded' => [
         'abstract',
-        'body-scroll-lock',
     ],
 
     'groups' => [
