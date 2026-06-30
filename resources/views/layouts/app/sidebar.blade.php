@@ -4,7 +4,7 @@
         @include('partials.head')
     </head>
     <body class="min-h-screen bg-background text-foreground antialiased" x-data>
-        <x-ui.sidebar.provider class="flex min-h-svh w-full">
+        <x-ui.sidebar.provider>
             <x-app-sidebar />
 
             <x-ui.sidebar.inset class="flex min-h-svh flex-col">

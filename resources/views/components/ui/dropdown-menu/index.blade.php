@@ -47,7 +47,6 @@
                 contentAlign: 'start',
                 contentSide: 'bottom',
                 contentSideOffset: 4,
-                matchTriggerWidth: false,
                 resolvedSide: 'bottom',
                 portalStyle: '',
 
@@ -57,8 +56,6 @@
                     this.contentSide = options.side ?? 'bottom';
                     this.contentSideOffset = options
                         .sideOffset ?? 4;
-                    this.matchTriggerWidth = options
-                        .matchTriggerWidth ?? false;
                 },
 
                 toggle(event) {
@@ -231,16 +228,6 @@
                         return;
                     }
 
-                    if (content?.dataset?.sidebarMenu === 'nav-user') {
-                        const store = Alpine.store('bladcnSidebar');
-
-                        if (store) {
-                            this.contentSide = store.isMobile || store.open
-                                ? 'bottom'
-                                : 'left';
-                        }
-                    }
-
                     const rect = trigger
                         .getBoundingClientRect();
                     const contentRect = content
@@ -359,9 +346,6 @@
                             `top: ${top}px`,
                             `max-height: ${maxHeight}px`,
                             transform,
-                            this.matchTriggerWidth && rect.width > 0
-                                ? `width: ${rect.width}px; min-width: ${rect.width}px;`
-                                : null,
                         ]
                         .filter(Boolean)
                         .join('; ');

@@ -1,5 +1,5 @@
 @include('partials.bladcn-boot')
 
-@stack('bladcn-scripts')
+@include('partials.bladcn-breakpoints')
 
-@livewireScripts
+@stack('bladcn-scripts')

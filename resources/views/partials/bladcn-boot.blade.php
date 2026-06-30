@@ -1,5 +1,5 @@
 {{-- Must run before @stack('bladcn-scripts'): inline component scripts call these synchronously. --}}
-{{-- bladcn.js also assigns the same helpers (??=) after the Vite module loads. --}}
+{{-- bladcn.ts also assigns the same helpers (??=) after the Vite module loads. --}}
 <script>
     window.bladcnOnAlpine = window.bladcnOnAlpine ?? ((callback) => {
         const run = () => {

@@ -10,8 +10,8 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
-                'resources/js/app.js',
-                'resources/js/passkeys.js',
+                'resources/js/app.ts',
+                'resources/js/passkeys.ts',
             ],
             refresh: true,
             fonts: [
@@ -22,6 +22,13 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    optimizeDeps: {
+        include: [
+            '@ailuracode/alpine-theme',
+            '@ailuracode/alpine-sidebar',
+            '@ailuracode/alpine-scroll',
+        ],
+    },
     server: {
         cors: true,
         watch: {

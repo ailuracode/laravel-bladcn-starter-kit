@@ -2,7 +2,7 @@
     'projects' => [],
 ])
 
-<x-ui.sidebar.group class="group-data-[collapsible=icon]/sidebar-wrapper:hidden">
+<x-ui.sidebar.group class="group-data-[collapsible=icon]:hidden">
     <x-ui.sidebar.group-label>{{ __('Projects') }}</x-ui.sidebar.group-label>
     <x-ui.sidebar.menu>
         @foreach ($projects as $project)

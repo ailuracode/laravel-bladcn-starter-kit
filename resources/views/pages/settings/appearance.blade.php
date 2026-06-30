@@ -23,10 +23,10 @@ new #[Title('Appearance settings')]
                 <button
                     type="button"
                     class="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors"
-                    x-bind:class="$store.bladcnTheme.appearance === @js($value)
+                    x-bind:class="$store.theme.is(@js($value))
                         ? 'bg-accent text-accent-foreground'
                         : 'text-muted-foreground hover:bg-muted hover:text-foreground'"
-                    x-on:click="$store.bladcnTheme.set(@js($value))"
+                    x-on:click="$store.theme.set(@js($value))"
                 >
                     <x-ui.icon :name="$option['icon']" class="size-4" />
                     {{ $option['label'] }}

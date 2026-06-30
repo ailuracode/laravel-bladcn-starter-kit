@@ -195,7 +195,7 @@ new class extends Component {
                             <div class="flex h-full items-center justify-center p-4">
                                 <div
                                     class="rounded bg-white p-3"
-                                    x-bind:style="$store.bladcnTheme.isDark ? 'filter: invert(1) brightness(1.5)' : ''"
+                                    x-bind:style="$store.theme.isResolvedDark ? 'filter: invert(1) brightness(1.5)' : ''"
                                 >
                                     {!! $qrCodeSvg !!}
                                 </div>

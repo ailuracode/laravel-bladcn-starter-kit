@@ -99,7 +99,7 @@
 
         <x-docs.section :label="__('Theme')">
             <x-ui.typography.p>
-                {{ __('Customize design tokens in resources/css/bladcn-theme.css. Toggle light/dark mode from Settings → Appearance or via $store.bladcnTheme in Alpine.') }}
+                {{ __('Customize design tokens in resources/css/bladcn-theme.css. Toggle light/dark mode from Settings → Appearance or via $store.theme in Alpine.') }}
             </x-ui.typography.p>
         </x-docs.section>
     </div>

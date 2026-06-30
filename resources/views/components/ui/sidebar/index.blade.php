@@ -3,95 +3,117 @@
 
 @props([
     'side' => 'left',
-    'collapsible' => 'icon',
     'variant' => 'sidebar',
+    'collapsible' => 'icon',
     'style' => null,
     'class' => null,
 ])
 
 @php
-    $isInsetOrFloating = in_array($variant, ['inset', 'floating'], true);
+    $isInsetOrFloating = in_array($variant, ['floating', 'inset'], true);
 
-    $innerClass = $isInsetOrFloating
-        ? 'rounded-lg border border-sidebar-border shadow-sm'
-        : '';
+    $gapCollapsedClass = $isInsetOrFloating
+        ? 'md:group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
+        : 'md:group-data-[collapsible=icon]:w-(--sidebar-width-icon)';
 
-    $gapIconWidth = $isInsetOrFloating
-        ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
-        : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon)';
+    $gapHtmlCollapsedClass = $isInsetOrFloating
+        ? '[html[data-sidebar-collapsed]_&]:md:!w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
+        : '[html[data-sidebar-collapsed]_&]:md:!w-(--sidebar-width-icon)';
 
-    $fixedIconWidth = $isInsetOrFloating
-        ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)] group-data-[collapsible=icon]:p-2!'
-        : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon)';
+    $panelHtmlCollapsedClass = $isInsetOrFloating
+        ? '[html[data-sidebar-collapsed]_&]:md:!w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
+        : '[html[data-sidebar-collapsed]_&]:md:!w-(--sidebar-width-icon)';
 
-    $fixedBorder = $isInsetOrFloating
-        ? ''
-        : ($side === 'left' ? 'border-e border-sidebar-border' : 'border-s border-sidebar-border');
+    $panelSideClass =
+        $side === 'left'
+            ? 'start-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] md:left-0'
+            : 'end-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:right-0';
 
-    $presetAttributes = [
-        'data-slot' => 'sidebar',
-        'data-side' => $side,
-        'data-variant' => $variant,
-    ];
+    $panelVariantClass = $isInsetOrFloating
+        ? 'md:p-2 md:group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
+        : 'md:group-data-[collapsible=icon]:w-(--sidebar-width-icon) md:group-data-[side=left]:border-e md:group-data-[side=right]:border-s';
 
-    if (filled($style)) {
-        $presetAttributes['style'] = $style;
-    }
+    $innerVariantClass =
+        $variant === 'floating'
+            ? 'group-data-[variant=floating]:border-sidebar-border group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:border group-data-[variant=floating]:shadow-sm'
+            : '';
+
+    $overlayClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
+        'fixed inset-0 z-40 bg-black/50 backdrop-blur-md transition-opacity ease-in-out md:hidden data-[state=open]:opacity-100 data-[state=open]:duration-500 data-[state=closed]:opacity-0 data-[state=closed]:duration-300',
+    );
+
+    $mobilePanelAnimationClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
+        ->add(
+            'max-md:transition max-md:ease-in-out max-md:data-[state=closed]:animate-out max-md:data-[state=closed]:duration-300 max-md:data-[state=open]:animate-in max-md:data-[state=open]:duration-500',
+        )
+        ->add(
+            match ($side) {
+                'right'
+                    => 'max-md:data-[state=closed]:slide-out-to-right max-md:data-[state=open]:slide-in-from-right',
+                default
+                    => 'max-md:data-[state=closed]:slide-out-to-left max-md:data-[state=open]:slide-in-from-left',
+            },
+        );
 @endphp
 
-@if ($collapsible === 'none')
-    <div
-        {{ $attributes->merge($presetAttributes)->class(['flex h-full w-(--sidebar-width) flex-col bg-sidebar text-sidebar-foreground', $class]) }}>
-        {{ $slot }}
-    </div>
-@else
-    <div
-        {{ $attributes->merge($presetAttributes)->class(['group peer relative text-sidebar-foreground', $class]) }}
-        x-bind:data-state="$store.bladcnSidebar.state"
-        x-bind:data-collapsible="! $store.bladcnSidebar.open ? @js($collapsible) : null"
-    >
-        <div
-            data-slot="sidebar-mobile-overlay"
-            data-state="closed"
-            x-cloak
-            x-show="$store.bladcnSidebar.isMobile && $store.bladcnSidebar.mobilePresent"
-            x-on:click="$store.bladcnSidebar.setOpen(false)"
-            x-bind:data-state="$store.bladcnSidebar.mobileAnimationState"
-            class="fixed inset-0 z-40 bg-black/50 md:hidden"
-        ></div>
+<div @class($overlayClass)
+    aria-hidden="true"
+    data-state="closed"
+    x-bind:aria-hidden="mobileAnimationState === 'closed'"
+    x-bind:data-state="mobileAnimationState"
+    x-cloak
+    x-on:click="closeMobileSidebar()"
+    x-show="mobilePresent && !$store.sidebar.matchesBreakpoint"></div>
 
-        <div
-            aria-hidden="true"
-            class="relative hidden w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear group-data-[collapsible=offcanvas]:w-0 md:block {{ $gapIconWidth }}"
-            x-bind:class="$store.bladcnSidebar.open ? 'w-(--sidebar-width)' : (@js($collapsible) === 'icon' ? 'w-(--sidebar-width-icon)' : 'w-0')"
-        ></div>
+<div {{ $attributes->class(['group peer text-sidebar-foreground', $class]) }}
+    @if (filled($style)) style="{{ $style }}" @endif
+    data-side="{{ $side }}"
+    data-slot="sidebar"
+    data-variant="{{ $variant }}"
+    x-bind:data-collapsible="!expanded && $store.sidebar.matchesBreakpoint ?
+        @js($collapsible) : null"
+    x-bind:data-state="$store.sidebar.matchesBreakpoint ? (expanded ? 'expanded' : 'collapsed') : (
+        $store.sidebar.visible ? 'open' : 'closed')">
+    {{-- Desktop gap spacer --}}
+    <div @class([
+        'relative hidden h-svh w-(--sidebar-width) shrink-0 bg-transparent transition-[width] duration-200 ease-linear md:block',
+        'group-data-[collapsible=offcanvas]:w-0',
+        'group-data-[side=right]:rotate-180',
+        $gapCollapsedClass,
+        $gapHtmlCollapsedClass,
+    ])
+        data-slot="sidebar-gap"></div>
 
-        <div
-            data-slot="sidebar-mobile-panel"
-            data-state="closed"
-            class="fixed inset-y-0 z-50 flex h-svh w-(--sidebar-width) md:translate-x-0 md:transition-[width] md:duration-200 md:ease-linear md:z-10 {{ $fixedIconWidth }} {{ $fixedBorder }} {{ $side === 'left' ? 'start-0 group-data-[collapsible=offcanvas]:md:-start-(--sidebar-width)' : 'end-0 group-data-[collapsible=offcanvas]:md:-end-(--sidebar-width)' }}"
-            x-cloak
-            x-show="! $store.bladcnSidebar.isMobile || $store.bladcnSidebar.mobilePresent"
-            x-bind:data-state="$store.bladcnSidebar.isMobile ? $store.bladcnSidebar.mobileAnimationState : 'open'"
-            x-bind:class="[
-                $store.bladcnSidebar.open
-                    ? 'md:w-(--sidebar-width)'
-                    : (@js($collapsible) === 'icon' ? 'md:w-(--sidebar-width-icon)' : 'md:w-(--sidebar-width)'),
-            ]"
-        >
-            <div
-                @class([
-                    'relative flex h-full w-full flex-col overflow-hidden bg-sidebar',
-                    $innerClass,
-                ])
-                data-sidebar="sidebar"
-                data-slot="sidebar-inner"
-                x-on:click="if ($store.bladcnSidebar.isMobile && $event.target.closest('a[href]:not([target=_blank]), button[type=submit]')) { $store.bladcnSidebar.setOpen(false); }"
-            >
-                {{ $slot }}
-            </div>
+    {{-- Sidebar panel — mobile drawer slide + desktop width transition --}}
+    <div @class([
+        'fixed inset-y-0 z-50 flex h-svh w-(--sidebar-width) shrink-0 flex-col overflow-hidden transition-[left,right,width] duration-200 ease-linear md:z-10',
+        'border-sidebar-border bg-sidebar md:flex',
+        $side === 'left' ? 'border-e' : 'border-s',
+        $panelSideClass,
+        $panelVariantClass,
+        $panelHtmlCollapsedClass,
+        $mobilePanelAnimationClass,
+    ])
+        data-slot="sidebar-container"
+        data-state="closed"
+        x-bind:aria-modal="!$store.sidebar.matchesBreakpoint ? 'true' : null"
+        x-bind:class="{
+            'invisible': !$store.sidebar.matchesBreakpoint &&
+                mobileAnimationState ===
+                'closed' && !
+                mobileClosing,
+        }"
+        x-bind:data-state="!$store.sidebar.matchesBreakpoint ? mobileAnimationState : null"
+        x-bind:role="!$store.sidebar.matchesBreakpoint ? 'dialog' : null"
+        x-show="$store.sidebar.matchesBreakpoint || mobilePresent">
+        <div @class([
+            'flex h-full min-h-0 w-full flex-col gap-2 overflow-hidden',
+            $innerVariantClass,
+        ])
+            data-sidebar="sidebar"
+            data-slot="sidebar-inner"
+            x-on:click="handleMobileNavClick($event)">
+            {{ $slot }}
         </div>
-
-        <x-ui.sidebar.rail class="max-md:hidden" />
     </div>
-@endif
+</div>

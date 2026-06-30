@@ -72,7 +72,7 @@ php artisan bladcn:add dialog card
 
 ## Theme
 
-Light, dark, and system themes are managed via Alpine store (`$store.bladcnTheme`) and persisted in `localStorage`. Change appearance under **Settings → Appearance**.
+Light, dark, and system themes are managed via `@ailuracode/alpine-theme` (`$store.theme`) and persisted in `localStorage`. Change appearance under **Settings → Appearance**.
 
 ## License
 

@@ -12,9 +12,10 @@
                     <x-ui.dropdown-menu.trigger as-child>
                         <button
                             type="button"
-                            class="peer/menu-button flex h-12 w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground group-data-[collapsible=icon]/sidebar-wrapper:size-8! group-data-[collapsible=icon]/sidebar-wrapper:p-0!"
+                            class="peer/menu-button flex h-12 w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-hidden ring-sidebar-ring transition-[width,height,padding] duration-200 ease-linear hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-0!"
                             data-slot="sidebar-menu-button"
                             data-sidebar="menu-button"
+                            data-size="lg"
                         >
                             <span class="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                                 @foreach ($teams as $team)
@@ -23,11 +24,11 @@
                                     </span>
                                 @endforeach
                             </span>
-                            <div class="grid min-w-0 flex-1 text-start text-sm leading-tight group-data-[collapsible=icon]/sidebar-wrapper:hidden">
+                            <div class="grid min-w-0 flex-1 truncate text-start text-sm leading-tight">
                                 <span class="truncate font-medium" x-text="activeTeam.name"></span>
                                 <span class="truncate text-xs text-muted-foreground" x-text="activeTeam.plan"></span>
                             </div>
-                            <x-ui.icon name="chevrons-up-down" class="ms-auto size-4 shrink-0 group-data-[collapsible=icon]/sidebar-wrapper:hidden" />
+                            <x-ui.icon name="chevrons-up-down" class="ms-auto size-4 shrink-0" />
                         </button>
                     </x-ui.dropdown-menu.trigger>
                 <x-ui.dropdown-menu.content

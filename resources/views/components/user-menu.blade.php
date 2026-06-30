@@ -8,11 +8,11 @@
             <x-ui.avatar size="sm">
                 <x-ui.avatar.fallback>{{ auth()->user()->initials() }}</x-ui.avatar.fallback>
             </x-ui.avatar>
-            <span class="grid flex-1 text-start text-sm leading-tight group-data-[collapsible=icon]/sidebar-wrapper:hidden">
+            <span class="grid flex-1 text-start text-sm leading-tight group-data-[collapsible=icon]:hidden">
                 <span class="truncate font-medium">{{ auth()->user()->name }}</span>
                 <span class="truncate text-xs text-muted-foreground">{{ auth()->user()->email }}</span>
             </span>
-            <x-ui.icon name="chevrons-up-down" class="size-4 text-muted-foreground group-data-[collapsible=icon]/sidebar-wrapper:hidden" />
+            <x-ui.icon name="chevrons-up-down" class="size-4 text-muted-foreground group-data-[collapsible=icon]:hidden" />
         </button>
     </x-ui.dropdown-menu.trigger>
     <x-ui.dropdown-menu.content align="end" class="w-56">

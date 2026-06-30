@@ -2,7 +2,7 @@
     'items' => [],
 ])
 
-<x-ui.sidebar.group>
+<x-ui.sidebar.group class="px-2 py-0">
     <x-ui.sidebar.group-label>{{ __('Platform') }}</x-ui.sidebar.group-label>
     <x-ui.sidebar.menu>
         @foreach ($items as $item)
