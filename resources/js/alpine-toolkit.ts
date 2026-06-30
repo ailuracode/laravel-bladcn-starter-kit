@@ -1,8 +1,15 @@
+import dialogPlugin, { dialogOptions } from "@ailuracode/alpine-dialog";
+import menuPlugin, { menuOptions } from "@ailuracode/alpine-menu";
 import scrollPlugin, { scrollOptions } from "@ailuracode/alpine-scroll";
+import anchor from "@alpinejs/anchor";
+import type { ScrollStore } from "@ailuracode/alpine-scroll";
 import themePlugin from "@ailuracode/alpine-theme";
 import type { ThemeResolved } from "@ailuracode/alpine-theme";
+import type { MenuInstanceOptions } from "@ailuracode/alpine-menu";
 import type { AlpineInstance } from "./types/alpine";
+import { patchMenuStoreUiEvents, registerMenuGlobalHandlers, registerMenuInstance } from "./menu-helpers";
 import { registerSidebarPlugin, registerSidebarProvider, registerSidebarResponsiveCleanup } from "./sidebar";
+import { setScrollLockState } from "./scroll-lock-compensation";
 
 function applyResolvedTheme(resolved: ThemeResolved): void {
   document.documentElement.classList.toggle("dark", resolved === "dark");
@@ -46,15 +53,43 @@ export function initAiluracodeAlpinePlugins(Alpine: AlpineInstance): void {
     return;
   }
 
+  Alpine.plugin(anchor);
   Alpine.plugin(
     scrollPlugin(
       scrollOptions({
         onLockChange(locked) {
-          document.documentElement.toggleAttribute("data-scroll-locked", locked);
+          setScrollLockState(locked);
         },
       }),
     ),
   );
+  Alpine.plugin(
+    dialogPlugin(
+      dialogOptions({
+        onLockChange(locked) {
+          const scroll = Alpine.store("scroll");
+          locked ? scroll.lock() : scroll.unlock();
+        },
+      }),
+    ),
+  );
+  Alpine.plugin(
+    menuPlugin(
+      menuOptions({
+        onLockChange(locked) {
+          const scroll = Alpine.store("scroll");
+          locked ? scroll.lock() : scroll.unlock();
+        },
+      }),
+    ),
+  );
+
+  window.bladcnRegisterMenu = (id: string, options: MenuInstanceOptions = {}) => {
+    registerMenuInstance(Alpine.store("menu"), id, options);
+  };
+
+  patchMenuStoreUiEvents(Alpine.store("menu"));
+  registerMenuGlobalHandlers(Alpine);
   Alpine.plugin(registerSidebarPlugin);
   registerSidebarResponsiveCleanup(Alpine);
   registerSidebarProvider(Alpine);

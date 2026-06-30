@@ -1,4 +1,4 @@
-@blaze(fold: false)
+@blaze(fold: true)
 
 @props([
     'errors' => [],

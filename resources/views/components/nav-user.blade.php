@@ -22,38 +22,36 @@
                 </button>
             </x-ui.dropdown-menu.trigger>
             <x-ui.dropdown-menu.content
-                align="end"
-                side="right"
+                align="start"
+                side="top"
                 :side-offset="4"
                 data-sidebar-menu="nav-user"
-                class="w-56 rounded-lg data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-right-2 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:slide-in-from-left-2 duration-200"
+                class="w-56 rounded-lg"
             >
-                <div class="flex items-center gap-2 px-2 py-1.5 text-start text-sm">
-                    <x-ui.avatar class="size-8 overflow-hidden rounded-full">
-                        <x-ui.avatar.fallback class="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
-                            {{ auth()->user()->initials() }}
-                        </x-ui.avatar.fallback>
-                    </x-ui.avatar>
-                    <div class="grid min-w-0 flex-1 text-start text-sm leading-tight">
-                        <span class="truncate font-medium">{{ auth()->user()->name }}</span>
-                        <span class="truncate text-xs text-muted-foreground">{{ auth()->user()->email }}</span>
+                <x-ui.dropdown-menu.label class="p-0 font-normal">
+                    <div class="flex items-center gap-2 px-1 py-1.5 text-start text-sm">
+                        <x-ui.avatar class="size-8 overflow-hidden rounded-full">
+                            <x-ui.avatar.fallback class="rounded-lg bg-neutral-200 text-black dark:bg-neutral-700 dark:text-white">
+                                {{ auth()->user()->initials() }}
+                            </x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <div class="grid min-w-0 flex-1 text-start text-sm leading-tight">
+                            <span class="truncate font-medium">{{ auth()->user()->name }}</span>
+                            <span class="truncate text-xs text-muted-foreground">{{ auth()->user()->email }}</span>
+                        </div>
                     </div>
-                </div>
+                </x-ui.dropdown-menu.label>
                 <x-ui.dropdown-menu.separator />
-                <x-ui.dropdown-menu.item>
-                    <a href="{{ route('profile.edit') }}" class="flex w-full cursor-pointer items-center gap-2" wire:navigate>
-                        <x-ui.icon name="settings" class="size-4 shrink-0" />
-                        {{ __('Settings') }}
-                    </a>
+                <x-ui.dropdown-menu.item :href="route('profile.edit')" class="gap-2">
+                    <x-ui.icon name="settings" class="size-4 shrink-0" />
+                    {{ __('Settings') }}
                 </x-ui.dropdown-menu.item>
                 <x-ui.dropdown-menu.separator />
                 <form method="POST" action="{{ route('logout') }}" class="w-full">
                     @csrf
-                    <x-ui.dropdown-menu.item>
-                        <button type="submit" class="flex w-full cursor-pointer items-center gap-2" data-test="logout-button">
-                            <x-ui.icon name="log-out" class="size-4 shrink-0" />
-                            {{ __('Log out') }}
-                        </button>
+                    <x-ui.dropdown-menu.item type="submit" class="gap-2" data-test="logout-button">
+                        <x-ui.icon name="log-out" class="size-4 shrink-0" />
+                        {{ __('Log out') }}
                     </x-ui.dropdown-menu.item>
                 </form>
             </x-ui.dropdown-menu.content>
