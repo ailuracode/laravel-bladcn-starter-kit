@@ -1,6 +1,6 @@
 declare module "@alpinejs/anchor" {
-  import type Alpine from "alpinejs";
+    import type Alpine from "alpinejs";
 
-  const anchor: Alpine.PluginCallback;
-  export default anchor;
+    const anchor: Alpine.PluginCallback;
+    export default anchor;
 }

@@ -1,0 +1,2 @@
+minimumReleaseAgeExclude:
+  - '@ailuracode/alpine-menu@0.2.0'

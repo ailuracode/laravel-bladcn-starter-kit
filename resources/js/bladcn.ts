@@ -6,32 +6,32 @@
  * @ailuracode/alpine-* plugins (theme, …) are registered in alpine-toolkit.ts before Livewire.start().
  */
 window.bladcnOnAlpine =
-  window.bladcnOnAlpine ??
-  ((callback) => {
-    const run = () => {
-      if (typeof window.Alpine === "undefined") {
-        return;
-      }
+    window.bladcnOnAlpine ??
+    ((callback) => {
+        const run = () => {
+            if (typeof window.Alpine === "undefined") {
+                return;
+            }
 
-      callback(window.Alpine);
-    };
+            callback(window.Alpine);
+        };
 
-    if (typeof window.Alpine !== "undefined") {
-      run();
+        if (typeof window.Alpine !== "undefined") {
+            run();
 
-      return;
-    }
+            return;
+        }
 
-    document.addEventListener("alpine:init", run, { once: true });
-  });
+        document.addEventListener("alpine:init", run, { once: true });
+    });
 
 window.bladcnRegister =
-  window.bladcnRegister ??
-  ((name, factory) => {
-    bladcnOnAlpine((Alpine) => {
-      Alpine.data(name, factory);
+    window.bladcnRegister ??
+    ((name, factory) => {
+        bladcnOnAlpine((Alpine) => {
+            Alpine.data(name, factory);
+        });
     });
-  });
 
 import { registerScrollArea } from "./scroll-area";
 

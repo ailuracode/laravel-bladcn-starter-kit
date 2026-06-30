@@ -1,5 +1,5 @@
-import { Alpine, Livewire } from "./livewire";
 import { initAiluracodeAlpinePlugins } from "./alpine-toolkit";
+import { Alpine, Livewire } from "./livewire";
 
 import "./bladcn";
 

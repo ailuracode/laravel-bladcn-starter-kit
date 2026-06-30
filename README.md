@@ -17,8 +17,8 @@ composer install
 cp .env.example .env
 php artisan key:generate
 php artisan migrate
-npm install
-npm run build
+pnpm install
+pnpm run build
 composer dev
 ```
 
@@ -55,7 +55,7 @@ composer bladcn:sync
 php artisan bladcn:add button --overwrite
 ```
 
-If a component's `dependencies.json` lists new **npm** packages, install them manually and update `package.json`.
+If a component's `dependencies.json` lists new **npm** packages, install them manually and update `package.json` (then run `pnpm install`).
 
 Re-link the local CLI after cloning:
 

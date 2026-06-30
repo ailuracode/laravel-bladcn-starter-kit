@@ -4,6 +4,10 @@
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
+        "baseUrl": ".",
+        "paths": {
+            "#livewire": ["vendor/livewire/livewire/dist/livewire.esm.js"]
+        },
         "strict": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,

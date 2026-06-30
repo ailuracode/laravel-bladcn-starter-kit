@@ -4,8 +4,7 @@ interface LivewireRuntime {
     start(): void;
 }
 
-// @ts-expect-error Livewire ESM bundle ships without TypeScript declarations.
-import { Alpine as LivewireAlpine, Livewire as LivewireRuntimeExport } from "../../vendor/livewire/livewire/dist/livewire.esm.js";
+import { Alpine as LivewireAlpine, Livewire as LivewireRuntimeExport } from "#livewire";
 
 const Alpine = LivewireAlpine as AlpineInstance;
 const Livewire = LivewireRuntimeExport as LivewireRuntime;

@@ -93,7 +93,7 @@
                 <x-docs.install-block command="php artisan bladcn:add button --overwrite" />
             </div>
             <x-ui.typography.muted class="mt-3">
-                {{ __('npm packages listed in dependencies.json are not installed automatically — add them to package.json and run npm install.') }}
+                {{ __('npm packages listed in dependencies.json are not installed automatically — add them to package.json and run pnpm install.') }}
             </x-ui.typography.muted>
         </x-docs.section>
 

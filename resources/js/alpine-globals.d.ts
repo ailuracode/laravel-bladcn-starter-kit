@@ -1,4 +1,6 @@
 /// <reference types="alpinejs" />
+/// <reference path="./types/alpinejs-anchor.d.ts" />
+/// <reference path="./types/livewire-esm.d.ts" />
 
 import type { AlpineInstance } from "./types/alpine";
 
@@ -46,5 +48,3 @@ declare global {
         options?: import("@ailuracode/alpine-menu").MenuInstanceOptions,
     ): void;
 }
-
-export {};

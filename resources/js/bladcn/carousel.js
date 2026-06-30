@@ -2,141 +2,141 @@ import EmblaCarousel from "embla-carousel";
 import Autoplay from "embla-carousel-autoplay";
 
 const carouselPlugins = {
-  autoplay: () => Autoplay({ delay: 2000, stopOnInteraction: true }),
+    autoplay: () => Autoplay({ delay: 2000, stopOnInteraction: true }),
 };
 
 export function registerBladcnCarousel() {
-  bladcnRegister("bladcnCarousel", (config = {}) => ({
-    orientation: config.orientation ?? "horizontal",
-    opts: config.opts ?? {},
-    plugin: config.plugin ?? null,
-    index: 0,
-    slideCount: 0,
-    canScrollPrev: false,
-    canScrollNext: false,
-    api: null,
-    pluginInstance: null,
+    bladcnRegister("bladcnCarousel", (config = {}) => ({
+        orientation: config.orientation ?? "horizontal",
+        opts: config.opts ?? {},
+        plugin: config.plugin ?? null,
+        index: 0,
+        slideCount: 0,
+        canScrollPrev: false,
+        canScrollNext: false,
+        api: null,
+        pluginInstance: null,
 
-    init() {
-      this.$nextTick(() => {
-        const viewport = this.$refs.viewport;
+        init() {
+            this.$nextTick(() => {
+                const viewport = this.$refs.viewport;
 
-        if (!viewport) {
-          return;
-        }
+                if (!viewport) {
+                    return;
+                }
 
-        const plugins = [];
+                const plugins = [];
 
-        if (this.plugin && carouselPlugins[this.plugin]) {
-          this.pluginInstance = carouselPlugins[this.plugin]();
-          plugins.push(this.pluginInstance);
-        }
+                if (this.plugin && carouselPlugins[this.plugin]) {
+                    this.pluginInstance = carouselPlugins[this.plugin]();
+                    plugins.push(this.pluginInstance);
+                }
 
-        const initEmbla = () => {
-          if (this.api) {
-            this.api.destroy();
-          }
+                const initEmbla = () => {
+                    if (this.api) {
+                        this.api.destroy();
+                    }
 
-          this.api = EmblaCarousel(
-            viewport,
-            {
-              ...this.opts,
-              axis: this.orientation === "horizontal" ? "x" : "y",
-            },
-            plugins,
-          );
+                    this.api = EmblaCarousel(
+                        viewport,
+                        {
+                            ...this.opts,
+                            axis: this.orientation === "horizontal" ? "x" : "y",
+                        },
+                        plugins,
+                    );
 
-          this.slideCount = this.api.scrollSnapList().length;
-          this.syncFromApi();
+                    this.slideCount = this.api.scrollSnapList().length;
+                    this.syncFromApi();
 
-          this.api.on("select", () => this.syncFromApi());
-          this.api.on("reInit", () => {
-            this.slideCount = this.api.scrollSnapList().length;
-            this.syncFromApi();
-          });
+                    this.api.on("select", () => this.syncFromApi());
+                    this.api.on("reInit", () => {
+                        this.slideCount = this.api.scrollSnapList().length;
+                        this.syncFromApi();
+                    });
 
-          requestAnimationFrame(() => {
-            this.api?.reInit();
-            this.api?.scrollTo(0, true);
-          });
-        };
+                    requestAnimationFrame(() => {
+                        this.api?.reInit();
+                        this.api?.scrollTo(0, true);
+                    });
+                };
 
-        initEmbla();
+                initEmbla();
 
-        this.onResize = () => {
-          initEmbla();
-        };
+                this.onResize = () => {
+                    initEmbla();
+                };
 
-        window.addEventListener("resize", this.onResize);
-      });
-    },
+                window.addEventListener("resize", this.onResize);
+            });
+        },
 
-    destroy() {
-      if (this.onResize) {
-        window.removeEventListener("resize", this.onResize);
-      }
+        destroy() {
+            if (this.onResize) {
+                window.removeEventListener("resize", this.onResize);
+            }
 
-      this.api?.destroy();
-      this.api = null;
-      this.pluginInstance = null;
-    },
+            this.api?.destroy();
+            this.api = null;
+            this.pluginInstance = null;
+        },
 
-    pauseAutoplay() {
-      this.pluginInstance?.stop?.();
-    },
+        pauseAutoplay() {
+            this.pluginInstance?.stop?.();
+        },
 
-    resumeAutoplay() {
-      this.pluginInstance?.reset?.();
-    },
+        resumeAutoplay() {
+            this.pluginInstance?.reset?.();
+        },
 
-    syncFromApi() {
-      if (!this.api) {
-        return;
-      }
+        syncFromApi() {
+            if (!this.api) {
+                return;
+            }
 
-      this.index = this.api.selectedScrollSnap();
-      this.canScrollPrev = this.api.canScrollPrev();
-      this.canScrollNext = this.api.canScrollNext();
-    },
+            this.index = this.api.selectedScrollSnap();
+            this.canScrollPrev = this.api.canScrollPrev();
+            this.canScrollNext = this.api.canScrollNext();
+        },
 
-    scrollTo(targetIndex) {
-      this.api?.scrollTo(targetIndex);
-    },
+        scrollTo(targetIndex) {
+            this.api?.scrollTo(targetIndex);
+        },
 
-    scrollPrev() {
-      this.api?.scrollPrev();
-    },
+        scrollPrev() {
+            this.api?.scrollPrev();
+        },
 
-    scrollNext() {
-      this.api?.scrollNext();
-    },
+        scrollNext() {
+            this.api?.scrollNext();
+        },
 
-    onKeydown(event) {
-      if (this.orientation === "horizontal" && event.key === "ArrowLeft") {
-        event.preventDefault();
-        this.scrollPrev();
+        onKeydown(event) {
+            if (this.orientation === "horizontal" && event.key === "ArrowLeft") {
+                event.preventDefault();
+                this.scrollPrev();
 
-        return;
-      }
+                return;
+            }
 
-      if (this.orientation === "horizontal" && event.key === "ArrowRight") {
-        event.preventDefault();
-        this.scrollNext();
+            if (this.orientation === "horizontal" && event.key === "ArrowRight") {
+                event.preventDefault();
+                this.scrollNext();
 
-        return;
-      }
+                return;
+            }
 
-      if (this.orientation === "vertical" && event.key === "ArrowUp") {
-        event.preventDefault();
-        this.scrollPrev();
+            if (this.orientation === "vertical" && event.key === "ArrowUp") {
+                event.preventDefault();
+                this.scrollPrev();
 
-        return;
-      }
+                return;
+            }
 
-      if (this.orientation === "vertical" && event.key === "ArrowDown") {
-        event.preventDefault();
-        this.scrollNext();
-      }
-    },
-  }));
+            if (this.orientation === "vertical" && event.key === "ArrowDown") {
+                event.preventDefault();
+                this.scrollNext();
+            }
+        },
+    }));
 }
