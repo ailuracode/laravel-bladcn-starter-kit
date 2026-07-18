@@ -839,11 +839,53 @@
                     </div>
                 </x-docs.section>
 
-                <x-docs.section :label="__('Button Group')">
+                <x-docs.section :label="__('As Link')">
                     <x-ui.typography.muted class="text-sm">
-                        {{ __('To create a button group, use the ButtonGroup component.') }}
+                        {{ __('Use button styles on a plain anchor element for links. Do not use the Button component with role="button" on anchor elements.') }}
                     </x-ui.typography.muted>
 
+                    <a
+                        href="#"
+                        class="group/button inline-flex h-7 shrink-0 items-center justify-center gap-1 rounded-[min(var(--radius-md),12px)] border border-transparent bg-clip-padding px-2.5 text-[0.8rem] font-medium whitespace-nowrap text-secondary-foreground transition-all outline-none select-none hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 bg-secondary"
+                    >
+                        {{ __('Login') }}
+                    </a>
+                </x-docs.section>
+
+                <x-docs.section :label="__('RTL')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Right-to-left layout with Arabic content.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-wrap items-center gap-2 md:flex-row" dir="rtl">
+                        <x-ui.button variant="outline">زر</x-ui.button>
+                        <x-ui.button variant="destructive">حذف</x-ui.button>
+                        <x-ui.button variant="outline">
+                            إرسال
+                            <x-ui.icon name="arrow-right" class="rtl:rotate-180" data-icon="inline-end" aria-hidden="true" />
+                        </x-ui.button>
+                        <x-ui.button variant="outline" size="icon" aria-label="{{ __('Add') }}">
+                            <x-ui.icon name="plus" aria-hidden="true" />
+                        </x-ui.button>
+                        <x-ui.button variant="secondary" disabled>
+                            <x-ui.spinner data-icon="inline-start" />
+                            جاري التحميل
+                        </x-ui.button>
+                    </div>
+                </x-docs.section>
+            </x-ui.card.content>
+        </x-ui.card>
+
+        <x-ui.card>
+            <x-ui.card.header>
+                <x-ui.card.title>{{ __('Button Group') }}</x-ui.card.title>
+                <x-ui.card.description>
+                    {{ __('Examples from the official shadcn/ui button-group documentation.') }}
+                </x-ui.card.description>
+            </x-ui.card.header>
+
+            <x-ui.card.content class="space-y-12">
+                <x-docs.section :label="__('Demo')">
                     <x-ui.button-group>
                         <x-ui.button-group class="hidden sm:flex">
                             <x-ui.button variant="outline" size="icon" aria-label="{{ __('Go Back') }}">
@@ -921,17 +963,276 @@
                     </x-ui.button-group>
                 </x-docs.section>
 
-                <x-docs.section :label="__('As Link')">
+                <x-docs.section :label="__('Orientation')">
                     <x-ui.typography.muted class="text-sm">
-                        {{ __('Use button styles on a plain anchor element for links. Do not use the Button component with role="button" on anchor elements.') }}
+                        {{ __('Set the orientation prop to change the button group layout.') }}
                     </x-ui.typography.muted>
 
-                    <a
-                        href="#"
-                        class="group/button inline-flex h-7 shrink-0 items-center justify-center gap-1 rounded-[min(var(--radius-md),12px)] border border-transparent bg-clip-padding px-2.5 text-[0.8rem] font-medium whitespace-nowrap text-secondary-foreground transition-all outline-none select-none hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 bg-secondary"
-                    >
-                        {{ __('Login') }}
-                    </a>
+                    <x-ui.button-group orientation="vertical" aria-label="{{ __('Media controls') }}" class="h-fit">
+                        <x-ui.button variant="outline" size="icon">
+                            <x-ui.icon name="plus" aria-hidden="true" />
+                        </x-ui.button>
+                        <x-ui.button variant="outline" size="icon">
+                            <x-ui.icon name="minus" aria-hidden="true" />
+                        </x-ui.button>
+                    </x-ui.button-group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Size')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Control the size of buttons using the size prop on individual buttons.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-col items-start gap-8">
+                        <x-ui.button-group>
+                            <x-ui.button variant="outline" size="sm">{{ __('Small') }}</x-ui.button>
+                            <x-ui.button variant="outline" size="sm">{{ __('Button') }}</x-ui.button>
+                            <x-ui.button variant="outline" size="sm">{{ __('Group') }}</x-ui.button>
+                            <x-ui.button variant="outline" size="icon-sm">
+                                <x-ui.icon name="plus" aria-hidden="true" />
+                            </x-ui.button>
+                        </x-ui.button-group>
+                        <x-ui.button-group>
+                            <x-ui.button variant="outline">{{ __('Default') }}</x-ui.button>
+                            <x-ui.button variant="outline">{{ __('Button') }}</x-ui.button>
+                            <x-ui.button variant="outline">{{ __('Group') }}</x-ui.button>
+                            <x-ui.button variant="outline" size="icon">
+                                <x-ui.icon name="plus" aria-hidden="true" />
+                            </x-ui.button>
+                        </x-ui.button-group>
+                        <x-ui.button-group>
+                            <x-ui.button variant="outline" size="lg">{{ __('Large') }}</x-ui.button>
+                            <x-ui.button variant="outline" size="lg">{{ __('Button') }}</x-ui.button>
+                            <x-ui.button variant="outline" size="lg">{{ __('Group') }}</x-ui.button>
+                            <x-ui.button variant="outline" size="icon-lg">
+                                <x-ui.icon name="plus" aria-hidden="true" />
+                            </x-ui.button>
+                        </x-ui.button-group>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Nested')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Nest ButtonGroup components to create button groups with spacing.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.button-group>
+                        <x-ui.button-group>
+                            <x-ui.button variant="outline" size="icon">
+                                <x-ui.icon name="plus" aria-hidden="true" />
+                            </x-ui.button>
+                        </x-ui.button-group>
+                        <x-ui.button-group>
+                            <x-ui.input-group>
+                                <x-ui.input placeholder="{{ __('Send a message...') }}" class="border-0 shadow-none focus-visible:ring-0" />
+                                <x-ui.input-group.addon align="inline-end">
+                                    <x-ui.tooltip>
+                                        <x-ui.tooltip.trigger class="inline-flex size-7 items-center justify-center rounded-md">
+                                            <x-ui.icon name="audio-lines" aria-hidden="true" />
+                                        </x-ui.tooltip.trigger>
+                                        <x-ui.tooltip.content>{{ __('Voice Mode') }}</x-ui.tooltip.content>
+                                    </x-ui.tooltip>
+                                </x-ui.input-group.addon>
+                            </x-ui.input-group>
+                        </x-ui.button-group>
+                    </x-ui.button-group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Separator')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('The ButtonGroupSeparator component visually divides buttons within a group.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.button-group>
+                        <x-ui.button variant="secondary" size="sm">{{ __('Copy') }}</x-ui.button>
+                        <x-ui.button-group.separator />
+                        <x-ui.button variant="secondary" size="sm">{{ __('Paste') }}</x-ui.button>
+                    </x-ui.button-group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Split')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Create a split button group by adding two buttons separated by a ButtonGroupSeparator.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.button-group>
+                        <x-ui.button variant="secondary">{{ __('Button') }}</x-ui.button>
+                        <x-ui.button-group.separator />
+                        <x-ui.button size="icon" variant="secondary">
+                            <x-ui.icon name="plus" aria-hidden="true" />
+                        </x-ui.button>
+                    </x-ui.button-group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Input')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Wrap an Input component with buttons.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.button-group>
+                        <x-ui.input placeholder="{{ __('Search...') }}" class="border-0 shadow-none focus-visible:ring-0" />
+                        <x-ui.button variant="outline" aria-label="{{ __('Search') }}">
+                            <x-ui.icon name="search" aria-hidden="true" />
+                        </x-ui.button>
+                    </x-ui.button-group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Input Group')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Wrap an InputGroup component to create complex input layouts.') }}
+                    </x-ui.typography.muted>
+
+                    <div x-data="{ voiceEnabled: false }">
+                        <x-ui.button-group class="[--radius:9999rem]">
+                            <x-ui.button-group>
+                                <x-ui.button variant="outline" size="icon">
+                                    <x-ui.icon name="plus" aria-hidden="true" />
+                                </x-ui.button>
+                            </x-ui.button-group>
+                            <x-ui.button-group>
+                                <x-ui.input-group>
+                                    <x-ui.input
+                                        x-bind:placeholder="voiceEnabled ? @js(__('Record and send audio...')) : @js(__('Send a message...'))"
+                                        x-bind:disabled="voiceEnabled"
+                                        class="border-0 shadow-none focus-visible:ring-0"
+                                    />
+                                    <x-ui.input-group.addon align="inline-end">
+                                        <x-ui.tooltip>
+                                            <x-ui.tooltip.trigger
+                                                class="inline-flex size-6 items-center justify-center rounded-md data-[active=true]:bg-orange-100 data-[active=true]:text-orange-700 dark:data-[active=true]:bg-orange-800 dark:data-[active=true]:text-orange-100"
+                                                x-bind:data-active="voiceEnabled"
+                                                x-bind:aria-pressed="voiceEnabled"
+                                                x-on:click="voiceEnabled = !voiceEnabled"
+                                            >
+                                                <x-ui.icon name="audio-lines" aria-hidden="true" />
+                                            </x-ui.tooltip.trigger>
+                                            <x-ui.tooltip.content>{{ __('Voice Mode') }}</x-ui.tooltip.content>
+                                        </x-ui.tooltip>
+                                    </x-ui.input-group.addon>
+                                </x-ui.input-group>
+                            </x-ui.button-group>
+                        </x-ui.button-group>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Dropdown Menu')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Create a split button group with a DropdownMenu component.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.button-group>
+                        <x-ui.button variant="outline">{{ __('Follow') }}</x-ui.button>
+                        <x-ui.dropdown-menu>
+                            <x-ui.dropdown-menu.trigger
+                                class="[&>button]:inline-flex [&>button]:h-8 [&>button]:rounded-lg [&>button]:border-border [&>button]:bg-background [&>button]:pl-2 [&>button]:shadow-xs [&>button]:hover:bg-muted [&>button]:hover:text-foreground [&>button]:dark:border-input [&>button]:dark:bg-input/30 [&>button]:dark:hover:bg-input/50"
+                            >
+                                <x-ui.icon name="chevron-down" aria-hidden="true" />
+                            </x-ui.dropdown-menu.trigger>
+                            <x-ui.dropdown-menu.content align="end" class="w-44">
+                                <x-ui.dropdown-menu.group>
+                                    <x-ui.dropdown-menu.item>
+                                        <x-ui.icon name="volume-off" aria-hidden="true" />
+                                        {{ __('Mute Conversation') }}
+                                    </x-ui.dropdown-menu.item>
+                                    <x-ui.dropdown-menu.item>
+                                        <x-ui.icon name="check" aria-hidden="true" />
+                                        {{ __('Mark as Read') }}
+                                    </x-ui.dropdown-menu.item>
+                                    <x-ui.dropdown-menu.item>
+                                        <x-ui.icon name="triangle-alert" aria-hidden="true" />
+                                        {{ __('Report Conversation') }}
+                                    </x-ui.dropdown-menu.item>
+                                    <x-ui.dropdown-menu.item>
+                                        <x-ui.icon name="user-round-x" aria-hidden="true" />
+                                        {{ __('Block User') }}
+                                    </x-ui.dropdown-menu.item>
+                                    <x-ui.dropdown-menu.item>
+                                        <x-ui.icon name="share" aria-hidden="true" />
+                                        {{ __('Share Conversation') }}
+                                    </x-ui.dropdown-menu.item>
+                                    <x-ui.dropdown-menu.item>
+                                        <x-ui.icon name="copy" aria-hidden="true" />
+                                        {{ __('Copy Conversation') }}
+                                    </x-ui.dropdown-menu.item>
+                                </x-ui.dropdown-menu.group>
+                                <x-ui.dropdown-menu.separator />
+                                <x-ui.dropdown-menu.group>
+                                    <x-ui.dropdown-menu.item variant="destructive">
+                                        <x-ui.icon name="trash" aria-hidden="true" />
+                                        {{ __('Delete Conversation') }}
+                                    </x-ui.dropdown-menu.item>
+                                </x-ui.dropdown-menu.group>
+                            </x-ui.dropdown-menu.content>
+                        </x-ui.dropdown-menu>
+                    </x-ui.button-group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Select')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Pair with a Select component.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.button-group>
+                        <x-ui.button-group>
+                            <x-ui.select default-value="$" default-label="$">
+                                <x-ui.select.trigger class="font-mono">
+                                    <x-ui.select.value />
+                                </x-ui.select.trigger>
+                                <x-ui.select.content align="start">
+                                    <x-ui.select.group>
+                                        <x-ui.select.item value="$" label="$">
+                                            $ <span class="text-muted-foreground">{{ __('US Dollar') }}</span>
+                                        </x-ui.select.item>
+                                        <x-ui.select.item value="€" label="€">
+                                            € <span class="text-muted-foreground">{{ __('Euro') }}</span>
+                                        </x-ui.select.item>
+                                        <x-ui.select.item value="£" label="£">
+                                            £ <span class="text-muted-foreground">{{ __('British Pound') }}</span>
+                                        </x-ui.select.item>
+                                    </x-ui.select.group>
+                                </x-ui.select.content>
+                            </x-ui.select>
+                            <x-ui.input placeholder="10.00" pattern="[0-9]*" class="border-0 shadow-none focus-visible:ring-0" />
+                        </x-ui.button-group>
+                        <x-ui.button-group>
+                            <x-ui.button aria-label="{{ __('Send') }}" size="icon" variant="outline">
+                                <x-ui.icon name="arrow-right" aria-hidden="true" />
+                            </x-ui.button>
+                        </x-ui.button-group>
+                    </x-ui.button-group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Popover')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use with a Popover component.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.button-group>
+                        <x-ui.button variant="outline">
+                            <x-ui.icon name="bot" aria-hidden="true" />
+                            {{ __('Copilot') }}
+                        </x-ui.button>
+                        <x-ui.popover>
+                            <x-ui.popover.trigger class="inline-flex size-8 items-center justify-center rounded-lg border border-border bg-background shadow-xs hover:bg-muted hover:text-foreground dark:border-input dark:bg-input/30 dark:hover:bg-input/50">
+                                <x-ui.icon name="chevron-down" aria-hidden="true" />
+                            </x-ui.popover.trigger>
+                            <x-ui.popover.content align="end" class="rounded-xl text-sm">
+                                <x-ui.popover.header>
+                                    <x-ui.popover.title>{{ __('Start a new task with Copilot') }}</x-ui.popover.title>
+                                    <x-ui.popover.description>
+                                        {{ __('Describe your task in natural language.') }}
+                                    </x-ui.popover.description>
+                                </x-ui.popover.header>
+                                <x-ui.field>
+                                    <x-ui.field.label for="task" class="sr-only">{{ __('Task Description') }}</x-ui.field.label>
+                                    <x-ui.textarea id="task" placeholder="{{ __('I need to...') }}" class="resize-none" />
+                                    <x-ui.field.description>
+                                        {{ __('Copilot will open a pull request for review.') }}
+                                    </x-ui.field.description>
+                                </x-ui.field>
+                            </x-ui.popover.content>
+                        </x-ui.popover>
+                    </x-ui.button-group>
                 </x-docs.section>
 
                 <x-docs.section :label="__('RTL')">
@@ -939,20 +1240,76 @@
                         {{ __('Right-to-left layout with Arabic content.') }}
                     </x-ui.typography.muted>
 
-                    <div class="flex flex-wrap items-center gap-2 md:flex-row" dir="rtl">
-                        <x-ui.button variant="outline">زر</x-ui.button>
-                        <x-ui.button variant="destructive">حذف</x-ui.button>
-                        <x-ui.button variant="outline">
-                            إرسال
-                            <x-ui.icon name="arrow-right" class="rtl:rotate-180" data-icon="inline-end" aria-hidden="true" />
-                        </x-ui.button>
-                        <x-ui.button variant="outline" size="icon" aria-label="{{ __('Add') }}">
-                            <x-ui.icon name="plus" aria-hidden="true" />
-                        </x-ui.button>
-                        <x-ui.button variant="secondary" disabled>
-                            <x-ui.spinner data-icon="inline-start" />
-                            جاري التحميل
-                        </x-ui.button>
+                    <div dir="rtl">
+                        <x-ui.button-group>
+                            <x-ui.button-group class="hidden sm:flex">
+                                <x-ui.button variant="outline" size="icon" aria-label="{{ __('Go Back') }}">
+                                    <x-ui.icon name="arrow-left" class="rtl:rotate-180" aria-hidden="true" />
+                                </x-ui.button>
+                            </x-ui.button-group>
+                            <x-ui.button-group>
+                                <x-ui.button variant="outline">أرشفة</x-ui.button>
+                                <x-ui.button variant="outline">تقرير</x-ui.button>
+                            </x-ui.button-group>
+                            <x-ui.button-group>
+                                <x-ui.button variant="outline">تأجيل</x-ui.button>
+                                <x-ui.dropdown-menu default-radio-value="personal">
+                                    <x-ui.dropdown-menu.trigger
+                                        class="[&>button]:inline-flex [&>button]:size-8 [&>button]:rounded-lg [&>button]:border-border [&>button]:bg-background [&>button]:shadow-xs [&>button]:hover:bg-muted [&>button]:hover:text-foreground [&>button]:dark:border-input [&>button]:dark:bg-input/30 [&>button]:dark:hover:bg-input/50"
+                                        aria-label="{{ __('More Options') }}"
+                                    >
+                                        <x-ui.icon name="more-horizontal" aria-hidden="true" />
+                                    </x-ui.dropdown-menu.trigger>
+                                    <x-ui.dropdown-menu.content align="start" dir="rtl" class="w-40">
+                                        <x-ui.dropdown-menu.group>
+                                            <x-ui.dropdown-menu.item>
+                                                <x-ui.icon name="mail-check" aria-hidden="true" />
+                                                وضع علامة كمقروء
+                                            </x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.item>
+                                                <x-ui.icon name="archive" aria-hidden="true" />
+                                                أرشفة
+                                            </x-ui.dropdown-menu.item>
+                                        </x-ui.dropdown-menu.group>
+                                        <x-ui.dropdown-menu.separator />
+                                        <x-ui.dropdown-menu.group>
+                                            <x-ui.dropdown-menu.item>
+                                                <x-ui.icon name="clock" aria-hidden="true" />
+                                                تأجيل
+                                            </x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.item>
+                                                <x-ui.icon name="calendar-plus" aria-hidden="true" />
+                                                إضافة إلى التقويم
+                                            </x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.item>
+                                                <x-ui.icon name="list-filter" aria-hidden="true" />
+                                                إضافة إلى القائمة
+                                            </x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.sub>
+                                                <x-ui.dropdown-menu.sub-trigger>
+                                                    <x-ui.icon name="tag" aria-hidden="true" />
+                                                    تصنيف كـ...
+                                                </x-ui.dropdown-menu.sub-trigger>
+                                                <x-ui.dropdown-menu.sub-content dir="rtl">
+                                                    <x-ui.dropdown-menu.radio-group>
+                                                        <x-ui.dropdown-menu.radio-item value="personal">شخصي</x-ui.dropdown-menu.radio-item>
+                                                        <x-ui.dropdown-menu.radio-item value="work">عمل</x-ui.dropdown-menu.radio-item>
+                                                        <x-ui.dropdown-menu.radio-item value="other">آخر</x-ui.dropdown-menu.radio-item>
+                                                    </x-ui.dropdown-menu.radio-group>
+                                                </x-ui.dropdown-menu.sub-content>
+                                            </x-ui.dropdown-menu.sub>
+                                        </x-ui.dropdown-menu.group>
+                                        <x-ui.dropdown-menu.separator />
+                                        <x-ui.dropdown-menu.group>
+                                            <x-ui.dropdown-menu.item variant="destructive">
+                                                <x-ui.icon name="trash-2" aria-hidden="true" />
+                                                سلة المهملات
+                                            </x-ui.dropdown-menu.item>
+                                        </x-ui.dropdown-menu.group>
+                                    </x-ui.dropdown-menu.content>
+                                </x-ui.dropdown-menu>
+                            </x-ui.button-group>
+                        </x-ui.button-group>
                     </div>
                 </x-docs.section>
             </x-ui.card.content>
