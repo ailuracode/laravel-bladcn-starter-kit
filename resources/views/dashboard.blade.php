@@ -713,6 +713,253 @@
 
         <x-ui.card>
             <x-ui.card.header>
+                <x-ui.card.title>{{ __('Button') }}</x-ui.card.title>
+                <x-ui.card.description>
+                    {{ __('Examples from the official shadcn/ui button documentation.') }}
+                </x-ui.card.description>
+            </x-ui.card.header>
+
+            <x-ui.card.content class="space-y-12">
+                <x-docs.section :label="__('Demo')">
+                    <div class="flex flex-wrap items-center gap-2 md:flex-row">
+                        <x-ui.button variant="outline">{{ __('Button') }}</x-ui.button>
+                        <x-ui.button variant="outline" size="icon" aria-label="{{ __('Submit') }}">
+                            <x-ui.icon name="arrow-up" aria-hidden="true" />
+                        </x-ui.button>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Size')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use the size prop to change the size of the button.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-col items-start gap-8 sm:flex-row">
+                        <div class="flex items-start gap-2">
+                            <x-ui.button size="xs" variant="outline">{{ __('Extra Small') }}</x-ui.button>
+                            <x-ui.button size="icon-xs" variant="outline" aria-label="{{ __('Submit') }}">
+                                <x-ui.icon name="arrow-up-right" aria-hidden="true" />
+                            </x-ui.button>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <x-ui.button size="sm" variant="outline">{{ __('Small') }}</x-ui.button>
+                            <x-ui.button size="icon-sm" variant="outline" aria-label="{{ __('Submit') }}">
+                                <x-ui.icon name="arrow-up-right" aria-hidden="true" />
+                            </x-ui.button>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <x-ui.button variant="outline">{{ __('Default') }}</x-ui.button>
+                            <x-ui.button size="icon" variant="outline" aria-label="{{ __('Submit') }}">
+                                <x-ui.icon name="arrow-up-right" aria-hidden="true" />
+                            </x-ui.button>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <x-ui.button variant="outline" size="lg">{{ __('Large') }}</x-ui.button>
+                            <x-ui.button size="icon-lg" variant="outline" aria-label="{{ __('Submit') }}">
+                                <x-ui.icon name="arrow-up-right" aria-hidden="true" />
+                            </x-ui.button>
+                        </div>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Default')">
+                    <x-ui.button>{{ __('Button') }}</x-ui.button>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Outline')">
+                    <x-ui.button variant="outline">{{ __('Outline') }}</x-ui.button>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Secondary')">
+                    <x-ui.button variant="secondary">{{ __('Secondary') }}</x-ui.button>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Ghost')">
+                    <x-ui.button variant="ghost">{{ __('Ghost') }}</x-ui.button>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Destructive')">
+                    <x-ui.button variant="destructive">{{ __('Destructive') }}</x-ui.button>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Link')">
+                    <x-ui.button variant="link">{{ __('Link') }}</x-ui.button>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Icon')">
+                    <x-ui.button variant="outline" size="icon">
+                        <x-ui.icon name="circle-fading-arrow-up" aria-hidden="true" />
+                    </x-ui.button>
+                </x-docs.section>
+
+                <x-docs.section :label="__('With Icon')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Remember to add the data-icon="inline-start" or data-icon="inline-end" attribute to the icon for the correct spacing.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex gap-2">
+                        <x-ui.button variant="outline">
+                            <x-ui.icon name="git-branch" data-icon="inline-start" aria-hidden="true" />
+                            {{ __('New Branch') }}
+                        </x-ui.button>
+                        <x-ui.button variant="outline">
+                            {{ __('Fork') }}
+                            <x-ui.icon name="git-fork" data-icon="inline-end" aria-hidden="true" />
+                        </x-ui.button>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Rounded')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use the rounded-full class to make the button rounded.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex gap-2">
+                        <x-ui.button class="rounded-full">{{ __('Get Started') }}</x-ui.button>
+                        <x-ui.button variant="outline" size="icon" class="rounded-full">
+                            <x-ui.icon name="arrow-up" aria-hidden="true" />
+                        </x-ui.button>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Spinner')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Render a Spinner component inside the button to show a loading state. Remember to add the data-icon="inline-start" or data-icon="inline-end" attribute to the spinner for the correct spacing.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex gap-2">
+                        <x-ui.button variant="outline" disabled>
+                            <x-ui.spinner data-icon="inline-start" />
+                            {{ __('Generating') }}
+                        </x-ui.button>
+                        <x-ui.button variant="secondary" disabled>
+                            {{ __('Downloading') }}
+                            <x-ui.spinner data-icon="inline-start" />
+                        </x-ui.button>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Button Group')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('To create a button group, use the ButtonGroup component.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.button-group>
+                        <x-ui.button-group class="hidden sm:flex">
+                            <x-ui.button variant="outline" size="icon" aria-label="{{ __('Go Back') }}">
+                                <x-ui.icon name="arrow-left" aria-hidden="true" />
+                            </x-ui.button>
+                        </x-ui.button-group>
+                        <x-ui.button-group>
+                            <x-ui.button variant="outline">{{ __('Archive') }}</x-ui.button>
+                            <x-ui.button variant="outline">{{ __('Report') }}</x-ui.button>
+                        </x-ui.button-group>
+                        <x-ui.button-group>
+                            <x-ui.button variant="outline">{{ __('Snooze') }}</x-ui.button>
+                            <x-ui.dropdown-menu default-radio-value="personal">
+                                <x-ui.dropdown-menu.trigger
+                                    class="[&>button]:inline-flex [&>button]:size-8 [&>button]:rounded-lg [&>button]:border-border [&>button]:bg-background [&>button]:shadow-xs [&>button]:hover:bg-muted [&>button]:hover:text-foreground [&>button]:dark:border-input [&>button]:dark:bg-input/30 [&>button]:dark:hover:bg-input/50"
+                                    aria-label="{{ __('More Options') }}"
+                                >
+                                    <x-ui.icon name="more-horizontal" aria-hidden="true" />
+                                </x-ui.dropdown-menu.trigger>
+                                <x-ui.dropdown-menu.content align="end" class="w-40">
+                                    <x-ui.dropdown-menu.group>
+                                        <x-ui.dropdown-menu.item>
+                                            <x-ui.icon name="mail-check" aria-hidden="true" />
+                                            {{ __('Mark as Read') }}
+                                        </x-ui.dropdown-menu.item>
+                                        <x-ui.dropdown-menu.item>
+                                            <x-ui.icon name="archive" aria-hidden="true" />
+                                            {{ __('Archive') }}
+                                        </x-ui.dropdown-menu.item>
+                                    </x-ui.dropdown-menu.group>
+                                    <x-ui.dropdown-menu.separator />
+                                    <x-ui.dropdown-menu.group>
+                                        <x-ui.dropdown-menu.item>
+                                            <x-ui.icon name="clock" aria-hidden="true" />
+                                            {{ __('Snooze') }}
+                                        </x-ui.dropdown-menu.item>
+                                        <x-ui.dropdown-menu.item>
+                                            <x-ui.icon name="calendar-plus" aria-hidden="true" />
+                                            {{ __('Add to Calendar') }}
+                                        </x-ui.dropdown-menu.item>
+                                        <x-ui.dropdown-menu.item>
+                                            <x-ui.icon name="list-filter" aria-hidden="true" />
+                                            {{ __('Add to List') }}
+                                        </x-ui.dropdown-menu.item>
+                                        <x-ui.dropdown-menu.sub>
+                                            <x-ui.dropdown-menu.sub-trigger>
+                                                <x-ui.icon name="tag" aria-hidden="true" />
+                                                {{ __('Label As...') }}
+                                            </x-ui.dropdown-menu.sub-trigger>
+                                            <x-ui.dropdown-menu.sub-content>
+                                                <x-ui.dropdown-menu.radio-group>
+                                                    <x-ui.dropdown-menu.radio-item value="personal">
+                                                        {{ __('Personal') }}
+                                                    </x-ui.dropdown-menu.radio-item>
+                                                    <x-ui.dropdown-menu.radio-item value="work">
+                                                        {{ __('Work') }}
+                                                    </x-ui.dropdown-menu.radio-item>
+                                                    <x-ui.dropdown-menu.radio-item value="other">
+                                                        {{ __('Other') }}
+                                                    </x-ui.dropdown-menu.radio-item>
+                                                </x-ui.dropdown-menu.radio-group>
+                                            </x-ui.dropdown-menu.sub-content>
+                                        </x-ui.dropdown-menu.sub>
+                                    </x-ui.dropdown-menu.group>
+                                    <x-ui.dropdown-menu.separator />
+                                    <x-ui.dropdown-menu.group>
+                                        <x-ui.dropdown-menu.item variant="destructive">
+                                            <x-ui.icon name="trash-2" aria-hidden="true" />
+                                            {{ __('Trash') }}
+                                        </x-ui.dropdown-menu.item>
+                                    </x-ui.dropdown-menu.group>
+                                </x-ui.dropdown-menu.content>
+                            </x-ui.dropdown-menu>
+                        </x-ui.button-group>
+                    </x-ui.button-group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('As Link')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use button styles on a plain anchor element for links. Do not use the Button component with role="button" on anchor elements.') }}
+                    </x-ui.typography.muted>
+
+                    <a
+                        href="#"
+                        class="group/button inline-flex h-7 shrink-0 items-center justify-center gap-1 rounded-[min(var(--radius-md),12px)] border border-transparent bg-clip-padding px-2.5 text-[0.8rem] font-medium whitespace-nowrap text-secondary-foreground transition-all outline-none select-none hover:bg-secondary/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 bg-secondary"
+                    >
+                        {{ __('Login') }}
+                    </a>
+                </x-docs.section>
+
+                <x-docs.section :label="__('RTL')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Right-to-left layout with Arabic content.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-wrap items-center gap-2 md:flex-row" dir="rtl">
+                        <x-ui.button variant="outline">زر</x-ui.button>
+                        <x-ui.button variant="destructive">حذف</x-ui.button>
+                        <x-ui.button variant="outline">
+                            إرسال
+                            <x-ui.icon name="arrow-right" class="rtl:rotate-180" data-icon="inline-end" aria-hidden="true" />
+                        </x-ui.button>
+                        <x-ui.button variant="outline" size="icon" aria-label="{{ __('Add') }}">
+                            <x-ui.icon name="plus" aria-hidden="true" />
+                        </x-ui.button>
+                        <x-ui.button variant="secondary" disabled>
+                            <x-ui.spinner data-icon="inline-start" />
+                            جاري التحميل
+                        </x-ui.button>
+                    </div>
+                </x-docs.section>
+            </x-ui.card.content>
+        </x-ui.card>
+
+        <x-ui.card>
+            <x-ui.card.header>
                 <x-ui.card.title>{{ __('Aspect Ratio') }}</x-ui.card.title>
                 <x-ui.card.description>
                     {{ __('Examples from the official shadcn/ui aspect-ratio documentation.') }}
