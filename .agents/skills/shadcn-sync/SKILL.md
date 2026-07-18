@@ -17,10 +17,10 @@ Synchronize `resources/views/components/ui/{component}/` with the official shadc
 - **Source of truth:** https://ui.shadcn.com/docs/components/{component}
 - **1:1 parity:** Tailwind classes, `data-slot`, variants, roles, and composition must match shadcn — not legacy Blade markup.
 - **Project conventions:** keep `@blaze`, `@props`, `$presetClass`, `$presetAttributes`, `$attributes->merge()->class()`.
-- **Icons:** always from `mallardduck/blade-lucide-icons` — never inline SVG, Heroicons, or other libraries. Prefer `<x-ui.icon name="…" />`; in subcomponents, `<x-lucide-{kebab} />` is also valid (same package).
+- **Icons:** always from `mallardduck/blade-lucide-icons` — never inline SVG, Heroicons, or other libraries. In UI subcomponents use `<x-lucide-{kebab} />` directly; in dashboard examples `<x-ui.icon name="…" />` is allowed.
 - **Scope:** only touched component dirs + `dashboard.blade.php`. No commits unless explicitly requested.
 - **Self-contained components:** Alpine `x-data` factories and component-specific behavior live in the root `index.blade.php` via `@pushOnce('bladcn-scripts')` — never in `resources/js/`. Global JS may only register shared Alpine **plugins** (e.g. `@ailuracode/alpine-dialog` → `$store.dialog` in `resources/js/bladcn/bootstrap.js`).
-- **Subagents:** run stages in order; parent agent owns intake, merge, and final summary.
+- **Subagents:** run stages in order; parent agent owns intake, merge, and final summary. Stage 4 validation is mandatory and must run in a `generalPurpose` subagent before the parent summarizes.
 
 ## Stage 0 — Intake (parent agent, blocking)
 
@@ -98,8 +98,8 @@ Launch **one** generalPurpose subagent per component (or one per subcomponent if
 5. Do not edit dashboard in this stage.
 6. **Alpine / JS:** register `Alpine.data('bladcn{Component}', …)` in the root `index.blade.php` with `@pushOnce('bladcn-scripts')`. Use `$store.{plugin}` from toolkit plugins initialized in `resources/js/bladcn/bootstrap.js` — do not move component factories to `resources/js/`.
 7. **Icons in component files:** when shadcn React uses Lucide icons, render them via `mallardduck/blade-lucide-icons`:
-   - Dashboard / examples: `<x-ui.icon name="{kebab}" class="size-4" aria-hidden="true" />`
-   - Inside UI subcomponents (e.g. accordion trigger): `<x-lucide-{kebab} … />` is fine if the file already uses that pattern
+   - UI subcomponents: `<x-lucide-{kebab} … />` (preferred — no dynamic icon wrapper)
+   - Dashboard / examples: `<x-ui.icon name="{kebab}" class="size-4" aria-hidden="true" />` is allowed
    - Resolve React `FooBarIcon` → kebab `foo-bar`; verify SVG exists before using (see [reference.md](reference.md))
 
 **Blade file pattern:**
@@ -177,28 +177,71 @@ Skip if intake said `dashboard: no`.
 6. User-facing strings: `__()`. RTL sections: Arabic/Hebrew verbatim + `dir="rtl"` on wrapper.
 7. Add muted description under section title when the doc includes explanatory copy.
 
-## Stage 4 — Verify (subagent: `shell` or parent)
+## Stage 4 — Validate (subagent: `generalPurpose`, mandatory)
 
-1. Confirm every icon used resolves to `mallardduck/blade-lucide-icons` — each `name` prop or `x-lucide-*` tag must match an SVG in vendor:
+Launch **one** generalPurpose validation subagent **after** Stages 2 and 3 (or after Stage 2 when `dashboard: no`). The parent agent must **not** deliver the final summary until this stage returns.
 
-```bash
-# Exact filename check (preferred)
-test -f vendor/mallardduck/blade-lucide-icons/resources/svg/{kebab-name}.svg && echo ok
+**Prompt must include:**
 
-# Or search when unsure of the kebab name
-ls vendor/mallardduck/blade-lucide-icons/resources/svg/ | rg -i "{icon-names}"
+```text
+Full Repository Path: {abs path}
+Component slug(s): {slug1}, {slug2}
+Subcomponent scope: {all | list}
+Dashboard: yes | no
+Doc URL: https://ui.shadcn.com/docs/components/{slug}
+Discover report: {paste Stage 1 report}
+Edited paths: {list every file touched in Stages 2–3}
+
+Tasks — run every check below and return a structured validation report only (no file edits unless a trivial fix is required to pass a blocking check; prefer reporting failures for the parent to route back to Stage 2/3).
+
+1. **Icons**
+   - List every `x-lucide-*` tag and every `x-ui.icon name="…"` in edited component files and dashboard sections.
+   - Confirm each resolves to `vendor/mallardduck/blade-lucide-icons/resources/svg/{kebab}.svg` (run `composer install` if vendor is missing).
+   - Grep edited paths — no inline `<svg`, Heroicons, or `@svg` for Lucide icons:
+     `rg -n "<svg|heroicon|@svg" resources/views/components/ui/{slug}/ resources/views/dashboard.blade.php`
+
+2. **Blade parity (spot-check)**
+   - For each subcomponent in scope, compare `$presetClass`, `data-slot`, `role`, and `aria-*` attrs against the discover report / shadcn React source.
+   - Flag missing subcomponents, extra props/attrs shadcn does not use, or class-string drift.
+
+3. **Project conventions**
+   - Root `index.blade.php` has `@blaze` + `@see https://ui.shadcn.com/docs/components/{slug}`.
+   - Interactive roots use `@blaze(fold: false)`.
+   - Alpine factories live in root `index.blade.php` via `@pushOnce('bladcn-scripts')`, not in `resources/js/`.
+   - Subcomponents use `$presetClass`, `$presetAttributes`, `$attributes->merge()->class()`.
+
+4. **Dashboard (when dashboard: yes)**
+   - Every doc example section from the discover report exists as `<x-docs.section :label="__('…')">`.
+   - Card wrapper matches the skill template (`x-ui.card` → header → `space-y-12` content).
+   - RTL sections use `dir="rtl"` and verbatim Arabic/Hebrew where the docs do.
+   - User-facing strings use `__()`.
+
+5. **Lints**
+   - Run `ReadLints` on all edited Blade paths and include results.
+
+Return format:
+
+```text
+## Validation report — {slug}
+
+| Check | Status | Notes |
+|-------|--------|-------|
+| Icons (SVG exists) | PASS/FAIL | … |
+| Icons (no forbidden markup) | PASS/FAIL | … |
+| Blade parity | PASS/FAIL | … |
+| Project conventions | PASS/FAIL | … |
+| Dashboard examples | PASS/SKIP/FAIL | … |
+| Lints | PASS/FAIL | … |
+
+Overall: PASS | FAIL
+Blocking issues: {numbered list or "none"}
+Icons verified: {each x-lucide-* / name → svg filename}
 ```
 
-   If no SVG exists, pick the closest Lucide name from the package (e.g. `CheckCircle2Icon` → `circle-check.svg`, not `check-circle.svg`) or note the gap in the summary.
-
-2. Grep edited files — no inline `<svg`, no Heroicons, no `@svg` directives for Lucide icons:
-
-```bash
-rg -n "<svg|heroicon|@svg" resources/views/components/ui/{slug}/ resources/views/dashboard.blade.php
+If **Overall: FAIL**, list which stage (2 or 3) should be re-run and why. Do not mark the sync complete.
 ```
 
-3. `ReadLints` on edited Blade paths.
-4. Parent summarizes: files changed, subcomponents created, dashboard sections added, icons verified (list each `name` / `x-lucide-*` and matching SVG).
+Parent waits for the validation report. On **FAIL**, re-run the failing stage(s) and launch Stage 4 again. On **PASS**, summarize for the user.
 
 ## Parent agent checklist
 
@@ -209,7 +252,7 @@ Copy and track:
 - [ ] Stage 1: Discover report received
 - [ ] Stage 2: Blade sync complete
 - [ ] Stage 3: Dashboard updated (if requested)
-- [ ] Stage 4: Icons + lints verified
+- [ ] Stage 4: Validation subagent report — Overall PASS
 - [ ] Summary delivered to user
 ```
 
@@ -222,8 +265,8 @@ Run sequentially per component; parallelize discover across multiple slugs only.
 2. Task explore → discover report
 3. Task generalPurpose → Blade sync
 4. Task generalPurpose → dashboard (if yes)
-5. Task shell → icon verification
-6. Parent: read lints + summary
+5. Task generalPurpose → validation (mandatory)
+6. Parent: summary only after Stage 4 PASS (re-run 2/3 + 5 on FAIL)
 ```
 
 Do **not** use `bugbot` or `security-review` unless the user asks.
@@ -238,8 +281,8 @@ Package: `mallardduck/blade-lucide-icons` (Composer dependency). SVG source: `ve
 
 | Context | Blade usage |
 |---------|-------------|
+| UI subcomponents | `<x-lucide-chevron-down class="size-4" aria-hidden="true" />` (preferred) |
 | Dashboard examples | `<x-ui.icon name="circle-check" class="size-4" aria-hidden="true" />` |
-| UI subcomponents | `<x-lucide-chevron-down … />` (direct Blade component from the same package) |
 
 `x-ui.icon` (`resources/views/components/ui/icon/index.blade.php`) wraps the package:
 
