@@ -789,13 +789,13 @@
                                 <x-ui.breadcrumb.link href="#">{{ __('Home') }}</x-ui.breadcrumb.link>
                             </x-ui.breadcrumb.item>
                             <x-ui.breadcrumb.separator>
-                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                                <x-lucide-dot class="size-3.5" aria-hidden="true" />
                             </x-ui.breadcrumb.separator>
                             <x-ui.breadcrumb.item>
                                 <x-ui.breadcrumb.link href="#">{{ __('Components') }}</x-ui.breadcrumb.link>
                             </x-ui.breadcrumb.item>
                             <x-ui.breadcrumb.separator>
-                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                                <x-lucide-dot class="size-3.5" aria-hidden="true" />
                             </x-ui.breadcrumb.separator>
                             <x-ui.breadcrumb.item>
                                 <x-ui.breadcrumb.page>{{ __('Breadcrumb') }}</x-ui.breadcrumb.page>
@@ -815,7 +815,7 @@
                                 <x-ui.breadcrumb.link href="#">{{ __('Home') }}</x-ui.breadcrumb.link>
                             </x-ui.breadcrumb.item>
                             <x-ui.breadcrumb.separator>
-                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                                <x-lucide-dot class="size-3.5" aria-hidden="true" />
                             </x-ui.breadcrumb.separator>
                             <x-ui.breadcrumb.item>
                                 <x-ui.dropdown-menu>
@@ -823,7 +823,7 @@
                                         class="[&>button]:inline-flex [&>button]:items-center [&>button]:gap-1 [&>button]:border-transparent [&>button]:bg-transparent [&>button]:p-0 [&>button]:text-sm [&>button]:shadow-none [&>button]:hover:bg-transparent [&>button]:hover:text-foreground [&>button]:focus-visible:ring-0"
                                     >
                                         {{ __('Components') }}
-                                        <x-ui.icon name="chevron-down" data-icon="inline-end" class="size-3.5" aria-hidden="true" />
+                                        <x-lucide-chevron-down data-icon="inline-end" class="size-3.5" aria-hidden="true" />
                                     </x-ui.dropdown-menu.trigger>
                                     <x-ui.dropdown-menu.content align="start">
                                         <x-ui.dropdown-menu.group>
@@ -835,7 +835,7 @@
                                 </x-ui.dropdown-menu>
                             </x-ui.breadcrumb.item>
                             <x-ui.breadcrumb.separator>
-                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                                <x-lucide-dot class="size-3.5" aria-hidden="true" />
                             </x-ui.breadcrumb.separator>
                             <x-ui.breadcrumb.item>
                                 <x-ui.breadcrumb.page>{{ __('Breadcrumb') }}</x-ui.breadcrumb.page>
@@ -903,7 +903,7 @@
                                 <x-ui.breadcrumb.link href="#">الرئيسية</x-ui.breadcrumb.link>
                             </x-ui.breadcrumb.item>
                             <x-ui.breadcrumb.separator>
-                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                                <x-lucide-dot class="size-3.5" aria-hidden="true" />
                             </x-ui.breadcrumb.separator>
                             <x-ui.breadcrumb.item>
                                 <x-ui.dropdown-menu>
@@ -911,7 +911,7 @@
                                         class="[&>button]:inline-flex [&>button]:items-center [&>button]:gap-1 [&>button]:border-transparent [&>button]:bg-transparent [&>button]:p-0 [&>button]:text-sm [&>button]:shadow-none [&>button]:hover:bg-transparent [&>button]:hover:text-foreground [&>button]:focus-visible:ring-0"
                                     >
                                         المكونات
-                                        <x-ui.icon name="chevron-down" data-icon="inline-end" class="size-3.5" aria-hidden="true" />
+                                        <x-lucide-chevron-down data-icon="inline-end" class="size-3.5" aria-hidden="true" />
                                     </x-ui.dropdown-menu.trigger>
                                     <x-ui.dropdown-menu.content align="end" dir="rtl">
                                         <x-ui.dropdown-menu.group>
@@ -923,7 +923,7 @@
                                 </x-ui.dropdown-menu>
                             </x-ui.breadcrumb.item>
                             <x-ui.breadcrumb.separator>
-                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                                <x-lucide-dot class="size-3.5" aria-hidden="true" />
                             </x-ui.breadcrumb.separator>
                             <x-ui.breadcrumb.item>
                                 <x-ui.breadcrumb.page>مسار التنقل</x-ui.breadcrumb.page>

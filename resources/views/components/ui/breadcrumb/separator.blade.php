@@ -23,7 +23,6 @@
     @if (trim($slot) !== '')
         {{ $slot }}
     @else
-        <x-ui.icon aria-hidden="true"
-            name="chevron-right" />
+        <x-lucide-chevron-right aria-hidden="true" />
     @endif
 </li>

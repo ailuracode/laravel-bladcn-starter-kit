@@ -21,8 +21,6 @@
 
 <span
     {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}>
-    <x-ui.icon aria-hidden="true"
-        class="size-4"
-        name="more-horizontal" />
+    <x-lucide-more-horizontal aria-hidden="true" class="size-4" />
     <span class="sr-only">More</span>
 </span>
