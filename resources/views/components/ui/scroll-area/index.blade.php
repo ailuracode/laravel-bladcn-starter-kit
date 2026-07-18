@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'relative',
-    );
+    $presetClass = 'relative';
 
     $presetAttributes = [
         'data-slot' => 'scroll-area',

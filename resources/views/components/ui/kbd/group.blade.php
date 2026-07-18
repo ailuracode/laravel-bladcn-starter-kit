@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'inline-flex items-center gap-1',
-    );
+    $presetClass = 'inline-flex items-center gap-1';
 
     $presetAttributes = [
         'id' => $id,

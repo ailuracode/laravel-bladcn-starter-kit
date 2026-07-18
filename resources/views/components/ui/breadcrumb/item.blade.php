@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'inline-flex items-center gap-1.5',
-    );
+    $presetClass = 'inline-flex items-center gap-1.5';
 
     $presetAttributes = [
         'data-slot' => 'breadcrumb-item',

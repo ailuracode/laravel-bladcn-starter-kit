@@ -80,6 +80,9 @@
         "bladcn:sync": [
             "@php artisan bladcn:add --all --overwrite --no-external-deps"
         ],
+        "bladcn:push": [
+            "@php artisan bladcn:push --all --overwrite --no-deps"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

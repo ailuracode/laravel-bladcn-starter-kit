@@ -10,9 +10,7 @@
 @php
     $transition = filter_var($transition, FILTER_VALIDATE_BOOLEAN);
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'overflow-hidden',
-    );
+    $presetClass = 'overflow-hidden';
 
     $presetAttributes = [
         'data-slot' => 'collapsible-content',

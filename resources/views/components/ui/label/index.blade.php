@@ -10,9 +10,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
-    );
+    $presetClass =
+        'flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50';
 
     $presetAttributes = [
         'id' => $id,
@@ -28,8 +27,7 @@
     }
 @endphp
 
-<x-ui.abstract :as-child="$asChild"
-    {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}
-    default-tag="label">
+<label
+    {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}>
     {{ $slot }}
-</x-ui.abstract>
+</label>

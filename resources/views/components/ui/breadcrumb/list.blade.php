@@ -6,9 +6,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex flex-wrap items-center gap-1.5 text-sm break-words text-muted-foreground sm:gap-2.5',
-    );
+    $presetClass =
+        'flex flex-wrap items-center gap-1.5 text-sm break-words text-muted-foreground sm:gap-2.5';
 
     $presetAttributes = [
         'data-slot' => 'breadcrumb-list',

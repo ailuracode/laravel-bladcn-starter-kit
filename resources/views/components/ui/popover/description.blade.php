@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'text-muted-foreground',
-    );
+    $presetClass = 'text-muted-foreground';
 
     $presetAttributes = [
         'data-slot' => 'popover-description',

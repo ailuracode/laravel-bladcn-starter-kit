@@ -42,7 +42,7 @@ new class extends Component {
     </x-ui.button>
 
     @if ($open)
-        <x-ui.alert-dialog open x-init="$watch('isOpen', value => { if (! value) $wire.close() })">
+        <x-ui.alert-dialog open x-init="$watch(() => $store.dialog.isOpen(id), value => { if (! value) $wire.close() })">
             <x-ui.alert-dialog.content>
                 <form wire:submit="deleteUser" class="space-y-6">
                     <x-ui.alert-dialog.header>

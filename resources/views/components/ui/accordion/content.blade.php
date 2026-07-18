@@ -16,17 +16,13 @@
 
     $initiallyOpen = in_array($value, $defaultOpen, true);
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'overflow-hidden text-sm',
-    );
+    $presetClass = 'overflow-hidden text-sm';
 
-    $innerClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'pt-0 pb-4',
-    );
+    $innerClass =
+        'pt-0 pb-2.5 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4';
 
     $presetAttributes = [
         'data-slot' => 'accordion-content',
-        'data-state' => $initiallyOpen ? 'open' : 'closed',
     ];
 
     if (filled($style)) {
@@ -34,11 +30,11 @@
     }
 @endphp
 
-<div :data-state="($store.accordion.isOpen(accordionId, @js($value)) || (
+<div x-bind:data-open="($store.accordion.isOpen(accordionId, @js($value)) || (
     @js($initiallyOpen) && !Object.hasOwn($store.accordion.groups[
-        accordionId]?.open ?? {}, @js($value)))) ? 'open' :
-'closed'"
-    {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}
+        accordionId]?.open ?? {}, @js($value)))) ? '' : null"
+    {{ $attributes->merge($presetAttributes)->class($presetClass) }}
+    @if ($initiallyOpen) data-open @endif
     @if ($transition) x-collapse @endif
     @unless ($initiallyOpen)
         x-cloak

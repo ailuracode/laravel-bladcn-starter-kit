@@ -18,10 +18,7 @@
         : $mobileOffset;
     $flashToast = \AiluraCode\Bladcn\Support\Toast::fromSession();
 
-    $classResolver = new \AiluraCode\Bladcn\Support\ClassResolver();
-    $presetClass = $classResolver->add(
-        'z-100 pointer-events-none fixed inset-0',
-    );
+    $presetClass = 'z-100 pointer-events-none fixed inset-0';
 
     $presetAttributes = [
         'data-slot' => 'sonner',

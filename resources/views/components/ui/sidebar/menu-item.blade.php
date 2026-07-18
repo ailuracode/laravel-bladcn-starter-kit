@@ -4,7 +4,6 @@
     'style' => null,
     'class' => null,
 ])
-
 @php
     $presetAttributes = [
         'data-slot' => 'sidebar-menu-item',
@@ -17,6 +16,6 @@
 @endphp
 
 <li
-    {{ $attributes->merge($presetAttributes)->class(['group/menu-item relative flex w-full', $class]) }}>
+    {{ $attributes->merge($presetAttributes)->class(['group/menu-item relative', $class]) }}>
     {{ $slot }}
 </li>

@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'mx-auto flex w-full justify-center',
-    );
+    $presetClass = 'mx-auto flex w-full justify-center';
 
     $presetAttributes = [
         'role' => 'navigation',

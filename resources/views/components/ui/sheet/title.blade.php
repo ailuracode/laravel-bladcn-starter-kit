@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'font-semibold text-foreground',
-    );
+    $presetClass = 'font-semibold text-foreground';
 
     $presetAttributes = [
         'data-slot' => 'sheet-title',

@@ -6,12 +6,7 @@
         "useIgnoreFile": true
     },
     "files": {
-        "includes": [
-            "resources/js/**/*.ts",
-            "resources/js/**/*.js",
-            "resources/js/**/*.d.ts",
-            "vite.config.js"
-        ]
+        "includes": ["resources/js/**/*.js", "vite.config.js"]
     },
     "formatter": {
         "enabled": true,

@@ -20,8 +20,7 @@
     ];
 @endphp
 
-<x-ui.abstract :as-child="$asChild"
-    {{ $attributes->merge($presetAttributes)->merge($alpineAttributes)->class($class) }}
-    default-tag="div">
+<div
+    {{ $attributes->merge($presetAttributes)->merge($alpineAttributes)->class($class) }}>
     {{ $slot }}
-</x-ui.abstract>
+</div>

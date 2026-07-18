@@ -10,9 +10,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'z-50 max-h-60 min-w-[8rem] origin-top overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md',
-    );
+    $presetClass =
+        'z-50 max-h-60 min-w-[8rem] origin-top overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md';
 
     $presetAttributes = [
         'data-slot' => 'combobox-content',

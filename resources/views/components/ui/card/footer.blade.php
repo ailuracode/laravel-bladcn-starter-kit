@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex items-center px-6 [.border-t]:pt-6',
-    );
+    $presetClass = 'flex items-center px-6 [.border-t]:pt-6';
 
     $presetAttributes = [
         'id' => $id,

@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'text-lg leading-none font-semibold',
-    );
+    $presetClass = 'text-lg leading-none font-semibold';
 
     $presetAttributes = [
         'data-slot' => 'dialog-title',

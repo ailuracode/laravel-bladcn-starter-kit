@@ -21,35 +21,27 @@
 
     $isHorizontal = $orientation === 'horizontal';
 
-    $rootClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
-        ->add(
-            'relative flex min-w-0 touch-none select-none data-[disabled]:opacity-50',
-        )
-        ->add(
-            $isHorizontal
-                ? 'w-full items-center'
-                : 'w-auto flex-col items-center',
-        );
+    $rootClass = implode(' ', [
+        'relative flex min-w-0 touch-none select-none data-[disabled]:opacity-50',
+        $isHorizontal ? 'w-full items-center' : 'w-auto flex-col items-center',
+    ]);
 
-    $trackClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
-        ->add('relative shrink-0 overflow-hidden rounded-full bg-muted')
-        ->add(
-            $isHorizontal ? 'mx-2 h-1 w-full grow' : 'my-2 min-h-0 w-1 flex-1',
-        );
+    $trackClass = implode(' ', [
+        'relative shrink-0 overflow-hidden rounded-full bg-muted',
+        $isHorizontal ? 'mx-2 h-1 w-full grow' : 'my-2 min-h-0 w-1 flex-1',
+    ]);
 
-    $rangeClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
-        ->add('absolute bg-primary')
-        ->add($isHorizontal ? 'top-0 h-full' : 'left-0 w-full');
+    $rangeClass = implode(' ', [
+        'absolute bg-primary',
+        $isHorizontal ? 'top-0 h-full' : 'left-0 w-full',
+    ]);
 
-    $thumbClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
-        ->add(
-            'absolute z-10 block size-3 shrink-0 rounded-full border border-muted-foreground bg-primary shadow-sm ring-ring/50 transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden active:cursor-grabbing disabled:pointer-events-none disabled:opacity-50',
-        )
-        ->add(
-            $isHorizontal
-                ? 'top-1/2 -translate-y-1/2'
-                : 'left-1/2 -translate-x-1/2',
-        );
+    $thumbClass = implode(' ', [
+        'absolute z-10 block size-3 shrink-0 rounded-full border border-muted-foreground bg-primary shadow-sm ring-ring/50 transition-[color,box-shadow] hover:ring-4 focus-visible:ring-4 focus-visible:outline-hidden active:cursor-grabbing disabled:pointer-events-none disabled:opacity-50',
+        $isHorizontal
+            ? 'top-1/2 -translate-y-1/2'
+            : 'left-1/2 -translate-x-1/2',
+    ]);
 
     $presetAttributes = [
         'data-slot' => 'slider',

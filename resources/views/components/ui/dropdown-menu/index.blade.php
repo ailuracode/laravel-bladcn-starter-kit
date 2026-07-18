@@ -65,15 +65,24 @@
                         orientation: 'vertical',
                         onClose: () => {
                             const container =
-                                this.$store.menu.instances[id]
-                                    ?.container ?? this.$root;
+                                this.$store.menu
+                                .instances[id]
+                                ?.container ?? this
+                                .$root;
 
                             container
                                 .querySelectorAll(
                                     '[data-slot=dropdown-menu-sub]',
                                 )
-                                .forEach((element) => {
-                                    Alpine.$data(element)?.closeSub?.();
+                                .forEach((
+                                    element
+                                ) => {
+                                    Alpine
+                                        .$data(
+                                            element
+                                        )
+                                        ?.closeSub
+                                        ?.();
                                 });
                         },
                     });
@@ -147,7 +156,8 @@
                         return;
                     }
 
-                    this.$store.menu.handleOutsideClick(this.id, event);
+                    this.$store.menu.handleOutsideClick(this.id,
+                        event);
                 },
 
                 enableKeyboardNav() {
@@ -174,7 +184,7 @@
                 getMenuContainer() {
                     return (
                         this.$store.menu.instances[this.id]
-                            ?.container ?? null
+                        ?.container ?? null
                     );
                 },
 
@@ -185,9 +195,10 @@
                         return null;
                     }
 
-                    for (const element of container.querySelectorAll(
-                        '[data-slot="dropdown-menu-sub"]',
-                    )) {
+                    for (const element of container
+                            .querySelectorAll(
+                                '[data-slot="dropdown-menu-sub"]',
+                            )) {
                         const sub = Alpine.$data(element);
 
                         if (sub?.isSubOpen) {
@@ -255,7 +266,8 @@
                 },
 
                 getHighlightedItemElement() {
-                    const activeId = this.getHighlightedItemId();
+                    const activeId = this
+                        .getHighlightedItemId();
                     const container = this.getMenuContainer();
 
                     if (!activeId || !container) {
@@ -268,7 +280,8 @@
                 },
 
                 focusHighlightedItem() {
-                    const activeId = this.getHighlightedItemId();
+                    const activeId = this
+                        .getHighlightedItemId();
                     const container = this.getMenuContainer();
 
                     if (!container) {
@@ -277,21 +290,26 @@
 
                     this.$nextTick(() => {
                         container
-                            .querySelectorAll('[data-menu-item-id]')
+                            .querySelectorAll(
+                                '[data-menu-item-id]')
                             .forEach((element) => {
-                                if (element.dataset.menuItemId !== activeId) {
+                                if (element.dataset
+                                    .menuItemId !==
+                                    activeId) {
                                     element.blur();
                                 }
                             });
 
-                        this.getHighlightedItemElement()?.focus({
-                            preventScroll: true,
-                        });
+                        this.getHighlightedItemElement()
+                            ?.focus({
+                                preventScroll: true,
+                            });
                     });
                 },
 
                 openActiveSubmenu(event) {
-                    const activeId = this.getHighlightedItemId();
+                    const activeId = this
+                        .getHighlightedItemId();
                     const container = this.getMenuContainer();
 
                     if (!activeId || !container) {

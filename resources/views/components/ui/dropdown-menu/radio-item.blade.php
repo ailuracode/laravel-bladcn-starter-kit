@@ -8,9 +8,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'group/dropdown-menu-item relative flex w-full cursor-default items-center gap-1.5 rounded-md py-1 pr-2 pl-8 text-sm outline-hidden select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=\'size-\'])]:size-4 [&_[data-slot=dropdown-menu-radio-item-indicator]_[data-slot=radio-group-indicator]_svg]:size-2',
-    );
+    $presetClass =
+        'group/dropdown-menu-item relative flex w-full cursor-default items-center gap-1.5 rounded-md py-1 pr-2 pl-8 text-sm outline-hidden select-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*=\'size-\'])]:size-4 [&_[data-slot=dropdown-menu-radio-item-indicator]_[data-slot=radio-group-indicator]_svg]:size-2';
 
     $presetAttributes = [
         'type' => 'button',

@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'mt-auto flex flex-col gap-2 p-4',
-    );
+    $presetClass = 'mt-auto flex flex-col gap-2 p-4';
 
     $presetAttributes = [
         'data-slot' => 'sheet-footer',

@@ -7,14 +7,13 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
-        ->add('mb-3 font-medium')
-        ->add(
-            match ($variant) {
-                'label' => 'text-sm',
-                default => 'text-base',
-            },
-        );
+    $presetClass = implode(' ', [
+        'mb-3 font-medium',
+        match ($variant) {
+            'label' => 'text-sm',
+            default => 'text-base',
+        },
+    ]);
 
     $presetAttributes = [
         'data-slot' => 'field-legend',

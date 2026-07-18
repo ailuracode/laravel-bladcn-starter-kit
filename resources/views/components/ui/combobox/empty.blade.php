@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'py-6 text-center text-sm text-muted-foreground',
-    );
+    $presetClass = 'py-6 text-center text-sm text-muted-foreground';
 
     $presetAttributes = [
         'data-slot' => 'combobox-empty',

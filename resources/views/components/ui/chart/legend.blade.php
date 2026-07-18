@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex flex-wrap items-center justify-center gap-4',
-    );
+    $presetClass = 'flex flex-wrap items-center justify-center gap-4';
 
     $presetAttributes = [
         'data-slot' => 'chart-legend',

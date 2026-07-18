@@ -8,10 +8,10 @@
 <x-ui.button {{ $attributes->class(['size-7', $class]) }}
     data-sidebar="trigger"
     data-slot="sidebar-trigger"
-    size="icon"
+    size="icon-sm"
     type="button"
     variant="ghost"
-    x-on:click="$store.sidebar.matchesBreakpoint ? toggleExpanded() : $store.sidebar.toggle()">
+    x-on:click="toggleMobile()">
     <x-ui.icon aria-hidden="true"
         class="size-4"
         name="panel-left" />

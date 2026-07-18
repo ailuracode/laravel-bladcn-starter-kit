@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        '[&>svg]:size-3.5',
-    );
+    $presetClass = '[&>svg]:size-3.5';
 
     $presetAttributes = [
         'data-slot' => 'breadcrumb-separator',

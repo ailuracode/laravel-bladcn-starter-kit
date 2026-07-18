@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'mt-6 border-l-2 pl-6 italic',
-    );
+    $presetClass = 'mt-6 border-l-2 pl-6 italic';
 
     $presetAttributes = [
         'id' => $id,

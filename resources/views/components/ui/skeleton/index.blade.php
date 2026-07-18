@@ -8,9 +8,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'animate-pulse rounded-md bg-accent',
-    );
+    $presetClass = 'animate-pulse rounded-md bg-accent';
 
     $presetAttributes = [
         'id' => $id,

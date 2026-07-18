@@ -12,9 +12,7 @@
 ])
 
 @php
-    $containerClassResolver = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex items-center gap-2 has-disabled:opacity-50',
-    );
+    $containerPresetClass = 'flex items-center gap-2 has-disabled:opacity-50';
 
     $presetAttributes = [
         'data-slot' => 'input-otp',
@@ -25,7 +23,7 @@
     }
 @endphp
 
-<div {{ $attributes->merge($presetAttributes)->class([$containerClassResolver, $containerClass]) }}
+<div {{ $attributes->merge($presetAttributes)->class([$containerPresetClass, $containerClass]) }}
     x-data="bladcnInputOtp({
         maxLength: @js((int) $maxlength),
         value: @js($value),

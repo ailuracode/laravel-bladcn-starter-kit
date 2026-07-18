@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'overflow-hidden',
-    );
+    $presetClass = 'overflow-hidden';
 
     $presetAttributes = [
         'data-slot' => 'resizable-panel',

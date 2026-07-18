@@ -1,7 +1,9 @@
 @blaze(fold: true)
 
 @props([
-    'asChild' => false,
+    'asChild' => true,
+    'variant' => null,
+    'size' => 'default',
     'style' => null,
     'class' => null,
 ])
@@ -17,14 +19,22 @@
     }
 
     $alpineAttributes = [
-        'x-on:click' => 'open()',
-        'x-bind:data-state' => "isOpen ? 'open' : 'closed'",
-        'x-bind:aria-expanded' => 'isOpen',
+        'x-on:click' => '$store.dialog.open(id, { trigger: $event.target })',
+        'x-bind:data-state' =>
+            '$store.dialog.isOpen(id) ? \'open\' : \'closed\'',
+        'x-bind:aria-expanded' => '$store.dialog.isOpen(id)',
     ];
 @endphp
 
-<x-ui.abstract :as-child="$asChild"
-    {{ $attributes->merge($presetAttributes)->merge($alpineAttributes)->class($class) }}
-    default-tag="button">
-    {{ $slot }}
-</x-ui.abstract>
+@if (filled($variant))
+    <x-ui.button :size="$size"
+        :variant="$variant"
+        {{ $attributes->except(['variant', 'size'])->merge($presetAttributes)->merge($alpineAttributes)->class($class) }}>
+        {{ $slot }}
+    </x-ui.button>
+@else
+    <button
+        {{ $attributes->merge($presetAttributes)->merge($alpineAttributes)->class($class) }}>
+        {{ $slot }}
+    </button>
+@endif

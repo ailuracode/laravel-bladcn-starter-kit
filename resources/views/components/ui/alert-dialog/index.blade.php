@@ -1,15 +1,21 @@
 @blaze(fold: false)
 {{-- @see https://ui.shadcn.com/docs/components/alert-dialog --}}
+{{-- @see https://github.com/ailuracode/alpinejs-toolkit/blob/master/packages/dialog/README.md --}}
 
 @props([
+    'id' => null,
     'open' => false,
+    'transition' => true,
     'style' => null,
     'class' => null,
 ])
 
 @php
+    $isOpen = filter_var($open, FILTER_VALIDATE_BOOLEAN);
+
     $presetAttributes = [
         'data-slot' => 'alert-dialog',
+        'data-state' => $isOpen ? 'open' : 'closed',
     ];
 
     if (filled($style)) {
@@ -19,56 +25,64 @@
 
 <div {{ $attributes->merge($presetAttributes)->class($class) }}
     x-bind:data-state="isOpen ? 'open' : 'closed'"
-    x-data="bladcnAlertDialog({ open: @js($open) })"
-    x-on:keydown.escape.window="close()">
+    x-data="bladcnAlertDialog({ id: @js(filled($id) ? $id : null), open: @js($isOpen) })"
+    x-id="['alert-dialog']"
+    x-on:keydown.window="handleKeydown($event)">
     {{ $slot }}
 </div>
+
 @pushOnce('bladcn-scripts')
+    @vite('resources/js/bladcn/dialog-runtime.js')
+
     <script>
         bladcnOnAlpine((Alpine) => {
-            const ALERT_DIALOG_CLOSE_DURATION = 300;
-
             Alpine.data('bladcnAlertDialog', (config = {}) => ({
-                isOpen: config.open ?? false,
-                isPresent: config.open ?? false,
-                animationState: config.open ? 'open' : 'closed',
-                isClosing: false,
-                closeTimer: null,
+                initId: config.id ?? null,
+                initialOpen: Boolean(config.open),
 
-                open() {
-                    clearTimeout(this.closeTimer);
-                    this.isClosing = false;
-                    this.isOpen = true;
-                    this.isPresent = true;
-                    this.animationState = 'closed';
-                    this.$store.scroll.lock();
+                get id() {
+                    return this.initId ?? this.$id('alert-dialog');
+                },
 
+                get isOpen() {
+                    return this.$store.dialog.isOpen(this.id);
+                },
+
+                init() {
                     this.$nextTick(() => {
-                        requestAnimationFrame(() => {
-                            requestAnimationFrame
-                                (() => {
-                                    this.animationState =
-                                        'open';
-                                });
+                        const id = this.id;
+
+                        this.$store.dialog.register(id, {
+                            labelledBy: `${id}-title`,
+                            describedBy: `${id}-description`,
+                            closeOnOutsideClick: false,
                         });
+
+                        if (this.initialOpen) {
+                            this.$store.dialog.open(id);
+                        }
                     });
                 },
 
+                destroy() {
+                    this.$store.dialog.unregister(this.id);
+                },
+
+                open(event) {
+                    const trigger =
+                        event?.target instanceof HTMLElement ?
+                        event.target :
+                        null;
+
+                    this.$store.dialog.open(this.id, { trigger });
+                },
+
                 close() {
-                    if (!this.isPresent) {
-                        return;
-                    }
+                    this.$store.dialog.close(this.id);
+                },
 
-                    clearTimeout(this.closeTimer);
-                    this.isClosing = true;
-                    this.isOpen = false;
-                    this.animationState = 'closed';
-
-                    this.closeTimer = setTimeout(() => {
-                        this.isPresent = false;
-                        this.isClosing = false;
-                        this.$store.scroll.unlock();
-                    }, ALERT_DIALOG_CLOSE_DURATION);
+                handleKeydown(event) {
+                    this.$store.dialog.handleKeydown(this.id, event);
                 },
             }));
         });

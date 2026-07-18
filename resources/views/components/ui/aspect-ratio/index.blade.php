@@ -2,39 +2,38 @@
 {{-- @see https://ui.shadcn.com/docs/components/aspect-ratio --}}
 
 @props([
-    'ratio' => '16/9',
+    'ratio' => 1,
     'style' => null,
     'class' => null,
 ])
 
 @php
-    [$ratioWidth, $ratioHeight] = array_pad(
-        explode('/', (string) $ratio, 2),
-        2,
-        1,
-    );
-    $ratioWidth = max(1, (float) $ratioWidth);
-    $ratioHeight = max(1, (float) $ratioHeight);
+    $aspectRatio = match (true) {
+        is_string($ratio) && str_contains($ratio, '/') => (function (string $value): string {
+            [$ratioWidth, $ratioHeight] = array_pad(explode('/', $value, 2), 2, '1');
+            $ratioWidth = max(1, (float) $ratioWidth);
+            $ratioHeight = max(1, (float) $ratioHeight);
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'relative w-full',
-    );
+            return "{$ratioWidth} / {$ratioHeight}";
+        })($ratio),
+        default => (string) $ratio,
+    };
 
     $presetAttributes = [
         'data-slot' => 'aspect-ratio',
-        'data-ratio' => $ratio,
     ];
 
     $mergedStyle = trim(
-        collect(["aspect-ratio: {$ratioWidth} / {$ratioHeight}", $style])
+        collect(["aspect-ratio: {$aspectRatio}", $style])
             ->filter()
             ->implode('; '),
     );
+
+    if (filled($mergedStyle)) {
+        $presetAttributes['style'] = $mergedStyle;
+    }
 @endphp
 
-<div {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}>
-    <div
-        class="absolute inset-0 size-full [&>img]:size-full [&>img]:object-cover [&>video]:size-full [&>video]:object-cover">
-        {{ $slot }}
-    </div>
+<div {{ $attributes->merge($presetAttributes)->class($class) }}>
+    {{ $slot }}
 </div>

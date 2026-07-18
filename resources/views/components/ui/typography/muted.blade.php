@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'text-sm text-muted-foreground',
-    );
+    $presetClass = 'text-sm text-muted-foreground';
 
     $presetAttributes = [
         'id' => $id,

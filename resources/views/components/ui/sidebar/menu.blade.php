@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex w-full min-w-0 flex-col gap-1',
-    );
+    $presetClass = 'flex w-full min-w-0 flex-col gap-1';
 
     $presetAttributes = [
         'data-slot' => 'sidebar-menu',

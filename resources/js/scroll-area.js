@@ -1,29 +1,16 @@
-type ScrollOrientation = "vertical" | "horizontal";
-
-interface ScrollAreaContext {
-    resizeObserver: ResizeObserver | null;
-    onSidebarLayout: (() => void) | null;
-    hasVerticalOverflow: boolean;
-    $refs: Record<string, HTMLElement | undefined>;
-    $nextTick(callback: () => void): void;
-    getTrack(orientation: ScrollOrientation): HTMLElement | null;
-    updateThumbs(): void;
-    updateThumb(orientation: ScrollOrientation, viewport: HTMLElement): void;
-}
-
-export function registerScrollArea(): void {
+export function registerScrollArea() {
     bladcnRegister("bladcnScrollArea", () => ({
-        resizeObserver: null as ResizeObserver | null,
-        onSidebarLayout: null as (() => void) | null,
+        resizeObserver: null,
+        onSidebarLayout: null,
         hasVerticalOverflow: false,
 
-        getTrack(this: ScrollAreaContext, orientation: ScrollOrientation) {
+        getTrack(orientation) {
             const thumb = this.$refs[`${orientation}Thumb`];
 
             return thumb?.parentElement ?? null;
         },
 
-        updateThumbs(this: ScrollAreaContext) {
+        updateThumbs() {
             const viewport = this.$refs.viewport;
 
             if (!viewport) {
@@ -36,11 +23,7 @@ export function registerScrollArea(): void {
             this.updateThumb("horizontal", viewport);
         },
 
-        updateThumb(
-            this: ScrollAreaContext,
-            orientation: ScrollOrientation,
-            viewport: HTMLElement,
-        ) {
+        updateThumb(orientation, viewport) {
             const thumb = this.$refs[`${orientation}Thumb`];
             const track = this.getTrack(orientation);
 
@@ -103,12 +86,8 @@ export function registerScrollArea(): void {
             thumb.style.transform = "";
         },
 
-        scrollByThumbPointer(
-            this: ScrollAreaContext,
-            event: PointerEvent,
-            orientation: ScrollOrientation,
-        ) {
-            if ((event.target as Element | null)?.closest('[data-slot="scroll-area-thumb"]')) {
+        scrollByThumbPointer(event, orientation) {
+            if (event.target?.closest('[data-slot="scroll-area-thumb"]')) {
                 return;
             }
 
@@ -150,11 +129,7 @@ export function registerScrollArea(): void {
             this.updateThumbs();
         },
 
-        startThumbDrag(
-            this: ScrollAreaContext,
-            event: PointerEvent,
-            orientation: ScrollOrientation,
-        ) {
+        startThumbDrag(event, orientation) {
             event.preventDefault();
             event.stopPropagation();
 
@@ -181,7 +156,7 @@ export function registerScrollArea(): void {
                     : viewport.scrollWidth - viewport.clientWidth;
             const maxThumbOffset = Math.max(trackSize - thumbSize, 0);
 
-            const onMove = (moveEvent: PointerEvent) => {
+            const onMove = (moveEvent) => {
                 if (maxThumbOffset <= 0 || maxScroll <= 0) {
                     return;
                 }
@@ -208,7 +183,7 @@ export function registerScrollArea(): void {
             document.addEventListener("pointerup", onUp);
         },
 
-        init(this: ScrollAreaContext) {
+        init() {
             this.$nextTick(() => {
                 const viewport = this.$refs.viewport;
 
@@ -241,7 +216,7 @@ export function registerScrollArea(): void {
             });
         },
 
-        destroy(this: ScrollAreaContext) {
+        destroy() {
             this.resizeObserver?.disconnect();
 
             if (this.onSidebarLayout) {

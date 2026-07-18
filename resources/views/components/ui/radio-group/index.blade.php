@@ -8,9 +8,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'grid gap-3',
-    );
+    $presetClass = 'grid gap-3';
 
     $presetAttributes = [
         'role' => 'radiogroup',

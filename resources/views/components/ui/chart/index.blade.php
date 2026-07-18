@@ -28,9 +28,7 @@
         ->filter()
         ->implode(' ');
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'relative flex aspect-video justify-center text-xs',
-    );
+    $presetClass = 'relative flex aspect-video justify-center text-xs';
 
     $presetAttributes = [
         'data-slot' => 'chart',

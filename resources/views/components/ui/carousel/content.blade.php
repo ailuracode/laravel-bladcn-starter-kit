@@ -10,31 +10,32 @@
 @php
     $userClass = trim((string) ($class ?? ''));
 
-    $viewportClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'overflow-hidden outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1',
+    $viewportClass = implode(
+        ' ',
+        array_filter([
+            'overflow-hidden outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-1',
+            preg_match('/-mt-(\[[^\]]+\]|\d+)/', $userClass, $marginMatch)
+                ? 'pt-' . $marginMatch[1]
+                : null,
+            preg_match('/-ml-(\[[^\]]+\]|\d+)/', $userClass, $marginMatch)
+                ? 'pl-' . $marginMatch[1]
+                : null,
+        ]),
     );
 
-    $trackClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add('flex');
-
-    if ($orientation === 'vertical') {
-        $trackClass->add('flex-col');
-    }
-
-    if ($orientation === 'horizontal' && !preg_match('/-ml-/', $userClass)) {
-        $trackClass->add('-ml-4');
-    }
-
-    if ($orientation === 'vertical' && !preg_match('/-mt-/', $userClass)) {
-        $trackClass->add('-mt-4');
-    }
-
-    if (preg_match('/-mt-(\[[^\]]+\]|\d+)/', $userClass, $marginMatch)) {
-        $viewportClass->add('pt-' . $marginMatch[1]);
-    }
-
-    if (preg_match('/-ml-(\[[^\]]+\]|\d+)/', $userClass, $marginMatch)) {
-        $viewportClass->add('pl-' . $marginMatch[1]);
-    }
+    $trackClass = implode(
+        ' ',
+        array_filter([
+            'flex',
+            $orientation === 'vertical' ? 'flex-col' : null,
+            $orientation === 'horizontal' && !preg_match('/-ml-/', $userClass)
+                ? '-ml-4'
+                : null,
+            $orientation === 'vertical' && !preg_match('/-mt-/', $userClass)
+                ? '-mt-4'
+                : null,
+        ]),
+    );
 @endphp
 
 <div @class($viewportClass)

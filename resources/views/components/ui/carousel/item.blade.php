@@ -10,28 +10,22 @@
 @php
     $userClass = trim((string) ($class ?? ''));
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'min-w-0 box-border shrink-0 grow-0',
+    $presetClass = implode(
+        ' ',
+        array_filter([
+            'min-w-0 box-border shrink-0 grow-0',
+            $orientation === 'vertical' ? 'min-h-0 w-full' : null,
+            !preg_match('/\bbasis-/', $userClass) ? 'basis-full' : null,
+            !preg_match(
+                '/[!]?p[trblxy]?-\d|[!]?px-\d|[!]?py-\d|[!]?p-\d/',
+                $userClass,
+            )
+                ? ($orientation === 'horizontal'
+                    ? 'pl-4'
+                    : 'pt-4')
+                : null,
+        ]),
     );
-
-    if ($orientation === 'vertical') {
-        $presetClass->add('min-h-0 w-full');
-    }
-
-    if (!preg_match('/\bbasis-/', $userClass)) {
-        $presetClass->add('basis-full');
-    }
-
-    $defaultSpacing = $orientation === 'horizontal' ? 'pl-4' : 'pt-4';
-
-    if (
-        !preg_match(
-            '/[!]?p[trblxy]?-\d|[!]?px-\d|[!]?py-\d|[!]?p-\d/',
-            $userClass,
-        )
-    ) {
-        $presetClass->add($defaultSpacing);
-    }
 
     $presetAttributes = [
         'role' => 'group',

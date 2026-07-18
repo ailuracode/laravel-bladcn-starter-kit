@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex size-9 items-center justify-center',
-    );
+    $presetClass = 'flex size-9 items-center justify-center';
 
     $presetAttributes = [
         'data-slot' => 'pagination-ellipsis',

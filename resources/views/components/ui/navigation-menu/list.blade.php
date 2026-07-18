@@ -6,9 +6,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'group flex flex-1 list-none items-center justify-center gap-1',
-    );
+    $presetClass =
+        'group flex flex-1 list-none items-center justify-center gap-1';
 
     $presetAttributes = [
         'data-slot' => 'navigation-menu-list',

@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex-1 outline-none',
-    );
+    $presetClass = 'flex-1 outline-none';
 
     $presetAttributes = [
         'role' => 'tabpanel',

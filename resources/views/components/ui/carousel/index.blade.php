@@ -10,9 +10,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'relative',
-    );
+    $presetClass = 'relative';
 
     $presetAttributes = [
         'role' => 'region',

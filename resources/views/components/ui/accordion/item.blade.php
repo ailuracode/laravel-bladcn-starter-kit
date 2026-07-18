@@ -18,14 +18,11 @@
 
     $initiallyOpen = in_array($value, $defaultOpen, true);
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'border-b last:border-b-0',
-    );
+    $presetClass = 'not-last:border-b';
 
     $presetAttributes = [
         'data-slot' => 'accordion-item',
         'data-value' => $value,
-        'data-disabled' => $disabled ? '' : null,
     ];
 
     if (filled($style)) {
@@ -33,12 +30,13 @@
     }
 @endphp
 
-<div :data-state="($store.accordion.isOpen(accordionId, @js($value)) || (
+<div x-bind:data-open="($store.accordion.isOpen(accordionId, @js($value)) || (
     @js($initiallyOpen) && !Object.hasOwn($store.accordion.groups[
-        accordionId]?.open ?? {}, @js($value)))) ? 'open' :
-'closed'"
+        accordionId]?.open ?? {}, @js($value)))) ? '' : null"
+    x-bind:data-disabled="@js((bool) $disabled) ? '' : null"
     {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}
-    data-state="{{ $initiallyOpen ? 'open' : 'closed' }}"
+    @if ($initiallyOpen) data-open @endif
+    @if ($disabled) data-disabled @endif
     x-init="$store.accordion.registerItem(accordionId, @js($value), @js((bool) $disabled))">
     {{ $slot }}
 </div>

@@ -24,8 +24,7 @@
     ];
 @endphp
 
-<x-ui.abstract :as-child="$asChild"
-    {{ $attributes->merge($presetAttributes)->merge($alpineAttributes)->class($class) }}
-    default-tag="button">
+<button
+    {{ $attributes->merge($presetAttributes)->merge($alpineAttributes)->class($class) }}>
     {{ $slot }}
-</x-ui.abstract>
+</button>

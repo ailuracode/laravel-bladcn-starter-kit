@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        '[&_tr]:border-b',
-    );
+    $presetClass = '[&_tr]:border-b';
 
     $presetAttributes = [
         'data-slot' => 'table-header',

@@ -1,4 +1,5 @@
 @blaze(fold: true)
+{{-- @see https://ui.shadcn.com/docs/components/avatar --}}
 
 @props([
     'style' => null,
@@ -6,9 +7,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background',
-    );
+    $presetClass =
+        'group/avatar-group flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background';
 
     $presetAttributes = [
         'data-slot' => 'avatar-group',

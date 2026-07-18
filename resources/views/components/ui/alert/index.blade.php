@@ -9,23 +9,19 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
-        ->add(
-            'relative grid w-full grid-cols-[0_1fr] items-start gap-y-0.5 rounded-lg border px-4 py-3 text-sm has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] has-[>svg]:gap-x-3 [&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current',
-        )
-        ->add(
-            match ($variant) {
-                'destructive'
-                    => 'bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 [&>svg]:text-current',
-                default => 'bg-card text-card-foreground',
-            },
-        );
+    $presetClass = implode(' ', [
+        'group/alert relative grid w-full gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*=\'size-\'])]:size-4',
+        match ($variant) {
+            'destructive'
+                => 'bg-card text-destructive *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current',
+            default => 'bg-card text-card-foreground',
+        },
+    ]);
 
     $presetAttributes = [
         'id' => $id,
         'role' => 'alert',
         'data-slot' => 'alert',
-        'data-variant' => $variant,
     ];
 
     if (filled($style)) {

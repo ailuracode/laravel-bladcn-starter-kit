@@ -39,9 +39,10 @@
                         ?.getAttribute('data-menu-id');
 
                     if (menuId) {
-                        for (const root of document.querySelectorAll(
-                            '[data-slot="dropdown-menu"]',
-                        )) {
+                        for (const root of document
+                                .querySelectorAll(
+                                    '[data-slot="dropdown-menu"]',
+                                )) {
                             const data = Alpine.$data(root);
 
                             if (data?.id === menuId) {
@@ -142,12 +143,14 @@
 
                 focusParentSubTrigger() {
                     const trigger = this.$refs.subTrigger;
-                    const triggerId = trigger?.dataset.menuItemId;
+                    const triggerId = trigger?.dataset
+                        .menuItemId;
                     const menu = this.resolveMenuRoot();
 
                     if (menu && triggerId) {
                         menu.highlightedItemId = triggerId;
-                        menu.$store.menu.setActiveItem(menu.id, triggerId);
+                        menu.$store.menu.setActiveItem(menu.id,
+                            triggerId);
                     }
 
                     trigger?.focus({

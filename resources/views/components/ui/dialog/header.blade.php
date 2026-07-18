@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex flex-col gap-2 text-center sm:text-left',
-    );
+    $presetClass = 'flex flex-col gap-2 text-center sm:text-left';
 
     $presetAttributes = [
         'data-slot' => 'dialog-header',

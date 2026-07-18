@@ -7,9 +7,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex size-full flex-col overflow-hidden rounded-xl! bg-popover p-1 text-popover-foreground',
-    );
+    $presetClass =
+        'flex size-full flex-col overflow-hidden rounded-xl! bg-popover p-1 text-popover-foreground';
 
     $presetAttributes = [
         'data-slot' => 'command',

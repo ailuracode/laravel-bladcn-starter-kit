@@ -7,13 +7,12 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
-        ->add('flex touch-none p-px transition-colors select-none')
-        ->add(
-            $orientation === 'horizontal'
-                ? 'absolute right-0 bottom-0 left-0 z-20 h-2.5 flex-col border-t border-t-transparent'
-                : 'absolute top-0 right-0 bottom-0 z-20 w-2.5 border-l border-l-transparent',
-        );
+    $presetClass = implode(' ', [
+        'flex touch-none p-px transition-colors select-none',
+        $orientation === 'horizontal'
+            ? 'absolute right-0 bottom-0 left-0 z-20 h-2.5 flex-col border-t border-t-transparent'
+            : 'absolute top-0 right-0 bottom-0 z-20 w-2.5 border-l border-l-transparent',
+    ]);
 
     $thumbRef =
         $orientation === 'horizontal' ? 'horizontalThumb' : 'verticalThumb';

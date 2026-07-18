@@ -1,22 +1,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-{{-- Theme: sync FOUC guard only — @ailuracode/alpine-theme owns storage, system, and $store.theme. --}}
-<script>
-    (function () {
-        const stored = localStorage.getItem('theme');
-        const mode = stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
-        const resolved = mode === 'system'
-            ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-            : mode;
-
-        document.documentElement.classList.toggle('dark', resolved === 'dark');
-        document.documentElement.style.colorScheme = resolved;
-    })();
-</script>
+@include('partials.bladcn-document-hooks')
 
 <title>
-    {{ filled($title ?? null) ? $title.' - '.config('app.name', 'Laravel') : config('app.name', 'Laravel') }}
+    {{ filled($title ?? null) ? $title . ' - ' . config('app.name', 'Laravel') : config('app.name', 'Laravel') }}
 </title>
 
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -25,8 +13,14 @@
 
 @fonts
 
-@livewireStyles
+{{-- Typography FOUC guard — apply Instrument Sans before app.css (Tailwind base) loads. --}}
+<style>
+    html {
+        font-family: var(--font-instrument-sans, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
+    }
+</style>
 
+@livewireStyles
 @livewireScriptConfig
 
-@vite(['resources/css/app.css', 'resources/js/app.ts'])
+@vite(['resources/css/app.css', 'resources/js/app.js'])

@@ -7,9 +7,7 @@
 ])
 
 @php
-    $tableClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'w-full caption-bottom text-sm',
-    );
+    $tableClass = 'w-full caption-bottom text-sm';
 
     $presetAttributes = [
         'data-slot' => 'table',

@@ -12,13 +12,13 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'group/toggle-group flex w-fit items-center rounded-md data-[spacing=default]:data-[variant=outline]:shadow-xs',
+    $presetClass = implode(
+        ' ',
+        array_filter([
+            'group/toggle-group flex w-fit items-center rounded-md data-[spacing=default]:data-[variant=outline]:shadow-xs',
+            $spacing > 0 ? 'gap-2' : null,
+        ]),
     );
-
-    if ($spacing > 0) {
-        $presetClass->add('gap-2');
-    }
 
     $presetAttributes = [
         'role' => 'group',

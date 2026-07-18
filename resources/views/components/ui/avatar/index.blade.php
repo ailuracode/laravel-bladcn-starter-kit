@@ -8,9 +8,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'group/avatar relative flex size-8 shrink-0 overflow-hidden rounded-full select-none data-[size=lg]:size-10 data-[size=sm]:size-6',
-    );
+    $presetClass =
+        'group/avatar relative flex size-8 shrink-0 rounded-full select-none data-[size=lg]:size-10 data-[size=sm]:size-6';
 
     $presetAttributes = [
         'data-slot' => 'avatar',
@@ -22,24 +21,86 @@
     }
 @endphp
 
-<div {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}
-    x-data="bladcnAvatar()">
+<div {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}>
     {{ $slot }}
 </div>
+
+{{-- FOUC: `hidden` + bladcnAvatarApplyState below — no dedicated FOUC CSS file. --}}
 @pushOnce('bladcn-scripts')
     <script>
-        bladcnOnAlpine((Alpine) => {
-            Alpine.data('bladcnAvatar', () => ({
-                showFallback: true,
+        window.bladcnAvatarApplyState = window.bladcnAvatarApplyState ?? ((img) => {
+            if (!img || img.getAttribute('data-slot') !== 'avatar-image') {
+                return;
+            }
 
-                onImageLoad() {
-                    this.showFallback = false;
-                },
+            const fallback = img.closest('[data-slot="avatar"]')?.querySelector('[data-slot="avatar-fallback"]');
 
-                onImageError() {
-                    this.showFallback = true;
-                },
-            }));
+            if (img.dataset.state === 'loaded') {
+                img.hidden = false;
+                if (fallback) {
+                    fallback.hidden = true;
+                }
+
+                return;
+            }
+
+            img.hidden = true;
+            if (fallback) {
+                fallback.hidden = false;
+            }
         });
+
+        window.bladcnAvatarSyncImage = window.bladcnAvatarSyncImage ?? ((img) => {
+            if (!img || img.getAttribute('data-slot') !== 'avatar-image') {
+                return;
+            }
+
+            if (img.dataset.state === 'loaded' || img.dataset.state === 'error') {
+                window.bladcnAvatarApplyState(img);
+
+                return;
+            }
+
+            if (img.complete && img.naturalWidth > 0) {
+                img.dataset.state = 'loaded';
+            } else if (img.complete) {
+                img.dataset.state = 'error';
+            }
+
+            window.bladcnAvatarApplyState(img);
+        });
+
+        window.bladcnAvatarBindImage = window.bladcnAvatarBindImage ?? ((img) => {
+            if (!img || img.getAttribute('data-slot') !== 'avatar-image') {
+                return;
+            }
+
+            if (img.dataset.avatarBound !== 'true') {
+                img.dataset.avatarBound = 'true';
+
+                img.addEventListener('load', () => {
+                    img.dataset.state = 'loaded';
+                    window.bladcnAvatarApplyState(img);
+                }, { once: true });
+
+                img.addEventListener('error', () => {
+                    img.dataset.state = 'error';
+                    window.bladcnAvatarApplyState(img);
+                }, { once: true });
+            }
+
+            window.bladcnAvatarSyncImage(img);
+        });
+
+        window.bladcnAvatarSyncAll = window.bladcnAvatarSyncAll ?? ((root = document) => {
+            root.querySelectorAll?.('[data-slot="avatar-image"]')?.forEach((img) => {
+                window.bladcnAvatarBindImage(img);
+            });
+        });
+
+        window.bladcnAvatarSyncAll();
+
+        document.addEventListener('DOMContentLoaded', () => window.bladcnAvatarSyncAll());
+        document.addEventListener('livewire:navigated', () => window.bladcnAvatarSyncAll());
     </script>
 @endPushOnce

@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        '[&_tr:last-child]:border-0',
-    );
+    $presetClass = '[&_tr:last-child]:border-0';
 
     $presetAttributes = [
         'data-slot' => 'table-body',

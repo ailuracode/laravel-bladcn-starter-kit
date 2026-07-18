@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        '-mx-1 my-1 h-px bg-border',
-    );
+    $presetClass = '-mx-1 my-1 h-px bg-border';
 
     $presetAttributes = [
         'role' => 'separator',

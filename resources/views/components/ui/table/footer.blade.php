@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'border-t bg-muted/50 font-medium [&>tr]:last:border-b-0',
-    );
+    $presetClass = 'border-t bg-muted/50 font-medium [&>tr]:last:border-b-0';
 
     $presetAttributes = [
         'data-slot' => 'table-footer',

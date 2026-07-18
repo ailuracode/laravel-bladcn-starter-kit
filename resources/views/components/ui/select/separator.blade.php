@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'pointer-events-none -mx-1 my-1 h-px bg-border',
-    );
+    $presetClass = 'pointer-events-none -mx-1 my-1 h-px bg-border';
 
     $presetAttributes = [
         'data-slot' => 'select-separator',

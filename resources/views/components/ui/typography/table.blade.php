@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'my-6 w-full overflow-y-auto',
-    );
+    $presetClass = 'my-6 w-full overflow-y-auto';
 
     $presetAttributes = [
         'id' => $id,

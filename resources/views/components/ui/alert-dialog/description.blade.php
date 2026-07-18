@@ -6,12 +6,11 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'text-sm text-muted-foreground',
-    );
+    $presetClass = 'text-sm text-muted-foreground';
 
     $presetAttributes = [
         'data-slot' => 'alert-dialog-description',
+        'x-bind:id' => 'id + \'-description\'',
     ];
 
     if (filled($style)) {

@@ -9,9 +9,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'group/tabs flex gap-2 data-[orientation=horizontal]:flex-col',
-    );
+    $presetClass =
+        'group/tabs flex gap-2 data-[orientation=horizontal]:flex-col';
 
     $presetAttributes = [
         'data-slot' => 'tabs',

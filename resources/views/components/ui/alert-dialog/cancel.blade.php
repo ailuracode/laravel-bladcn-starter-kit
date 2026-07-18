@@ -10,6 +10,6 @@
     :variant="$variant"
     {{ $attributes->class($class) }}
     data-slot="alert-dialog-cancel"
-    x-on:click="close()">
+    x-on:click="$store.dialog.close(id)">
     {{ $slot }}
 </x-ui.button>

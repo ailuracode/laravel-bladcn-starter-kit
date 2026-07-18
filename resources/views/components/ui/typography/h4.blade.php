@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'scroll-m-20 text-xl font-semibold tracking-tight',
-    );
+    $presetClass = 'scroll-m-20 text-xl font-semibold tracking-tight';
 
     $presetAttributes = [
         'id' => $id,

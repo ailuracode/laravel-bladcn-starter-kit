@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex min-w-0 flex-col gap-2 overflow-x-hidden p-2',
-    );
+    $presetClass = 'flex flex-col gap-2 p-2';
 
     $presetAttributes = [
         'data-slot' => 'sidebar-header',

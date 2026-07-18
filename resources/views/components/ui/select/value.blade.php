@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'line-clamp-1 flex items-center gap-2',
-    );
+    $presetClass = 'line-clamp-1 flex items-center gap-2';
 
     $presetAttributes = [
         'data-slot' => 'select-value',

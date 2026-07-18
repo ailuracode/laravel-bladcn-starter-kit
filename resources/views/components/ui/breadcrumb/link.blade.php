@@ -8,9 +8,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'transition-colors hover:text-foreground',
-    );
+    $presetClass = 'transition-colors hover:text-foreground';
 
     $presetAttributes = [
         'data-slot' => 'breadcrumb-link',
@@ -22,8 +20,6 @@
     }
 @endphp
 
-<x-ui.abstract :as-child="$asChild"
-    {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}
-    default-tag="a">
+<a {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}>
     {{ $slot }}
-</x-ui.abstract>
+</a>

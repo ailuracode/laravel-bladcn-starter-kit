@@ -13,37 +13,32 @@
 @php
     $transition = filter_var($transition, FILTER_VALIDATE_BOOLEAN);
 
-    $positionClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
-        ->add('absolute z-50 pointer-events-none')
-        ->add(
-            match ($side) {
-                'bottom' => 'top-full left-0 w-full',
-                'left'
-                    => 'right-full top-1/2 w-max max-w-none -translate-y-1/2',
-                'right'
-                    => 'left-full top-1/2 w-max max-w-none -translate-y-1/2',
-                default => 'bottom-full left-0 w-full',
+    $positionClass = implode(' ', [
+        'absolute z-50 pointer-events-none',
+        match ($side) {
+            'bottom' => 'top-full left-0 w-full',
+            'left' => 'right-full top-1/2 w-max max-w-none -translate-y-1/2',
+            'right' => 'left-full top-1/2 w-max max-w-none -translate-y-1/2',
+            default => 'bottom-full left-0 w-full',
+        },
+        match ($side) {
+            'left' => match ($align) {
+                'start' => 'flex items-start justify-end',
+                'end' => 'flex items-end justify-end',
+                default => 'flex items-center justify-end',
             },
-        )
-        ->add(
-            match ($side) {
-                'left' => match ($align) {
-                    'start' => 'flex items-start justify-end',
-                    'end' => 'flex items-end justify-end',
-                    default => 'flex items-center justify-end',
-                },
-                'right' => match ($align) {
-                    'start' => 'flex items-start justify-start',
-                    'end' => 'flex items-end justify-start',
-                    default => 'flex items-center justify-start',
-                },
-                default => match ($align) {
-                    'start' => 'flex justify-start',
-                    'end' => 'flex justify-end',
-                    default => 'flex justify-center',
-                },
+            'right' => match ($align) {
+                'start' => 'flex items-start justify-start',
+                'end' => 'flex items-end justify-start',
+                default => 'flex items-center justify-start',
             },
-        );
+            default => match ($align) {
+                'start' => 'flex justify-start',
+                'end' => 'flex justify-end',
+                default => 'flex justify-center',
+            },
+        },
+    ]);
 
     $enterStart = match ($side) {
         'bottom' => 'opacity-0 scale-95 -translate-y-1',
@@ -52,18 +47,15 @@
         default => 'opacity-0 scale-95 translate-y-1',
     };
 
-    $surfaceClass = (new \AiluraCode\Bladcn\Support\ClassResolver())
-        ->add(
-            'pointer-events-auto relative w-fit max-w-sm rounded-md bg-foreground px-3 py-1.5 text-xs whitespace-nowrap text-background',
-        )
-        ->add(
-            match ($side) {
-                'bottom' => 'origin-top',
-                'left' => 'origin-right',
-                'right' => 'origin-left',
-                default => 'origin-bottom',
-            },
-        );
+    $surfaceClass = implode(' ', [
+        'pointer-events-auto relative w-fit max-w-sm rounded-md bg-foreground px-3 py-1.5 text-xs whitespace-nowrap text-background',
+        match ($side) {
+            'bottom' => 'origin-top',
+            'left' => 'origin-right',
+            'right' => 'origin-left',
+            default => 'origin-bottom',
+        },
+    ]);
 
     // Half the arrow (size-2.5) protrudes toward the trigger; add it to the offset.
     $arrowClearance = 6;

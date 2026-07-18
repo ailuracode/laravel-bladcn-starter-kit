@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'leading-7 [&:not(:first-child)]:mt-6',
-    );
+    $presetClass = 'leading-7 [&:not(:first-child)]:mt-6';
 
     $presetAttributes = [
         'id' => $id,

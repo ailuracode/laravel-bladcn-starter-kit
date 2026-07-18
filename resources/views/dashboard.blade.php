@@ -1,301 +1,820 @@
 <x-layouts::app :title="__('Dashboard')">
-    <div class="flex h-full flex-1 flex-col gap-6 overflow-x-auto rounded-xl p-4">
-        <div>
-            <h1 class="text-2xl font-semibold tracking-tight">{{ __('Dashboard') }}</h1>
-            <p class="text-sm text-muted-foreground">
-                {{ __('Component examples powered by @ailuracode/alpinejs-toolkit.') }}
-            </p>
-        </div>
-
+    <div class="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4" x-data>
         <x-ui.card>
             <x-ui.card.header>
-                <x-ui.card.title>{{ __('Dialog') }}</x-ui.card.title>
+                <x-ui.card.title>{{ __('Alert') }}</x-ui.card.title>
                 <x-ui.card.description>
-                    {{ __('Modal overlays with focus trap, scroll lock, and keyboard dismissal via the dialog store.') }}
+                    {{ __('Examples from the official shadcn/ui alert documentation.') }}
                 </x-ui.card.description>
             </x-ui.card.header>
-            <x-ui.card.content class="flex flex-wrap gap-3">
-                {{-- Basic --}}
-                <x-ui.dialog>
-                    <x-ui.dialog.trigger>
-                        <x-ui.button variant="outline">{{ __('Open dialog') }}</x-ui.button>
-                    </x-ui.dialog.trigger>
-                    <x-ui.dialog.content>
-                        <x-ui.dialog.header>
-                            <x-ui.dialog.title>{{ __('Edit profile') }}</x-ui.dialog.title>
-                            <x-ui.dialog.description>
-                                {{ __('Make changes to your profile here. Click save when you are done.') }}
-                            </x-ui.dialog.description>
-                        </x-ui.dialog.header>
-                    </x-ui.dialog.content>
-                </x-ui.dialog>
 
-                {{-- With footer actions --}}
-                <x-ui.dialog>
-                    <x-ui.dialog.trigger>
-                        <x-ui.button>{{ __('Share link') }}</x-ui.button>
-                    </x-ui.dialog.trigger>
-                    <x-ui.dialog.content>
-                        <x-ui.dialog.header>
-                            <x-ui.dialog.title>{{ __('Share this project') }}</x-ui.dialog.title>
-                            <x-ui.dialog.description>
-                                {{ __('Anyone with the link can view this project.') }}
-                            </x-ui.dialog.description>
-                        </x-ui.dialog.header>
-                        <div class="flex items-center gap-2">
-                            <x-ui.input
-                                class="font-mono text-sm"
-                                readonly
-                                value="https://example.com/share/abc123" />
-                            <x-ui.button size="sm" variant="secondary">{{ __('Copy') }}</x-ui.button>
-                        </div>
-                        <x-ui.dialog.footer>
-                            <x-ui.dialog.close>
-                                <x-ui.button variant="outline">{{ __('Close') }}</x-ui.button>
-                            </x-ui.dialog.close>
-                            <x-ui.button>{{ __('Share') }}</x-ui.button>
-                        </x-ui.dialog.footer>
-                    </x-ui.dialog.content>
-                </x-ui.dialog>
+            <x-ui.card.content class="space-y-12">
+                <x-docs.section :label="__('Demo')">
+                    <div class="grid w-full max-w-md items-start gap-4">
+                        <x-ui.alert>
+                            <x-ui.icon name="circle-check" />
+                            <x-ui.alert.title>{{ __('Payment successful') }}</x-ui.alert.title>
+                            <x-ui.alert.description>
+                                {{ __('Your payment of $29.99 has been processed. A receipt has been sent to your email address.') }}
+                            </x-ui.alert.description>
+                        </x-ui.alert>
 
-                {{-- Explicit id + store API --}}
-                <x-ui.dialog id="dashboard-settings-dialog">
-                    <x-ui.dialog.trigger>
-                        <x-ui.button variant="secondary">{{ __('Settings') }}</x-ui.button>
-                    </x-ui.dialog.trigger>
-                    <x-ui.dialog.content :show-close-button="false">
-                        <x-ui.dialog.header>
-                            <x-ui.dialog.title>{{ __('Settings') }}</x-ui.dialog.title>
-                            <x-ui.dialog.description>
-                                {{ __('Opened with a stable id. Toggle programmatically from Alpine.') }}
-                            </x-ui.dialog.description>
-                        </x-ui.dialog.header>
-                        <x-ui.dialog.footer :show-close-button="true" />
-                    </x-ui.dialog.content>
-                </x-ui.dialog>
-
-                <x-ui.button
-                    type="button"
-                    variant="ghost"
-                    x-data
-                    x-on:click="$store.dialog.toggle('dashboard-settings-dialog')">
-                    {{ __('Toggle settings (store)') }}
-                </x-ui.button>
-            </x-ui.card.content>
-        </x-ui.card>
-
-        <x-ui.card>
-            <x-ui.card.header>
-                <x-ui.card.title>{{ __('Dropdown menu') }}</x-ui.card.title>
-                <x-ui.card.description>
-                    {{ __('Exclusive mode. ↑↓ navigate items, Enter selects, Escape closes. Submenus open with →. Content is teleported to body with fixed anchor positioning.') }}
-                </x-ui.card.description>
-            </x-ui.card.header>
-            <x-ui.card.content class="flex flex-col gap-8">
-                <div class="flex flex-wrap items-center gap-3">
-                {{-- Basic --}}
-                <x-ui.dropdown-menu id="dashboard-open-menu">
-                    <x-ui.dropdown-menu.trigger>
-                        <x-ui.button variant="outline">{{ __('Open menu') }}</x-ui.button>
-                    </x-ui.dropdown-menu.trigger>
-                    <x-ui.dropdown-menu.content class="w-48">
-                        <x-ui.dropdown-menu.label>{{ __('My account') }}</x-ui.dropdown-menu.label>
-                        <x-ui.dropdown-menu.separator />
-                        <x-ui.dropdown-menu.item>{{ __('Profile') }}</x-ui.dropdown-menu.item>
-                        <x-ui.dropdown-menu.item>{{ __('Billing') }}</x-ui.dropdown-menu.item>
-                        <x-ui.dropdown-menu.separator />
-                        <x-ui.dropdown-menu.item variant="destructive">{{ __('Delete account') }}</x-ui.dropdown-menu.item>
-                    </x-ui.dropdown-menu.content>
-                </x-ui.dropdown-menu>
-
-                {{-- With submenu --}}
-                <x-ui.dropdown-menu id="dashboard-submenu-menu">
-                    <x-ui.dropdown-menu.trigger>
-                        <x-ui.button variant="secondary">{{ __('With submenu') }}</x-ui.button>
-                    </x-ui.dropdown-menu.trigger>
-                    <x-ui.dropdown-menu.content class="w-48">
-                        <x-ui.dropdown-menu.item>{{ __('New tab') }}</x-ui.dropdown-menu.item>
-                        <x-ui.dropdown-menu.item>{{ __('New window') }}</x-ui.dropdown-menu.item>
-                        <x-ui.dropdown-menu.separator />
-                        <x-ui.dropdown-menu.sub>
-                            <x-ui.dropdown-menu.sub-trigger>{{ __('More tools') }}</x-ui.dropdown-menu.sub-trigger>
-                            <x-ui.dropdown-menu.sub-content>
-                                <x-ui.dropdown-menu.item>{{ __('Save page as…') }}</x-ui.dropdown-menu.item>
-                                <x-ui.dropdown-menu.item>{{ __('Create shortcut') }}</x-ui.dropdown-menu.item>
-                            </x-ui.dropdown-menu.sub-content>
-                        </x-ui.dropdown-menu.sub>
-                    </x-ui.dropdown-menu.content>
-                </x-ui.dropdown-menu>
-
-                {{-- Explicit id + store API --}}
-                <x-ui.dropdown-menu id="dashboard-actions-menu">
-                    <x-ui.dropdown-menu.trigger>
-                        <x-ui.button>{{ __('Actions') }}</x-ui.button>
-                    </x-ui.dropdown-menu.trigger>
-                    <x-ui.dropdown-menu.content align="end" class="w-44">
-                        <x-ui.dropdown-menu.item>{{ __('Duplicate') }}</x-ui.dropdown-menu.item>
-                        <x-ui.dropdown-menu.item>{{ __('Archive') }}</x-ui.dropdown-menu.item>
-                    </x-ui.dropdown-menu.content>
-                </x-ui.dropdown-menu>
-
-                <x-ui.button
-                    type="button"
-                    variant="ghost"
-                    x-data
-                    x-on:click="$store.menu.toggle('dashboard-actions-menu')">
-                    {{ __('Toggle actions (store)') }}
-                </x-ui.button>
-                </div>
-
-                <div class="space-y-3">
-                    <p class="text-sm font-medium">{{ __('Anchor placement') }}</p>
-                    <p class="text-sm text-muted-foreground">
-                        {{ __('Each trigger uses side + align on dropdown-menu.content. Menus are portaled to body so they are not clipped by overflow containers.') }}
-                    </p>
-                    <div class="grid min-h-64 grid-cols-3 grid-rows-3 place-items-center gap-2 rounded-lg border border-dashed p-6">
-                        @php
-                            $anchorVariants = [
-                                ['id' => 'dashboard-anchor-top-start', 'side' => 'top', 'align' => 'start', 'label' => 'top · start', 'class' => 'col-start-1 row-start-1'],
-                                ['id' => 'dashboard-anchor-top', 'side' => 'top', 'align' => 'center', 'label' => 'top · center', 'class' => 'col-start-2 row-start-1'],
-                                ['id' => 'dashboard-anchor-top-end', 'side' => 'top', 'align' => 'end', 'label' => 'top · end', 'class' => 'col-start-3 row-start-1'],
-                                ['id' => 'dashboard-anchor-left', 'side' => 'left', 'align' => 'center', 'label' => 'left · center', 'class' => 'col-start-1 row-start-2'],
-                                ['id' => 'dashboard-anchor-right', 'side' => 'right', 'align' => 'center', 'label' => 'right · center', 'class' => 'col-start-3 row-start-2'],
-                                ['id' => 'dashboard-anchor-bottom-start', 'side' => 'bottom', 'align' => 'start', 'label' => 'bottom · start', 'class' => 'col-start-1 row-start-3'],
-                                ['id' => 'dashboard-anchor-bottom', 'side' => 'bottom', 'align' => 'center', 'label' => 'bottom · center', 'class' => 'col-start-2 row-start-3'],
-                                ['id' => 'dashboard-anchor-bottom-end', 'side' => 'bottom', 'align' => 'end', 'label' => 'bottom · end', 'class' => 'col-start-3 row-start-3'],
-                            ];
-                        @endphp
-
-                        @foreach ($anchorVariants as $variant)
-                            <x-ui.dropdown-menu
-                                id="{{ $variant['id'] }}"
-                                class="{{ $variant['class'] }}"
-                            >
-                                <x-ui.dropdown-menu.trigger>
-                                    <x-ui.button size="sm" variant="outline">{{ $variant['label'] }}</x-ui.button>
-                                </x-ui.dropdown-menu.trigger>
-                                <x-ui.dropdown-menu.content
-                                    :side="$variant['side']"
-                                    :align="$variant['align']"
-                                    class="w-44"
-                                >
-                                    <x-ui.dropdown-menu.label>{{ $variant['label'] }}</x-ui.dropdown-menu.label>
-                                    <x-ui.dropdown-menu.separator />
-                                    <x-ui.dropdown-menu.item>{{ __('Action one') }}</x-ui.dropdown-menu.item>
-                                    <x-ui.dropdown-menu.item>{{ __('Action two') }}</x-ui.dropdown-menu.item>
-                                    <x-ui.dropdown-menu.separator />
-                                    <x-ui.dropdown-menu.item variant="destructive">{{ __('Remove') }}</x-ui.dropdown-menu.item>
-                                </x-ui.dropdown-menu.content>
-                            </x-ui.dropdown-menu>
-                        @endforeach
-
-                        <span class="col-start-2 row-start-2 text-xs text-muted-foreground">{{ __('trigger grid') }}</span>
+                        <x-ui.alert>
+                            <x-ui.icon name="info" />
+                            <x-ui.alert.title>{{ __('New feature available') }}</x-ui.alert.title>
+                            <x-ui.alert.description>
+                                {{ __('We\'ve added dark mode support. You can enable it in your account settings.') }}
+                            </x-ui.alert.description>
+                        </x-ui.alert>
                     </div>
-                </div>
+                </x-docs.section>
 
-                <div class="space-y-3">
-                    <p class="text-sm font-medium">{{ __('Side offset') }}</p>
-                    <div class="flex flex-wrap items-center gap-3">
-                        @foreach ([0, 4, 12, 24] as $offset)
-                            <x-ui.dropdown-menu id="dashboard-anchor-offset-{{ $offset }}">
-                                <x-ui.dropdown-menu.trigger>
-                                    <x-ui.button size="sm" variant="secondary">{{ __('offset :px', ['px' => $offset]) }}</x-ui.button>
-                                </x-ui.dropdown-menu.trigger>
-                                <x-ui.dropdown-menu.content
-                                    side="bottom"
-                                    align="start"
-                                    :side-offset="$offset"
-                                    class="w-40"
-                                >
-                                    <x-ui.dropdown-menu.label>{{ __('sideOffset = :px', ['px' => $offset]) }}</x-ui.dropdown-menu.label>
-                                    <x-ui.dropdown-menu.separator />
-                                    <x-ui.dropdown-menu.item>{{ __('Option A') }}</x-ui.dropdown-menu.item>
-                                    <x-ui.dropdown-menu.item>{{ __('Option B') }}</x-ui.dropdown-menu.item>
-                                </x-ui.dropdown-menu.content>
-                            </x-ui.dropdown-menu>
-                        @endforeach
+                <x-docs.section :label="__('Basic')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('A basic alert with an icon, title and description.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.alert class="max-w-md">
+                        <x-ui.icon name="circle-check" />
+                        <x-ui.alert.title>{{ __('Account updated successfully') }}</x-ui.alert.title>
+                        <x-ui.alert.description>
+                            {{ __('Your profile information has been saved. Changes will be reflected immediately.') }}
+                        </x-ui.alert.description>
+                    </x-ui.alert>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Destructive')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use variant="destructive" to create a destructive alert.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.alert variant="destructive" class="max-w-md">
+                        <x-ui.icon name="circle-alert" />
+                        <x-ui.alert.title>{{ __('Payment failed') }}</x-ui.alert.title>
+                        <x-ui.alert.description>
+                            {{ __('Your payment could not be processed. Please check your payment method and try again.') }}
+                        </x-ui.alert.description>
+                    </x-ui.alert>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Action')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use AlertAction to add a button or other action element to the alert.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.alert class="max-w-md">
+                        <x-ui.alert.title>{{ __('Dark mode is now available') }}</x-ui.alert.title>
+                        <x-ui.alert.description>
+                            {{ __('Enable it under your profile settings to get started.') }}
+                        </x-ui.alert.description>
+                        <x-ui.alert.action>
+                            <x-ui.button size="xs">{{ __('Enable') }}</x-ui.button>
+                        </x-ui.alert.action>
+                    </x-ui.alert>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Custom Colors')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('You can customize the alert colors by adding custom classes such as bg-amber-50 dark:bg-amber-950 to the Alert component.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.alert
+                        class="max-w-md border-amber-200 bg-amber-50 text-amber-900 dark:border-amber-900 dark:bg-amber-950 dark:text-amber-50"
+                    >
+                        <x-ui.icon name="triangle-alert" />
+                        <x-ui.alert.title>{{ __('Your subscription will expire in 3 days.') }}</x-ui.alert.title>
+                        <x-ui.alert.description>
+                            {{ __('Renew now to avoid service interruption or upgrade to a paid plan to continue using the service.') }}
+                        </x-ui.alert.description>
+                    </x-ui.alert>
+                </x-docs.section>
+
+                <x-docs.section :label="__('RTL')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Right-to-left layout with Arabic content.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="grid w-full max-w-md items-start gap-4" dir="rtl">
+                        <x-ui.alert>
+                            <x-ui.icon name="circle-check" />
+                            <x-ui.alert.title>تم الدفع بنجاح</x-ui.alert.title>
+                            <x-ui.alert.description>
+                                تمت معالجة دفعتك البالغة 29.99 دولارًا. تم إرسال إيصال إلى عنوان بريدك الإلكتروني.
+                            </x-ui.alert.description>
+                        </x-ui.alert>
+
+                        <x-ui.alert>
+                            <x-ui.icon name="info" />
+                            <x-ui.alert.title>ميزة جديدة متاحة</x-ui.alert.title>
+                            <x-ui.alert.description>
+                                لقد أضفنا دعم الوضع الداكن. يمكنك تفعيله في إعدادات حسابك.
+                            </x-ui.alert.description>
+                        </x-ui.alert>
                     </div>
-                </div>
+                </x-docs.section>
             </x-ui.card.content>
         </x-ui.card>
 
         <x-ui.card>
             <x-ui.card.header>
-                <x-ui.card.title>{{ __('Context menu') }}</x-ui.card.title>
+                <x-ui.card.title>{{ __('Alert Dialog') }}</x-ui.card.title>
                 <x-ui.card.description>
-                    {{ __('Right-click to open. Uses the same menu store with cursor anchoring.') }}
+                    {{ __('Examples from the official shadcn/ui alert-dialog documentation.') }}
                 </x-ui.card.description>
             </x-ui.card.header>
-            <x-ui.card.content>
-                <x-ui.context-menu>
-                    <x-ui.context-menu.trigger>
-                        <div
-                            class="flex h-32 w-full items-center justify-center rounded-lg border border-dashed text-sm text-muted-foreground">
-                            {{ __('Right click here') }}
-                        </div>
-                    </x-ui.context-menu.trigger>
-                    <x-ui.context-menu.content class="w-48">
-                        <x-ui.context-menu.item>{{ __('Back') }}</x-ui.context-menu.item>
-                        <x-ui.context-menu.item disabled>{{ __('Forward') }}</x-ui.context-menu.item>
-                        <x-ui.context-menu.item>{{ __('Reload') }}</x-ui.context-menu.item>
-                        <x-ui.context-menu.separator />
-                        <x-ui.context-menu.item>{{ __('Inspect') }}</x-ui.context-menu.item>
-                    </x-ui.context-menu.content>
-                </x-ui.context-menu>
+
+            <x-ui.card.content class="space-y-12">
+                <x-docs.section :label="__('Demo')">
+                    <x-ui.alert-dialog>
+                        <x-ui.alert-dialog.trigger variant="outline">
+                            {{ __('Show Dialog') }}
+                        </x-ui.alert-dialog.trigger>
+                        <x-ui.alert-dialog.content>
+                            <x-ui.alert-dialog.header>
+                                <x-ui.alert-dialog.title>{{ __('Are you absolutely sure?') }}</x-ui.alert-dialog.title>
+                                <x-ui.alert-dialog.description>
+                                    {{ __('This action cannot be undone. This will permanently delete your account and remove your data from our servers.') }}
+                                </x-ui.alert-dialog.description>
+                            </x-ui.alert-dialog.header>
+                            <x-ui.alert-dialog.footer>
+                                <x-ui.alert-dialog.cancel>{{ __('Cancel') }}</x-ui.alert-dialog.cancel>
+                                <x-ui.alert-dialog.action>{{ __('Continue') }}</x-ui.alert-dialog.action>
+                            </x-ui.alert-dialog.footer>
+                        </x-ui.alert-dialog.content>
+                    </x-ui.alert-dialog>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Basic')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('A basic alert dialog with a title, description, and cancel and continue buttons.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.alert-dialog>
+                        <x-ui.alert-dialog.trigger variant="outline">
+                            {{ __('Show Dialog') }}
+                        </x-ui.alert-dialog.trigger>
+                        <x-ui.alert-dialog.content>
+                            <x-ui.alert-dialog.header>
+                                <x-ui.alert-dialog.title>{{ __('Are you absolutely sure?') }}</x-ui.alert-dialog.title>
+                                <x-ui.alert-dialog.description>
+                                    {{ __('This action cannot be undone. This will permanently delete your account and remove your data from our servers.') }}
+                                </x-ui.alert-dialog.description>
+                            </x-ui.alert-dialog.header>
+                            <x-ui.alert-dialog.footer>
+                                <x-ui.alert-dialog.cancel>{{ __('Cancel') }}</x-ui.alert-dialog.cancel>
+                                <x-ui.alert-dialog.action>{{ __('Continue') }}</x-ui.alert-dialog.action>
+                            </x-ui.alert-dialog.footer>
+                        </x-ui.alert-dialog.content>
+                    </x-ui.alert-dialog>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Small')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use size="sm" on AlertDialogContent for a compact dialog.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.alert-dialog>
+                        <x-ui.alert-dialog.trigger variant="outline">
+                            {{ __('Show Dialog') }}
+                        </x-ui.alert-dialog.trigger>
+                        <x-ui.alert-dialog.content size="sm">
+                            <x-ui.alert-dialog.header>
+                                <x-ui.alert-dialog.title>{{ __('Allow accessory to connect?') }}</x-ui.alert-dialog.title>
+                                <x-ui.alert-dialog.description>
+                                    {{ __('Do you want to allow the USB accessory to connect to this device?') }}
+                                </x-ui.alert-dialog.description>
+                            </x-ui.alert-dialog.header>
+                            <x-ui.alert-dialog.footer>
+                                <x-ui.alert-dialog.cancel>{{ __('Don\'t allow') }}</x-ui.alert-dialog.cancel>
+                                <x-ui.alert-dialog.action>{{ __('Allow') }}</x-ui.alert-dialog.action>
+                            </x-ui.alert-dialog.footer>
+                        </x-ui.alert-dialog.content>
+                    </x-ui.alert-dialog>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Media')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Add an icon or image with AlertDialogMedia.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.alert-dialog>
+                        <x-ui.alert-dialog.trigger variant="outline">
+                            {{ __('Show Dialog') }}
+                        </x-ui.alert-dialog.trigger>
+                        <x-ui.alert-dialog.content>
+                            <x-ui.alert-dialog.header>
+                                <x-ui.alert-dialog.media>
+                                    <x-ui.icon name="circle-fading-plus" class="size-8" aria-hidden="true" />
+                                </x-ui.alert-dialog.media>
+                                <x-ui.alert-dialog.title>{{ __('Share this project?') }}</x-ui.alert-dialog.title>
+                                <x-ui.alert-dialog.description>
+                                    {{ __('Anyone with the link will be able to view and edit this project.') }}
+                                </x-ui.alert-dialog.description>
+                            </x-ui.alert-dialog.header>
+                            <x-ui.alert-dialog.footer>
+                                <x-ui.alert-dialog.cancel>{{ __('Cancel') }}</x-ui.alert-dialog.cancel>
+                                <x-ui.alert-dialog.action>{{ __('Share') }}</x-ui.alert-dialog.action>
+                            </x-ui.alert-dialog.footer>
+                        </x-ui.alert-dialog.content>
+                    </x-ui.alert-dialog>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Small with Media')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Combine size="sm" with AlertDialogMedia for a compact dialog with an icon.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.alert-dialog>
+                        <x-ui.alert-dialog.trigger variant="outline">
+                            {{ __('Show Dialog') }}
+                        </x-ui.alert-dialog.trigger>
+                        <x-ui.alert-dialog.content size="sm">
+                            <x-ui.alert-dialog.header>
+                                <x-ui.alert-dialog.media>
+                                    <x-ui.icon name="bluetooth" class="size-8" aria-hidden="true" />
+                                </x-ui.alert-dialog.media>
+                                <x-ui.alert-dialog.title>{{ __('Allow accessory to connect?') }}</x-ui.alert-dialog.title>
+                                <x-ui.alert-dialog.description>
+                                    {{ __('Do you want to allow the USB accessory to connect to this device?') }}
+                                </x-ui.alert-dialog.description>
+                            </x-ui.alert-dialog.header>
+                            <x-ui.alert-dialog.footer>
+                                <x-ui.alert-dialog.cancel>{{ __('Don\'t allow') }}</x-ui.alert-dialog.cancel>
+                                <x-ui.alert-dialog.action>{{ __('Allow') }}</x-ui.alert-dialog.action>
+                            </x-ui.alert-dialog.footer>
+                        </x-ui.alert-dialog.content>
+                    </x-ui.alert-dialog>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Destructive')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use variant="destructive" on AlertDialogAction for destructive actions.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.alert-dialog>
+                        <x-ui.alert-dialog.trigger variant="destructive">
+                            {{ __('Delete Chat') }}
+                        </x-ui.alert-dialog.trigger>
+                        <x-ui.alert-dialog.content size="sm">
+                            <x-ui.alert-dialog.header>
+                                <x-ui.alert-dialog.media
+                                    class="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive"
+                                >
+                                    <x-ui.icon name="trash-2" class="size-8" aria-hidden="true" />
+                                </x-ui.alert-dialog.media>
+                                <x-ui.alert-dialog.title>{{ __('Delete chat?') }}</x-ui.alert-dialog.title>
+                                <x-ui.alert-dialog.description>
+                                    {{ __('This will permanently delete this chat and all of its messages. This action cannot be undone.') }}
+                                </x-ui.alert-dialog.description>
+                            </x-ui.alert-dialog.header>
+                            <x-ui.alert-dialog.footer>
+                                <x-ui.alert-dialog.cancel variant="outline">{{ __('Cancel') }}</x-ui.alert-dialog.cancel>
+                                <x-ui.alert-dialog.action variant="destructive">{{ __('Delete') }}</x-ui.alert-dialog.action>
+                            </x-ui.alert-dialog.footer>
+                        </x-ui.alert-dialog.content>
+                    </x-ui.alert-dialog>
+                </x-docs.section>
+
+                <x-docs.section :label="__('RTL')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Right-to-left layout with Arabic and Hebrew content.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="grid w-full max-w-md items-start gap-4" dir="rtl">
+                        <x-ui.alert-dialog>
+                            <x-ui.alert-dialog.trigger variant="outline">
+                                عرض الحوار
+                            </x-ui.alert-dialog.trigger>
+                            <x-ui.alert-dialog.content dir="rtl">
+                                <x-ui.alert-dialog.header>
+                                    <x-ui.alert-dialog.title>هل أنت متأكد تمامًا؟</x-ui.alert-dialog.title>
+                                    <x-ui.alert-dialog.description>
+                                        لا يمكن التراجع عن هذا الإجراء. سيؤدي هذا إلى حذف حسابك نهائيًا وإزالة بياناتك من خوادمنا.
+                                    </x-ui.alert-dialog.description>
+                                </x-ui.alert-dialog.header>
+                                <x-ui.alert-dialog.footer>
+                                    <x-ui.alert-dialog.cancel>إلغاء</x-ui.alert-dialog.cancel>
+                                    <x-ui.alert-dialog.action>متابعة</x-ui.alert-dialog.action>
+                                </x-ui.alert-dialog.footer>
+                            </x-ui.alert-dialog.content>
+                        </x-ui.alert-dialog>
+
+                        <x-ui.alert-dialog>
+                            <x-ui.alert-dialog.trigger variant="outline">
+                                הצג דיאלוג
+                            </x-ui.alert-dialog.trigger>
+                            <x-ui.alert-dialog.content size="sm" dir="rtl">
+                                <x-ui.alert-dialog.header>
+                                    <x-ui.alert-dialog.media>
+                                        <x-ui.icon name="bluetooth" class="size-8" aria-hidden="true" />
+                                    </x-ui.alert-dialog.media>
+                                    <x-ui.alert-dialog.title>לאפשר לתקן להתחבר?</x-ui.alert-dialog.title>
+                                    <x-ui.alert-dialog.description>
+                                        האם ברצונך לאפשר לתקן USB להתחבר למכשיר זה?
+                                    </x-ui.alert-dialog.description>
+                                </x-ui.alert-dialog.header>
+                                <x-ui.alert-dialog.footer>
+                                    <x-ui.alert-dialog.cancel>לא לאפשר</x-ui.alert-dialog.cancel>
+                                    <x-ui.alert-dialog.action>לאפשר</x-ui.alert-dialog.action>
+                                </x-ui.alert-dialog.footer>
+                            </x-ui.alert-dialog.content>
+                        </x-ui.alert-dialog>
+                    </div>
+                </x-docs.section>
             </x-ui.card.content>
         </x-ui.card>
 
         <x-ui.card>
             <x-ui.card.header>
-                <x-ui.card.title>{{ __('Menubar') }}</x-ui.card.title>
+                <x-ui.card.title>{{ __('Avatar') }}</x-ui.card.title>
                 <x-ui.card.description>
-                    {{ __('Horizontal menu bar. Each top-level item registers a separate menu instance in the store.') }}
+                    {{ __('Examples from the official shadcn/ui avatar documentation.') }}
                 </x-ui.card.description>
             </x-ui.card.header>
-            <x-ui.card.content>
-                <x-ui.menubar id="dashboard-menubar">
-                    <x-ui.menubar.menu value="file">
-                        <x-ui.menubar.trigger>{{ __('File') }}</x-ui.menubar.trigger>
-                        <x-ui.menubar.content>
-                            <x-ui.menubar.item>{{ __('New tab') }}</x-ui.menubar.item>
-                            <x-ui.menubar.item>{{ __('New window') }}</x-ui.menubar.item>
-                            <x-ui.menubar.separator />
-                            <x-ui.menubar.item>{{ __('Print') }}</x-ui.menubar.item>
-                        </x-ui.menubar.content>
-                    </x-ui.menubar.menu>
-                    <x-ui.menubar.menu value="edit">
-                        <x-ui.menubar.trigger>{{ __('Edit') }}</x-ui.menubar.trigger>
-                        <x-ui.menubar.content>
-                            <x-ui.menubar.item>{{ __('Undo') }}</x-ui.menubar.item>
-                            <x-ui.menubar.item>{{ __('Redo') }}</x-ui.menubar.item>
-                            <x-ui.menubar.separator />
-                            <x-ui.menubar.item>{{ __('Cut') }}</x-ui.menubar.item>
-                            <x-ui.menubar.item>{{ __('Copy') }}</x-ui.menubar.item>
-                            <x-ui.menubar.item>{{ __('Paste') }}</x-ui.menubar.item>
-                        </x-ui.menubar.content>
-                    </x-ui.menubar.menu>
-                    <x-ui.menubar.menu value="view">
-                        <x-ui.menubar.trigger>{{ __('View') }}</x-ui.menubar.trigger>
-                        <x-ui.menubar.content>
-                            <x-ui.menubar.item>{{ __('Zoom in') }}</x-ui.menubar.item>
-                            <x-ui.menubar.item>{{ __('Zoom out') }}</x-ui.menubar.item>
-                            <x-ui.menubar.separator />
-                            <x-ui.menubar.item>{{ __('Full screen') }}</x-ui.menubar.item>
-                        </x-ui.menubar.content>
-                    </x-ui.menubar.menu>
-                </x-ui.menubar>
+
+            <x-ui.card.content class="space-y-12">
+                <x-docs.section :label="__('Demo')">
+                    <div class="flex flex-row flex-wrap items-center gap-6 md:gap-12">
+                        <x-ui.avatar>
+                            <x-ui.avatar.image
+                                src="https://github.com/shadcn.png"
+                                alt="@shadcn"
+                                class="grayscale"
+                            />
+                            <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+
+                        <x-ui.avatar>
+                            <x-ui.avatar.image
+                                src="https://github.com/evilrabbit.png"
+                                alt="@evilrabbit"
+                            />
+                            <x-ui.avatar.fallback>ER</x-ui.avatar.fallback>
+                            <x-ui.avatar.badge class="bg-green-600 dark:bg-green-800" />
+                        </x-ui.avatar>
+
+                        <x-ui.avatar.group class="grayscale">
+                            <x-ui.avatar>
+                                <x-ui.avatar.image src="https://github.com/shadcn.png" alt="@shadcn" />
+                                <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                            </x-ui.avatar>
+                            <x-ui.avatar>
+                                <x-ui.avatar.image src="https://github.com/maxleiter.png" alt="@maxleiter" />
+                                <x-ui.avatar.fallback>LR</x-ui.avatar.fallback>
+                            </x-ui.avatar>
+                            <x-ui.avatar>
+                                <x-ui.avatar.image src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+                                <x-ui.avatar.fallback>ER</x-ui.avatar.fallback>
+                            </x-ui.avatar>
+                            <x-ui.avatar.group-count>+3</x-ui.avatar.group-count>
+                        </x-ui.avatar.group>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Basic')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('A basic avatar component with an image and a fallback.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.avatar>
+                        <x-ui.avatar.image
+                            src="https://github.com/shadcn.png"
+                            alt="@shadcn"
+                            class="grayscale"
+                        />
+                        <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                    </x-ui.avatar>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Badge')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use the AvatarBadge component to add a badge to the avatar. The badge is positioned at the bottom right of the avatar.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.avatar>
+                        <x-ui.avatar.image src="https://github.com/shadcn.png" alt="@shadcn" />
+                        <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                        <x-ui.avatar.badge class="bg-green-600 dark:bg-green-800" />
+                    </x-ui.avatar>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Badge with Icon')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('You can also use an icon inside AvatarBadge.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.avatar class="grayscale">
+                        <x-ui.avatar.image src="https://github.com/pranathip.png" alt="@pranathip" />
+                        <x-ui.avatar.fallback>PP</x-ui.avatar.fallback>
+                        <x-ui.avatar.badge>
+                            <x-ui.icon name="plus" aria-hidden="true" />
+                        </x-ui.avatar.badge>
+                    </x-ui.avatar>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Avatar Group')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use the AvatarGroup component to add a group of avatars.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.avatar.group class="grayscale">
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/shadcn.png" alt="@shadcn" />
+                            <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/maxleiter.png" alt="@maxleiter" />
+                            <x-ui.avatar.fallback>LR</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+                            <x-ui.avatar.fallback>ER</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                    </x-ui.avatar.group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Avatar Group Count')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use AvatarGroupCount to add a count to the group.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.avatar.group class="grayscale">
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/shadcn.png" alt="@shadcn" />
+                            <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/maxleiter.png" alt="@maxleiter" />
+                            <x-ui.avatar.fallback>LR</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+                            <x-ui.avatar.fallback>ER</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar.group-count>+3</x-ui.avatar.group-count>
+                    </x-ui.avatar.group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Avatar Group with Icon')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('You can also use an icon inside AvatarGroupCount.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.avatar.group class="grayscale">
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/shadcn.png" alt="@shadcn" />
+                            <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/maxleiter.png" alt="@maxleiter" />
+                            <x-ui.avatar.fallback>LR</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+                            <x-ui.avatar.fallback>ER</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar.group-count>
+                            <x-ui.icon name="plus" aria-hidden="true" />
+                        </x-ui.avatar.group-count>
+                    </x-ui.avatar.group>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Sizes')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use the size prop to change the size of the avatar.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-wrap items-center gap-2 grayscale">
+                        <x-ui.avatar size="sm">
+                            <x-ui.avatar.image src="https://github.com/shadcn.png" alt="@shadcn" />
+                            <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/shadcn.png" alt="@shadcn" />
+                            <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                        <x-ui.avatar size="lg">
+                            <x-ui.avatar.image src="https://github.com/shadcn.png" alt="@shadcn" />
+                            <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Dropdown')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('You can use the Avatar component as a trigger for a dropdown menu.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.dropdown-menu>
+                        <x-ui.dropdown-menu.trigger
+                            class="[&>button]:inline-flex [&>button]:size-8 [&>button]:rounded-full [&>button]:border-transparent [&>button]:bg-transparent [&>button]:p-0 [&>button]:shadow-none [&>button]:hover:bg-muted [&>button]:focus-visible:ring-3 [&>button]:focus-visible:ring-ring/50"
+                        >
+                            <x-ui.avatar>
+                                <x-ui.avatar.image src="https://github.com/shadcn.png" alt="shadcn" />
+                                <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                            </x-ui.avatar>
+                        </x-ui.dropdown-menu.trigger>
+                        <x-ui.dropdown-menu.content class="w-32">
+                            <x-ui.dropdown-menu.group>
+                                <x-ui.dropdown-menu.item>{{ __('Profile') }}</x-ui.dropdown-menu.item>
+                                <x-ui.dropdown-menu.item>{{ __('Billing') }}</x-ui.dropdown-menu.item>
+                                <x-ui.dropdown-menu.item>{{ __('Settings') }}</x-ui.dropdown-menu.item>
+                            </x-ui.dropdown-menu.group>
+                            <x-ui.dropdown-menu.separator />
+                            <x-ui.dropdown-menu.group>
+                                <x-ui.dropdown-menu.item variant="destructive">{{ __('Log out') }}</x-ui.dropdown-menu.item>
+                            </x-ui.dropdown-menu.group>
+                        </x-ui.dropdown-menu.content>
+                    </x-ui.dropdown-menu>
+                </x-docs.section>
+
+                <x-docs.section :label="__('RTL')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Right-to-left layout with Arabic content.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-row flex-wrap items-center gap-6 md:gap-12" dir="rtl">
+                        <x-ui.avatar>
+                            <x-ui.avatar.image
+                                src="https://github.com/shadcn.png"
+                                alt="@shadcn"
+                                class="grayscale"
+                            />
+                            <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                        </x-ui.avatar>
+
+                        <x-ui.avatar>
+                            <x-ui.avatar.image src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+                            <x-ui.avatar.fallback>ER</x-ui.avatar.fallback>
+                            <x-ui.avatar.badge class="bg-green-600 dark:bg-green-800" />
+                        </x-ui.avatar>
+
+                        <x-ui.avatar.group class="grayscale">
+                            <x-ui.avatar>
+                                <x-ui.avatar.image src="https://github.com/shadcn.png" alt="@shadcn" />
+                                <x-ui.avatar.fallback>CN</x-ui.avatar.fallback>
+                            </x-ui.avatar>
+                            <x-ui.avatar>
+                                <x-ui.avatar.image src="https://github.com/maxleiter.png" alt="@maxleiter" />
+                                <x-ui.avatar.fallback>LR</x-ui.avatar.fallback>
+                            </x-ui.avatar>
+                            <x-ui.avatar>
+                                <x-ui.avatar.image src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+                                <x-ui.avatar.fallback>ER</x-ui.avatar.fallback>
+                            </x-ui.avatar>
+                            <x-ui.avatar.group-count>+٣</x-ui.avatar.group-count>
+                        </x-ui.avatar.group>
+                    </div>
+                </x-docs.section>
             </x-ui.card.content>
         </x-ui.card>
 
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            @foreach (range(1, 3) as $index)
-                <div class="relative aspect-video overflow-hidden rounded-xl border border-sidebar-border/70 dark:border-sidebar-border">
-                    <x-placeholder-pattern class="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-                </div>
-            @endforeach
-        </div>
-        <div class="relative min-h-[40vh] flex-1 overflow-hidden rounded-xl border border-sidebar-border/70 md:min-h-min dark:border-sidebar-border">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-neutral-900/20 dark:stroke-neutral-100/20" />
-        </div>
+        <x-ui.card>
+            <x-ui.card.header>
+                <x-ui.card.title>{{ __('Badge') }}</x-ui.card.title>
+                <x-ui.card.description>
+                    {{ __('Examples from the official shadcn/ui badge documentation.') }}
+                </x-ui.card.description>
+            </x-ui.card.header>
+
+            <x-ui.card.content class="space-y-12">
+                <x-docs.section :label="__('Demo')">
+                    <div class="flex w-full flex-wrap justify-center gap-2">
+                        <x-ui.badge>{{ __('Badge') }}</x-ui.badge>
+                        <x-ui.badge variant="secondary">{{ __('Secondary') }}</x-ui.badge>
+                        <x-ui.badge variant="destructive">{{ __('Destructive') }}</x-ui.badge>
+                        <x-ui.badge variant="outline">{{ __('Outline') }}</x-ui.badge>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Variants')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use the variant prop to change the variant of the badge.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-wrap gap-2">
+                        <x-ui.badge>{{ __('Default') }}</x-ui.badge>
+                        <x-ui.badge variant="secondary">{{ __('Secondary') }}</x-ui.badge>
+                        <x-ui.badge variant="destructive">{{ __('Destructive') }}</x-ui.badge>
+                        <x-ui.badge variant="outline">{{ __('Outline') }}</x-ui.badge>
+                        <x-ui.badge variant="ghost">{{ __('Ghost') }}</x-ui.badge>
+                        <x-ui.badge variant="link">{{ __('Link') }}</x-ui.badge>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('With Icon')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('You can render an icon inside the badge. Use data-icon="inline-start" to render the icon on the left and data-icon="inline-end" to render the icon on the right.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-wrap gap-2">
+                        <x-ui.badge variant="secondary">
+                            <x-ui.icon name="badge-check" data-icon="inline-start" aria-hidden="true" />
+                            {{ __('Verified') }}
+                        </x-ui.badge>
+                        <x-ui.badge variant="outline">
+                            {{ __('Bookmark') }}
+                            <x-ui.icon name="bookmark" data-icon="inline-end" aria-hidden="true" />
+                        </x-ui.badge>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('With Spinner')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('You can render a spinner inside the badge. Remember to add the data-icon="inline-start" or data-icon="inline-end" prop to the spinner.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-wrap gap-2">
+                        <x-ui.badge variant="destructive">
+                            <x-ui.spinner data-icon="inline-start" />
+                            {{ __('Deleting') }}
+                        </x-ui.badge>
+                        <x-ui.badge variant="secondary">
+                            {{ __('Generating') }}
+                            <x-ui.spinner data-icon="inline-end" />
+                        </x-ui.badge>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Link')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use asChild to render a link as a badge.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.badge asChild>
+                        <a href="#link">
+                            {{ __('Open Link') }}
+                            <x-ui.icon name="arrow-up-right" data-icon="inline-end" aria-hidden="true" />
+                        </a>
+                    </x-ui.badge>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Custom Colors')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('You can customize the colors of a badge by adding custom classes such as bg-green-50 dark:bg-green-950 to the Badge component.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex flex-wrap gap-2">
+                        <x-ui.badge class="bg-blue-50 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                            {{ __('Blue') }}
+                        </x-ui.badge>
+                        <x-ui.badge class="bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300">
+                            {{ __('Green') }}
+                        </x-ui.badge>
+                        <x-ui.badge class="bg-sky-50 text-sky-700 dark:bg-sky-950 dark:text-sky-300">
+                            {{ __('Sky') }}
+                        </x-ui.badge>
+                        <x-ui.badge class="bg-purple-50 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
+                            {{ __('Purple') }}
+                        </x-ui.badge>
+                        <x-ui.badge class="bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300">
+                            {{ __('Red') }}
+                        </x-ui.badge>
+                    </div>
+                </x-docs.section>
+
+                <x-docs.section :label="__('RTL')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Right-to-left layout with Arabic and Hebrew content.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="flex w-full flex-wrap justify-center gap-2" dir="rtl">
+                        <x-ui.badge>شارة</x-ui.badge>
+                        <x-ui.badge variant="secondary">ثانوي</x-ui.badge>
+                        <x-ui.badge variant="destructive">مدمر</x-ui.badge>
+                        <x-ui.badge variant="outline">مخطط</x-ui.badge>
+                        <x-ui.badge variant="secondary">
+                            <x-ui.icon name="badge-check" data-icon="inline-start" aria-hidden="true" />
+                            متحقق
+                        </x-ui.badge>
+                        <x-ui.badge variant="outline">
+                            إشارة مرجعية
+                            <x-ui.icon name="bookmark" data-icon="inline-end" aria-hidden="true" />
+                        </x-ui.badge>
+                    </div>
+
+                    <div class="flex w-full flex-wrap justify-center gap-2" dir="rtl">
+                        <x-ui.badge>תג</x-ui.badge>
+                        <x-ui.badge variant="secondary">משני</x-ui.badge>
+                        <x-ui.badge variant="destructive">הרסני</x-ui.badge>
+                        <x-ui.badge variant="outline">קווי מתאר</x-ui.badge>
+                        <x-ui.badge variant="secondary">
+                            <x-ui.icon name="badge-check" data-icon="inline-start" aria-hidden="true" />
+                            מאומת
+                        </x-ui.badge>
+                        <x-ui.badge variant="outline">
+                            סימנייה
+                            <x-ui.icon name="bookmark" data-icon="inline-end" aria-hidden="true" />
+                        </x-ui.badge>
+                    </div>
+                </x-docs.section>
+            </x-ui.card.content>
+        </x-ui.card>
+
+        <x-ui.card>
+            <x-ui.card.header>
+                <x-ui.card.title>{{ __('Aspect Ratio') }}</x-ui.card.title>
+                <x-ui.card.description>
+                    {{ __('Examples from the official shadcn/ui aspect-ratio documentation.') }}
+                </x-ui.card.description>
+            </x-ui.card.header>
+
+            <x-ui.card.content class="space-y-12">
+                <x-docs.section :label="__('Demo')">
+                    <x-ui.aspect-ratio ratio="16/9" class="w-full max-w-sm rounded-lg bg-muted">
+                        <img
+                            src="https://avatar.vercel.sh/shadcn1"
+                            alt="{{ __('Photo') }}"
+                            class="size-full rounded-lg object-cover grayscale dark:brightness-20"
+                        />
+                    </x-ui.aspect-ratio>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Usage')">
+                    <x-ui.aspect-ratio ratio="16/9">
+                        <img
+                            src="https://avatar.vercel.sh/shadcn1"
+                            alt="{{ __('Image') }}"
+                            class="rounded-md object-cover"
+                        />
+                    </x-ui.aspect-ratio>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Square')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('A square aspect ratio component using the ratio="1/1" prop. This is useful for displaying images in a square format.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.aspect-ratio ratio="1/1" class="w-full max-w-48 rounded-lg bg-muted">
+                        <img
+                            src="https://avatar.vercel.sh/shadcn1"
+                            alt="{{ __('Photo') }}"
+                            class="size-full rounded-lg object-cover grayscale dark:brightness-20"
+                        />
+                    </x-ui.aspect-ratio>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Portrait')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('A portrait aspect ratio component using the ratio="9/16" prop. This is useful for displaying images in a portrait format.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.aspect-ratio ratio="9/16" class="w-full max-w-40 rounded-lg bg-muted">
+                        <img
+                            src="https://avatar.vercel.sh/shadcn1"
+                            alt="{{ __('Photo') }}"
+                            class="size-full rounded-lg object-cover grayscale dark:brightness-20"
+                        />
+                    </x-ui.aspect-ratio>
+                </x-docs.section>
+
+                <x-docs.section :label="__('RTL')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Right-to-left layout with Arabic and Hebrew captions.') }}
+                    </x-ui.typography.muted>
+
+                    <div class="grid w-full max-w-sm gap-6">
+                        <figure class="w-full max-w-sm" dir="ltr">
+                            <x-ui.aspect-ratio ratio="16/9" class="rounded-lg bg-muted">
+                                <img
+                                    src="https://avatar.vercel.sh/shadcn1"
+                                    alt="{{ __('Photo') }}"
+                                    class="size-full rounded-lg object-cover grayscale dark:brightness-20"
+                                />
+                            </x-ui.aspect-ratio>
+                            <figcaption class="mt-2 text-center text-sm text-muted-foreground">
+                                {{ __('Beautiful landscape') }}
+                            </figcaption>
+                        </figure>
+
+                        <figure class="w-full max-w-sm" dir="rtl">
+                            <x-ui.aspect-ratio ratio="16/9" class="rounded-lg bg-muted">
+                                <img
+                                    src="https://avatar.vercel.sh/shadcn1"
+                                    alt="{{ __('Photo') }}"
+                                    class="size-full rounded-lg object-cover grayscale dark:brightness-20"
+                                />
+                            </x-ui.aspect-ratio>
+                            <figcaption class="mt-2 text-center text-sm text-muted-foreground">
+                                منظر طبيعي جميل
+                            </figcaption>
+                        </figure>
+
+                        <figure class="w-full max-w-sm" dir="rtl">
+                            <x-ui.aspect-ratio ratio="16/9" class="rounded-lg bg-muted">
+                                <img
+                                    src="https://avatar.vercel.sh/shadcn1"
+                                    alt="{{ __('Photo') }}"
+                                    class="size-full rounded-lg object-cover grayscale dark:brightness-20"
+                                />
+                            </x-ui.aspect-ratio>
+                            <figcaption class="mt-2 text-center text-sm text-muted-foreground">
+                                נוף יפה
+                            </figcaption>
+                        </figure>
+                    </div>
+                </x-docs.section>
+            </x-ui.card.content>
+        </x-ui.card>
     </div>
 </x-layouts::app>

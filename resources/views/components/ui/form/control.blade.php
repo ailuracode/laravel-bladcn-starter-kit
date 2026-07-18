@@ -3,7 +3,6 @@
 @aware(['id', 'descriptionId', 'messageId', 'error' => false])
 
 @props([
-    'asChild' => true,
     'style' => null,
     'class' => null,
 ])
@@ -27,13 +26,6 @@
     }
 @endphp
 
-@if ($asChild)
-    {!! \AiluraCode\Bladcn\Support\AsChildSlot::render(
-        $slot->toHtml(),
-        $attributes->merge($presetAttributes),
-    ) !!}
-@else
-    <div {{ $attributes->merge($presetAttributes)->class($class) }}>
-        {{ $slot }}
-    </div>
-@endif
+<div {{ $attributes->merge($presetAttributes)->class($class) }}>
+    {{ $slot }}
+</div>

@@ -7,9 +7,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'col-start-2 row-span-2 row-start-1 self-start justify-self-end',
-    );
+    $presetClass =
+        'col-start-2 row-span-2 row-start-1 self-start justify-self-end';
 
     $presetAttributes = [
         'id' => $id,

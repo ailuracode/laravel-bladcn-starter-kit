@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'mt-auto flex shrink-0 flex-col gap-2 p-4',
-    );
+    $presetClass = 'mt-auto flex shrink-0 flex-col gap-2 p-4';
 
     $presetAttributes = [
         'data-slot' => 'drawer-footer',

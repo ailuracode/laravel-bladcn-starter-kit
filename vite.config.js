@@ -15,11 +15,23 @@ export default defineConfig({
     },
     plugins: [
         laravel({
-            input: ["resources/css/app.css", "resources/js/app.ts", "resources/js/passkeys.ts"],
+            input: [
+                "resources/css/app.css",
+                "resources/js/app.js",
+                "resources/js/bladcn/dialog-runtime.js",
+                "resources/js/passkeys.js",
+            ],
             refresh: true,
             fonts: [
                 bunny("Instrument Sans", {
                     weights: [400, 500, 600],
+                    subsets: ["latin"],
+                    display: "swap",
+                    preload: [
+                        { weight: 400, style: "normal" },
+                        { weight: 500, style: "normal" },
+                        { weight: 600, style: "normal" },
+                    ],
                 }),
             ],
         }),
@@ -27,7 +39,9 @@ export default defineConfig({
     ],
     optimizeDeps: {
         include: [
+            "@ailuracode/alpine-media",
             "@ailuracode/alpine-theme",
+            "@ailuracode/alpine-toast",
             "@ailuracode/alpine-sidebar",
             "@ailuracode/alpine-scroll",
             "@ailuracode/alpine-dialog",
@@ -38,7 +52,7 @@ export default defineConfig({
     server: {
         cors: true,
         watch: {
-            ignored: ["**/storage/framework/views/**"],
+            ignored: ["**/storage/framework/views/**", "**/vendor/**", "**/node_modules/**"],
         },
     },
 });

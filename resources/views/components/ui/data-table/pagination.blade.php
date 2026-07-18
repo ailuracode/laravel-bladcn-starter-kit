@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex items-center justify-between px-2',
-    );
+    $presetClass = 'flex items-center justify-between px-2';
 
     $presetAttributes = [
         'data-slot' => 'data-table-pagination',

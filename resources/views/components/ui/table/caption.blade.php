@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'mt-4 text-sm text-muted-foreground',
-    );
+    $presetClass = 'mt-4 text-sm text-muted-foreground';
 
     $presetAttributes = [
         'data-slot' => 'table-caption',

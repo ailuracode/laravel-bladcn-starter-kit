@@ -8,9 +8,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'font-medium text-primary underline underline-offset-4',
-    );
+    $presetClass = 'font-medium text-primary underline underline-offset-4';
 
     $presetAttributes = [
         'id' => $id,

@@ -21,13 +21,13 @@
         Shiki::highlight($content, $language, $theme),
     );
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'overflow-x-auto text-[13px] leading-5 [&_.shiki]:!bg-transparent [&_pre]:m-0 [&_pre]:bg-transparent [&_pre]:px-3 [&_pre]:py-2',
+    $presetClass = implode(
+        ' ',
+        array_filter([
+            'overflow-x-auto text-[13px] leading-5 [&_.shiki]:!bg-transparent [&_pre]:m-0 [&_pre]:bg-transparent [&_pre]:px-3 [&_pre]:py-2',
+            $showNumbers ? 'line-numbers' : null,
+        ]),
     );
-
-    if ($showNumbers) {
-        $presetClass->add('line-numbers');
-    }
 
     $attrs = [
         'id' => $id,

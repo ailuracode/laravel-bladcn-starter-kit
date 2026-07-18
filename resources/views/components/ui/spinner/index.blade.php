@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'size-4 animate-spin',
-    );
+    $presetClass = 'size-4 animate-spin';
 
     $presetAttributes = [
         'role' => 'status',

@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'font-normal text-foreground',
-    );
+    $presetClass = 'font-normal text-foreground';
 
     $presetAttributes = [
         'data-slot' => 'breadcrumb-page',

@@ -1,6 +1,6 @@
 @blaze(fold: true)
 
-@aware(['value', 'defaultValue', 'transition' => true, 'disabled' => false])
+@aware(['value', 'defaultValue', 'disabled' => false])
 
 @props([
     'style' => null,
@@ -16,9 +16,10 @@
 
     $initiallyOpen = in_array($value, $defaultOpen, true);
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex flex-1 items-start justify-between gap-4 rounded-md py-4 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&[data-state=open]>svg]:rotate-180',
-    );
+    $presetClass = implode(' ', [
+        'group/accordion-trigger relative flex flex-1 items-start justify-between rounded-lg border border-transparent py-2.5 text-left text-sm font-medium transition-all outline-none hover:underline focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:after:border-ring aria-disabled:pointer-events-none aria-disabled:opacity-50',
+        '**:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 **:data-[slot=accordion-trigger-icon]:text-muted-foreground',
+    ]);
 
     $presetAttributes = [
         'type' => 'button',
@@ -33,21 +34,22 @@
 <div class="flex"
     data-slot="accordion-header">
     <button
-        :data-state="($store.accordion.isOpen(accordionId, @js($value)) || (
-            @js($initiallyOpen) && !Object.hasOwn($store.accordion
-                .groups[accordionId]?.open ?? {},
-                @js($value)))) ? 'open' : 'closed'"
-        @click="toggle(@js($value))"
+        x-on:click="$store.accordion.toggle(accordionId, @js($value))"
         {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}
         @disabled($disabled)
-        data-state="{{ $initiallyOpen ? 'open' : 'closed' }}"
-        x-bind="$store.accordion.triggerProps(accordionId, @js($value))">
+        :id="`${accordionId}-trigger-@js($value)`"
+        x-bind:aria-controls="`${accordionId}-panel-@js($value)`"
+        x-bind:aria-expanded="$store.accordion.isOpen(accordionId, @js($value)) || (@js($initiallyOpen) && !Object.hasOwn($store.accordion.groups[accordionId]?.open ?? {}, @js($value)))"
+        x-bind:aria-disabled="@js((bool) $disabled) ? 'true' : null"
+        x-bind:tabindex="$store.accordion.activeItem(accordionId) === @js($value) ? 0 : -1">
         {{ $slot }}
-        <x-ui.icon @class([
-            'pointer-events-none size-4 shrink-0 translate-y-0.5 text-muted-foreground',
-            'transition-transform duration-200' => $transition,
-        ])
-            aria-hidden="true"
-            name="chevron-down" />
+        <x-lucide-chevron-down
+            data-slot="accordion-trigger-icon"
+            class="pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
+            aria-hidden="true" />
+        <x-lucide-chevron-up
+            data-slot="accordion-trigger-icon"
+            class="pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline"
+            aria-hidden="true" />
     </button>
 </div>

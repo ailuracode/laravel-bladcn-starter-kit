@@ -13,19 +13,18 @@
 @php
     $transition = filter_var($transition, FILTER_VALIDATE_BOOLEAN);
 
-    $contentClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex min-w-[8rem] flex-col overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md',
+    $contentClass = implode(
+        ' ',
+        array_filter([
+            'flex min-w-[8rem] flex-col overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md',
+            $transition
+                ? 'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95'
+                : null,
+        ]),
     );
 
-    if ($transition) {
-        $contentClass->add(
-            'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
-        );
-    }
-
-    $viewportClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'relative overflow-x-hidden overflow-y-auto p-1 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden',
-    );
+    $viewportClass =
+        'relative overflow-x-hidden overflow-y-auto p-1 [scrollbar-width:none] [-ms-overflow-style:none] [-webkit-overflow-scrolling:touch] [&::-webkit-scrollbar]:hidden';
 
     $presetAttributes = [
         'data-slot' => 'select-content',

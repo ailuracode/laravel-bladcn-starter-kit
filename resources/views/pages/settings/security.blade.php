@@ -256,7 +256,7 @@ new #[Title('Security settings')]
     </x-pages::settings.layout>
 
     @if ($showDeleteModal)
-        <x-ui.alert-dialog open x-init="$watch('isOpen', value => { if (! value) $wire.closeDeleteModal() })">
+        <x-ui.alert-dialog open x-init="$watch(() => $store.dialog.isOpen(id), value => { if (! value) $wire.closeDeleteModal() })">
             <x-ui.alert-dialog.content>
                 <x-ui.alert-dialog.header>
                     <x-ui.alert-dialog.title>{{ __('Remove passkey') }}</x-ui.alert-dialog.title>

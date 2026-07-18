@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'ml-auto text-xs tracking-widest text-muted-foreground',
-    );
+    $presetClass = 'ml-auto text-xs tracking-widest text-muted-foreground';
 
     $presetAttributes = [
         'data-slot' => 'menubar-shortcut',

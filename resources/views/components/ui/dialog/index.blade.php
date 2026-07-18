@@ -1,6 +1,6 @@
 @blaze(fold: false)
 {{-- @see https://ui.shadcn.com/docs/components/dialog --}}
-{{-- @see https://github.com/ailuracode/alpinejs-toolkit/blob/master/docs/plugins/dialog.md --}}
+{{-- @see https://github.com/ailuracode/alpinejs-toolkit/blob/master/packages/dialog/README.md --}}
 
 @props([
     'id' => null,
@@ -30,6 +30,7 @@
     x-on:keydown.window="handleKeydown($event)">
     {{ $slot }}
 </div>
+
 @pushOnce('bladcn-scripts')
     <script>
         bladcnOnAlpine((Alpine) => {
@@ -38,21 +39,18 @@
                 initialOpen: Boolean(config.open),
 
                 get id() {
-                    return this.initId ?? this.$id(
-                    'dialog');
+                    return this.initId ?? this.$id('dialog');
                 },
 
                 get isOpen() {
-                    return this.$store.dialog.isOpen(this
-                        .id);
+                    return this.$store.dialog.isOpen(this.id);
                 },
 
                 init() {
                     this.$nextTick(() => {
                         const id = this.id;
 
-                        this.$store.dialog.register(
-                        id, {
+                        this.$store.dialog.register(id, {
                             labelledBy: `${id}-title`,
                             describedBy: `${id}-description`,
                         });
@@ -68,13 +66,12 @@
                 },
 
                 open(event) {
-                    const trigger = event
-                        ?.target instanceof HTMLElement ?
+                    const trigger =
+                        event?.target instanceof HTMLElement ?
                         event.target :
                         null;
-                    this.$store.dialog.open(this.id, {
-                        trigger,
-                    });
+
+                    this.$store.dialog.open(this.id, { trigger });
                 },
 
                 close() {
@@ -82,8 +79,7 @@
                 },
 
                 handleKeydown(event) {
-                    this.$store.dialog.handleKeydown(this.id,
-                        event);
+                    this.$store.dialog.handleKeydown(this.id, event);
                 },
             }));
         });

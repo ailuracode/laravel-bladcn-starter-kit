@@ -29,9 +29,8 @@
 @endphp
 
 <div {{ $attributes->only('class')->merge($wrapperAttributes)->class($class) }}>
-    <x-ui.abstract :as-child="$asChild"
-        {{ $attributes->except('class')->merge($presetAttributes)->merge($triggerAttributes) }}
-        default-tag="button">
+    <button
+        {{ $attributes->except('class')->merge($presetAttributes)->merge($triggerAttributes) }}>
         {{ $slot }}
-    </x-ui.abstract>
+    </button>
 </div>

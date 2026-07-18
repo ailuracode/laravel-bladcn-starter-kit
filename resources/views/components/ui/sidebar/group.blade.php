@@ -4,7 +4,6 @@
     'style' => null,
     'class' => null,
 ])
-
 @php
     $presetAttributes = [
         'data-slot' => 'sidebar-group',

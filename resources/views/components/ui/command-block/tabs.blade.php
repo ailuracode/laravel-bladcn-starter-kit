@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex items-center gap-1',
-    );
+    $presetClass = 'flex items-center gap-1';
 
     $presetAttributes = [
         'data-slot' => 'command-block-tabs',

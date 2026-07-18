@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex flex-row items-center gap-1',
-    );
+    $presetClass = 'flex flex-row items-center gap-1';
 
     $presetAttributes = [
         'data-slot' => 'pagination-content',

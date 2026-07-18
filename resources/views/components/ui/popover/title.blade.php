@@ -6,9 +6,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'font-medium',
-    );
+    $presetClass = 'font-medium';
 
     $presetAttributes = [
         'data-slot' => 'popover-title',

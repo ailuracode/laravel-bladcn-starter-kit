@@ -18,9 +18,7 @@
         : "{$id}-description";
     $messageId = filled($messageId) ? $messageId : "{$id}-message";
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'grid gap-2',
-    );
+    $presetClass = 'grid gap-2';
 
     $presetAttributes = [
         'data-slot' => 'form-item',

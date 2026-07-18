@@ -7,9 +7,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap',
-    );
+    $presetClass =
+        'text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap';
 
     $presetAttributes = [
         'data-slot' => 'data-table-column-header',

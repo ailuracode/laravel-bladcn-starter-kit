@@ -8,9 +8,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'data-[error=true]:text-destructive',
-    );
+    $presetClass = 'data-[error=true]:text-destructive';
 
     $presetAttributes = [
         'data-slot' => 'form-label',

@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'text-sm leading-none font-medium',
-    );
+    $presetClass = 'text-sm leading-none font-medium';
 
     $presetAttributes = [
         'id' => $id,

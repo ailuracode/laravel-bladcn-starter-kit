@@ -12,9 +12,8 @@
 @php
     $content = filled($command) ? trim($command) : trim($slot);
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'overflow-x-auto bg-[#0d0e12] px-3 py-2.5 font-mono text-[13px] leading-5 text-zinc-300',
-    );
+    $presetClass =
+        'overflow-x-auto bg-[#0d0e12] px-3 py-2.5 font-mono text-[13px] leading-5 text-zinc-300';
 
     $presetAttributes = [
         'data-slot' => 'command-block-content',

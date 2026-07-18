@@ -3,7 +3,6 @@
     "componentsPath": "resources/views/components/ui",
     "registryBranch": "main",
     "resolved": [
-        "abstract",
         "accordion",
         "alert",
         "alert-dialog",

@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex min-h-9 items-center gap-2 bg-[#17191e] px-3 py-1.5',
-    );
+    $presetClass = 'flex min-h-9 items-center gap-2 bg-[#17191e] px-3 py-1.5';
 
     $presetAttributes = [
         'data-slot' => 'command-block-toolbar',

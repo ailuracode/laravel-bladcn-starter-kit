@@ -4,29 +4,50 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core
+
 importers:
 
   .:
     dependencies:
-      '@ailuracode/alpine-core':
-        specifier: ^0.1.1
-        version: 0.1.1(@types/alpinejs@3.13.11)(alpinejs@3.15.12)
-      '@ailuracode/alpine-dialog':
-        specifier: ^0.1.0
-        version: 0.1.0(@types/alpinejs@3.13.11)(alpinejs@3.15.12)
-      '@ailuracode/alpine-menu':
-        specifier: ^0.2.0
-        version: 0.2.0(@types/alpinejs@3.13.11)(alpinejs@3.15.12)
-      '@ailuracode/alpine-scroll':
-        specifier: ^0.3.1
-        version: 0.3.1(@types/alpinejs@3.13.11)(alpinejs@3.15.12)
-      '@ailuracode/alpine-sidebar':
+      '@ailuracode/alpine-accordion':
+        specifier: ^2.0.0
+        version: 2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
+      '@ailuracode/alpine-calendar':
         specifier: ^1.0.0
-        version: 1.0.0(@types/alpinejs@3.13.11)(alpinejs@3.15.12)
+        version: 1.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
+      '@ailuracode/alpine-core':
+        specifier: file:../alpinejs-toolkit/packages/core
+        version: file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
+      '@ailuracode/alpine-dialog':
+        specifier: ^2.0.0
+        version: 2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(@ailuracode/alpine-scroll@3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12))(alpinejs@3.15.12)
+      '@ailuracode/alpine-media':
+        specifier: ^2.0.0
+        version: 2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
+      '@ailuracode/alpine-menu':
+        specifier: ^2.0.0
+        version: 2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(@ailuracode/alpine-scroll@3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12))(alpinejs@3.15.12)
+      '@ailuracode/alpine-scroll':
+        specifier: ^3.0.0
+        version: 3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
+      '@ailuracode/alpine-sidebar':
+        specifier: ^4.0.0
+        version: 4.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(@ailuracode/alpine-scroll@3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12))(@ailuracode/alpine-toggle@2.0.1(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12))(@ailuracode/alpine-ui@1.0.1)(alpinejs@3.15.12)
       '@ailuracode/alpine-theme':
-        specifier: ^0.2.2
-        version: 0.2.2(@types/alpinejs@3.13.11)(alpinejs@3.15.12)
+        specifier: ^2.1.0
+        version: 2.1.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(@ailuracode/alpine-ui@1.0.1)(alpinejs@3.15.12)
+      '@ailuracode/alpine-toast':
+        specifier: ^2.0.0
+        version: 2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
+      '@ailuracode/alpine-toggle':
+        specifier: 2.0.1
+        version: 2.0.1(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
       '@alpinejs/anchor':
+        specifier: ^3.15.12
+        version: 3.15.12
+      '@alpinejs/collapse':
         specifier: ^3.15.12
         version: 3.15.12
       '@laravel/passkeys':
@@ -51,15 +72,9 @@ importers:
       '@biomejs/biome':
         specifier: ^2.0.0
         version: 2.5.1
-      '@types/alpinejs':
-        specifier: ^3.13.11
-        version: 3.13.11
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
-      typescript:
-        specifier: ^6.0.3
-        version: 6.0.3
     optionalDependencies:
       '@rollup/rollup-linux-x64-gnu':
         specifier: 4.9.5
@@ -73,62 +88,145 @@ importers:
 
 packages:
 
-  '@ailuracode/alpine-core@0.1.1':
-    resolution: {integrity: sha512-2QvQ9VaDquCRFdcHY6BY6r713Ff1BTURVOnJbbRs2hV+2B5EpSV+Ao80PIwtPoOD6McluZ85o7UTfrUZRh0nng==}
+  '@ailuracode/alpine-accordion@2.0.0':
+    resolution: {integrity: sha512-Vl8ygYjRhLdGTaE7pp7DukdB08DG0l05EJIQZBI130WPrsc/2fov6Tk/8sHKW5Kc4EvgTZmIBYYE4ZGMBAOa7Q==}
+    version: 2.0.0
     peerDependencies:
+      '@ailuracode/alpine-core': ^0.3.0
       '@types/alpinejs': ^3.13.11
       alpinejs: ^3.0.0
     peerDependenciesMeta:
       '@types/alpinejs':
         optional: true
 
-  '@ailuracode/alpine-dialog@0.1.0':
-    resolution: {integrity: sha512-SiyYDb/vzbzKJCQLujZ+NhbK/YC9at0V6RATORxSOO1eFtn3cNWADqdudYPhOLtWChnpCwivT9ekDxtSwVPyfA==}
+  '@ailuracode/alpine-calendar@1.0.0':
+    resolution: {integrity: sha512-ETyhosv4MIbZli5Dzi3rqME1oOx3hoW1x4QD2tb0YibEBAH/KcFHoscZNXrqstpPm8/g5fwm8fDoPIHkiZmptg==}
+    version: 1.0.0
     peerDependencies:
+      '@ailuracode/alpine-core': ^0.3.0
       '@types/alpinejs': ^3.13.11
       alpinejs: ^3.0.0
     peerDependenciesMeta:
       '@types/alpinejs':
         optional: true
 
-  '@ailuracode/alpine-menu@0.2.0':
-    resolution: {integrity: sha512-tm5NqX4Hk1KeHGyMY0cXALBb+fW7ArD5Rax+tAVVr8uOUBJAKWkXSVmEtmvloBEJXBzMZkb03Xl3nDY1dnm9Fg==}
+  '@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core':
+    resolution: {directory: ../alpinejs-toolkit/packages/core, type: directory}
     peerDependencies:
-      '@types/alpinejs': ^3.13.11
+      '@types/alpinejs': '*'
       alpinejs: ^3.0.0
     peerDependenciesMeta:
       '@types/alpinejs':
         optional: true
 
-  '@ailuracode/alpine-scroll@0.3.1':
-    resolution: {integrity: sha512-W3NQTWS5/Ee7RvST2IdtITslwS2PK5uQBH9jCEMsNXQCr8PASWNJv6CZCoqoSz65eIxFoPVGfKp4fxKPaaQ4eg==}
+  '@ailuracode/alpine-dialog@2.0.0':
+    resolution: {integrity: sha512-SIGfEHtKHVQSPMHCmQC51SoxJJul6EWx4oQVWJq44fUU96rZ9j0jkaggeD4J+TZNneVnLKfqkIAh2gEmqQIePg==}
+    version: 2.0.0
     peerDependencies:
+      '@ailuracode/alpine-core': ^0.3.0
+      '@ailuracode/alpine-scroll': ^3.0.0
       '@types/alpinejs': ^3.13.11
+      alpinejs: ^3.0.0
+    peerDependenciesMeta:
+      '@ailuracode/alpine-scroll':
+        optional: true
+      '@types/alpinejs':
+        optional: true
+
+  '@ailuracode/alpine-media@2.0.0':
+    resolution: {integrity: sha512-s560jmi+3aHeZUKKw2JAq3yxb0elHJ+SSKVa7YrT+6t9Sx83Dvdgp09qe3CteewDjCgJeldxgDiFRlwIpAHWxQ==}
+    version: 2.0.0
+    peerDependencies:
+      '@ailuracode/alpine-core': ^0.3.0
+      '@types/alpinejs': '*'
       alpinejs: ^3.0.0
     peerDependenciesMeta:
       '@types/alpinejs':
         optional: true
 
-  '@ailuracode/alpine-sidebar@1.0.0':
-    resolution: {integrity: sha512-D/CpdPzJoDrHdT9Ge1BtrXV7ZD+w73c8m3U20wygJYgwP5D+CG9V1YZvRxttq+CpkVBBamTgakt7VjgDM1Bxww==}
+  '@ailuracode/alpine-menu@2.0.0':
+    resolution: {integrity: sha512-cuJIm4bEheF0iUGZxKN/7wm7Bn2aBOsPpDTXcTm8tln3Kb5QojinEPzKA4/FQn8w0/rp06o2NZGo4wFIZiLOiQ==}
+    version: 2.0.0
     peerDependencies:
+      '@ailuracode/alpine-core': ^0.3.0
+      '@ailuracode/alpine-scroll': ^3.0.0
       '@types/alpinejs': ^3.13.11
+      alpinejs: ^3.0.0
+    peerDependenciesMeta:
+      '@ailuracode/alpine-scroll':
+        optional: true
+      '@types/alpinejs':
+        optional: true
+
+  '@ailuracode/alpine-scroll@3.0.0':
+    resolution: {integrity: sha512-RDrpjIc6QQmtne4cuuq/mUxZSOMJxu0zs96dj9sq26QBmYIC9pnaO1yB9E2Qjy4fZVU0D3LHDOv2JJnoGWlpYw==}
+    version: 3.0.0
+    peerDependencies:
+      '@ailuracode/alpine-core': ^0.3.0
+      '@types/alpinejs': '*'
       alpinejs: ^3.0.0
     peerDependenciesMeta:
       '@types/alpinejs':
         optional: true
 
-  '@ailuracode/alpine-theme@0.2.2':
-    resolution: {integrity: sha512-1+/6qpOQdDgFoa4Z8IDvNpMCw9tVUM7W8RUncFJYJj9G9+4TT/6UykS4uSOUwYa+go6TlDrXy9j96rCW+CcvPA==}
+  '@ailuracode/alpine-sidebar@4.0.0':
+    resolution: {integrity: sha512-ugwuLUqbd36dKuQEJTaiFCosRQp0YdgsZIbdXhiqZTBKfhxckgblI+HnkQMi+3/n1E1VNiZR7bsoU2UaxEzyPg==}
+    version: 4.0.0
     peerDependencies:
-      '@types/alpinejs': ^3.13.11
+      '@ailuracode/alpine-core': ^0.3.0
+      '@ailuracode/alpine-scroll': ^3.0.0
+      '@ailuracode/alpine-toggle': ^2.0.0
+      '@ailuracode/alpine-ui': ^1.0.1
+      '@types/alpinejs': '*'
+      alpinejs: ^3.0.0
+    peerDependenciesMeta:
+      '@ailuracode/alpine-scroll':
+        optional: true
+      '@types/alpinejs':
+        optional: true
+
+  '@ailuracode/alpine-theme@2.1.0':
+    resolution: {integrity: sha512-ef3Mzi+7YfEidEfSzZg1cy/iUqcGqyZvYy74rjm5OmY6MBvvs6REXxULMjVZlwju+PSZ+NUgvcjU8xphG2O3GQ==}
+    version: 2.1.0
+    peerDependencies:
+      '@ailuracode/alpine-core': ^0.3.0
+      '@ailuracode/alpine-ui': ^1.0.1
+      '@types/alpinejs': '*'
       alpinejs: ^3.0.0
     peerDependenciesMeta:
       '@types/alpinejs':
         optional: true
+
+  '@ailuracode/alpine-toast@2.0.0':
+    resolution: {integrity: sha512-y5dc3YgWUjgUNPFSUlqwS7rvwcyizek1KeeqA9XfXTuOlIOicum+9grU2AxozPImqvty7eZp7rkUcH881MjyuA==}
+    version: 2.0.0
+    peerDependencies:
+      '@ailuracode/alpine-core': ^0.3.0
+      '@types/alpinejs': '*'
+      alpinejs: ^3.0.0
+    peerDependenciesMeta:
+      '@types/alpinejs':
+        optional: true
+
+  '@ailuracode/alpine-toggle@2.0.1':
+    resolution: {integrity: sha512-q3GiJDC4Shd8E3YxM7rEeX8qUQe1hTYK1Hrjiu3+rLl4fCROznkG8BHzVDcdb+tCZVkI+/kPAo9sbkHhnbfhag==}
+    version: 2.0.1
+    peerDependencies:
+      '@ailuracode/alpine-core': ^0.3.0
+      '@types/alpinejs': '*'
+      alpinejs: ^3.0.0
+    peerDependenciesMeta:
+      '@types/alpinejs':
+        optional: true
+
+  '@ailuracode/alpine-ui@1.0.1':
+    resolution: {integrity: sha512-f4Oavmnxz8dt1msQJMht2nj9JaMRlXMAwmx76sth/Pt4ALEnIZrjbNH+Jd3bPYGTqWFo4TjIVDC3XBM8nVX8wQ==}
 
   '@alpinejs/anchor@3.15.12':
     resolution: {integrity: sha512-8G9QGvWo9N+J16dEgbaXYIlxe8lWo25uNHhoAONZSDj1av+1VfIgU9FB4q+h6me0D/+7NqY+dw9OlIAAHQv4wg==}
+
+  '@alpinejs/collapse@3.15.12':
+    resolution: {integrity: sha512-BKNANLtNXuWYOSAnajSKLPjTsmHRNrv0ALFTbpmqt2/klHFooPhctSwkhFVPQb7rZ8BjEKHmNaBwnSbgtpk6xg==}
 
   '@biomejs/biome@2.5.1':
     resolution: {integrity: sha512-IXWLCxKmae+rI7LOHS1B3EbVisQ6GRAWbhN9msa6KjNCyFWrvKZWR4oUdinaNssrV852OrSHuSPa95h1GPJc7Q==}
@@ -449,9 +547,6 @@ packages:
   '@tybys/wasm-util@0.10.3':
     resolution: {integrity: sha512-F3fo1MYrRJYL3zER0OUOmkutjr1Vp23m7OsSgp7nq4SP6OqX6C/56XFIPAl5bt3zaBRjmW7SGz3u/6LwFpYcOg==}
 
-  '@types/alpinejs@3.13.11':
-    resolution: {integrity: sha512-3KhGkDixCPiLdL3Z/ok1GxHwLxEWqQOKJccgaQL01wc0EVM2tCTaqlC3NIedmxAXkVzt/V6VTM8qPgnOHKJ1MA==}
-
   '@vue/reactivity@3.1.5':
     resolution: {integrity: sha512-1tdfLmNjWG6t/CsPldh+foumYFo3cpyCHgBYQ34ylaMsJ+SNHQ1kApMIa8jN+i593zQuaw3AdWH0nJTARzCFhg==}
 
@@ -488,6 +583,9 @@ packages:
     resolution: {integrity: sha512-ihjs0E2SxvDgq/MK418hX6YycQgKhsqxpbZuZbHo0yKfqDWdymWMjWYIpCIzqDDLLKClHlXev8whW/8WXmJ0BA==}
     engines: {node: '>=18'}
     hasBin: true
+
+  date-fns@4.4.0:
+    resolution: {integrity: sha512-+1UMbeh68lH1SegH83CGWwpb6OHHbpSgr3+s5Eww5M4CAgswBpoWS0AjTOfEJ33HiYKz1hdj/KTFprzXHmq/6w==}
 
   detect-libc@2.1.2:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
@@ -702,11 +800,6 @@ packages:
   tw-animate-css@1.4.0:
     resolution: {integrity: sha512-7bziOlRqH0hJx80h/3mbicLW7o8qLsH5+RaLR2t+OHM3D0JlWGODQKQ4cxbK7WlvmUxpcj6Kgu6EKqjrGFe3QQ==}
 
-  typescript@6.0.3:
-    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   vite-plugin-full-reload@1.2.0:
     resolution: {integrity: sha512-kz18NW79x0IHbxRSHm0jttP4zoO9P9gXh+n6UTwlNKnviTTEpOlum6oS9SmecrTtSr+muHEn5TUuC75UovQzcA==}
 
@@ -771,45 +864,77 @@ packages:
 
 snapshots:
 
-  '@ailuracode/alpine-core@0.1.1(@types/alpinejs@3.13.11)(alpinejs@3.15.12)':
+  '@ailuracode/alpine-accordion@2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)':
     dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
       alpinejs: 3.15.12
-    optionalDependencies:
-      '@types/alpinejs': 3.13.11
 
-  '@ailuracode/alpine-dialog@0.1.0(@types/alpinejs@3.13.11)(alpinejs@3.15.12)':
+  '@ailuracode/alpine-calendar@1.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)':
     dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
       alpinejs: 3.15.12
-    optionalDependencies:
-      '@types/alpinejs': 3.13.11
+      date-fns: 4.4.0
 
-  '@ailuracode/alpine-menu@0.2.0(@types/alpinejs@3.13.11)(alpinejs@3.15.12)':
+  '@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)':
     dependencies:
       alpinejs: 3.15.12
-    optionalDependencies:
-      '@types/alpinejs': 3.13.11
 
-  '@ailuracode/alpine-scroll@0.3.1(@types/alpinejs@3.13.11)(alpinejs@3.15.12)':
+  '@ailuracode/alpine-dialog@2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(@ailuracode/alpine-scroll@3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12))(alpinejs@3.15.12)':
     dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
       alpinejs: 3.15.12
     optionalDependencies:
-      '@types/alpinejs': 3.13.11
+      '@ailuracode/alpine-scroll': 3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
 
-  '@ailuracode/alpine-sidebar@1.0.0(@types/alpinejs@3.13.11)(alpinejs@3.15.12)':
+  '@ailuracode/alpine-media@2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)':
     dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
       alpinejs: 3.15.12
-    optionalDependencies:
-      '@types/alpinejs': 3.13.11
 
-  '@ailuracode/alpine-theme@0.2.2(@types/alpinejs@3.13.11)(alpinejs@3.15.12)':
+  '@ailuracode/alpine-menu@2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(@ailuracode/alpine-scroll@3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12))(alpinejs@3.15.12)':
     dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
       alpinejs: 3.15.12
     optionalDependencies:
-      '@types/alpinejs': 3.13.11
+      '@ailuracode/alpine-scroll': 3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
+
+  '@ailuracode/alpine-scroll@3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)':
+    dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
+      alpinejs: 3.15.12
+
+  '@ailuracode/alpine-sidebar@4.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(@ailuracode/alpine-scroll@3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12))(@ailuracode/alpine-toggle@2.0.1(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12))(@ailuracode/alpine-ui@1.0.1)(alpinejs@3.15.12)':
+    dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
+      '@ailuracode/alpine-toggle': 2.0.1(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
+      '@ailuracode/alpine-ui': 1.0.1
+      alpinejs: 3.15.12
+    optionalDependencies:
+      '@ailuracode/alpine-scroll': 3.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)
+
+  '@ailuracode/alpine-theme@2.1.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(@ailuracode/alpine-ui@1.0.1)(alpinejs@3.15.12)':
+    dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
+      '@ailuracode/alpine-ui': 1.0.1
+      alpinejs: 3.15.12
+
+  '@ailuracode/alpine-toast@2.0.0(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)':
+    dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
+      alpinejs: 3.15.12
+
+  '@ailuracode/alpine-toggle@2.0.1(@ailuracode/alpine-core@file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12))(alpinejs@3.15.12)':
+    dependencies:
+      '@ailuracode/alpine-core': file:../alpinejs-toolkit/packages/core(alpinejs@3.15.12)
+      alpinejs: 3.15.12
+
+  '@ailuracode/alpine-ui@1.0.1': {}
 
   '@alpinejs/anchor@3.15.12':
     dependencies:
       '@floating-ui/dom': 1.7.6
+
+  '@alpinejs/collapse@3.15.12': {}
 
   '@biomejs/biome@2.5.1':
     optionalDependencies:
@@ -1034,8 +1159,6 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@types/alpinejs@3.13.11': {}
-
   '@vue/reactivity@3.1.5':
     dependencies:
       '@vue/shared': 3.1.5
@@ -1077,6 +1200,8 @@ snapshots:
       supports-color: 8.1.1
       tree-kill: 1.2.2
       yargs: 17.7.2
+
+  date-fns@4.4.0: {}
 
   detect-libc@2.1.2: {}
 
@@ -1243,8 +1368,6 @@ snapshots:
   tslib@2.8.1: {}
 
   tw-animate-css@1.4.0: {}
-
-  typescript@6.0.3: {}
 
   vite-plugin-full-reload@1.2.0:
     dependencies:

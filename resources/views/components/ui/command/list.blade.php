@@ -6,9 +6,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'no-scrollbar max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none',
-    );
+    $presetClass =
+        'no-scrollbar max-h-72 scroll-py-1 overflow-x-hidden overflow-y-auto outline-none';
 
     $presetAttributes = [
         'data-slot' => 'command-list',

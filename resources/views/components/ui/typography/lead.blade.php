@@ -7,9 +7,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'text-xl leading-7 text-muted-foreground [&:not(:first-child)]:mt-6',
-    );
+    $presetClass =
+        'text-xl leading-7 text-muted-foreground [&:not(:first-child)]:mt-6';
 
     $presetAttributes = [
         'id' => $id,

@@ -13,15 +13,15 @@
 @php
     $transition = filter_var($transition, FILTER_VALIDATE_BOOLEAN);
 
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'fixed z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden',
+    $presetClass = implode(
+        ' ',
+        array_filter([
+            'fixed z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden',
+            $transition
+                ? 'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95'
+                : null,
+        ]),
     );
-
-    if ($transition) {
-        $presetClass->add(
-            'data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95',
-        );
-    }
 
     $presetAttributes = [
         'data-slot' => 'popover-content',

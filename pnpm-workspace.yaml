@@ -1,2 +1,5 @@
 minimumReleaseAgeExclude:
   - '@ailuracode/alpine-menu@0.2.0'
+
+overrides:
+  '@ailuracode/alpine-core': 'file:../alpinejs-toolkit/packages/core'

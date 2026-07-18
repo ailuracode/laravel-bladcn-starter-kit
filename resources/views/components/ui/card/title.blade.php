@@ -7,9 +7,7 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'leading-none font-semibold',
-    );
+    $presetClass = 'leading-none font-semibold';
 
     $presetAttributes = [
         'id' => $id,

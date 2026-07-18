@@ -9,9 +9,8 @@
 ])
 
 @php
-    $presetClass = (new \AiluraCode\Bladcn\Support\ClassResolver())->add(
-        'flex h-9 items-center gap-1 rounded-md border bg-background p-1 shadow-xs',
-    );
+    $presetClass =
+        'flex h-9 items-center gap-1 rounded-md border bg-background p-1 shadow-xs';
 
     $presetAttributes = [
         'role' => 'menubar',
