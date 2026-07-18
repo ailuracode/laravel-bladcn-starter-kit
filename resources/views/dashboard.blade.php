@@ -713,6 +713,229 @@
 
         <x-ui.card>
             <x-ui.card.header>
+                <x-ui.card.title>{{ __('Breadcrumb') }}</x-ui.card.title>
+                <x-ui.card.description>
+                    {{ __('Examples from the official shadcn/ui breadcrumb documentation.') }}
+                </x-ui.card.description>
+            </x-ui.card.header>
+
+            <x-ui.card.content class="space-y-12">
+                <x-docs.section :label="__('Demo')">
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb.list>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">{{ __('Home') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.dropdown-menu>
+                                    <x-ui.dropdown-menu.trigger
+                                        class="[&>button]:inline-flex [&>button]:size-7 [&>button]:rounded-[min(var(--radius-md),12px)] [&>button]:border-transparent [&>button]:bg-transparent [&>button]:p-0 [&>button]:shadow-none [&>button]:hover:bg-muted [&>button]:focus-visible:ring-3 [&>button]:focus-visible:ring-ring/50"
+                                    >
+                                        <x-ui.breadcrumb.ellipsis />
+                                        <span class="sr-only">{{ __('Toggle menu') }}</span>
+                                    </x-ui.dropdown-menu.trigger>
+                                    <x-ui.dropdown-menu.content align="start">
+                                        <x-ui.dropdown-menu.group>
+                                            <x-ui.dropdown-menu.item>{{ __('Documentation') }}</x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.item>{{ __('Themes') }}</x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.item>{{ __('GitHub') }}</x-ui.dropdown-menu.item>
+                                        </x-ui.dropdown-menu.group>
+                                    </x-ui.dropdown-menu.content>
+                                </x-ui.dropdown-menu>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">{{ __('Components') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.page>{{ __('Breadcrumb') }}</x-ui.breadcrumb.page>
+                            </x-ui.breadcrumb.item>
+                        </x-ui.breadcrumb.list>
+                    </x-ui.breadcrumb>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Basic')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('A basic breadcrumb with a home link and a components link.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb.list>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">{{ __('Home') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">{{ __('Components') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.page>{{ __('Breadcrumb') }}</x-ui.breadcrumb.page>
+                            </x-ui.breadcrumb.item>
+                        </x-ui.breadcrumb.list>
+                    </x-ui.breadcrumb>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Custom separator')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Use a custom component as children for BreadcrumbSeparator to create a custom separator.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb.list>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">{{ __('Home') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator>
+                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                            </x-ui.breadcrumb.separator>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">{{ __('Components') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator>
+                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                            </x-ui.breadcrumb.separator>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.page>{{ __('Breadcrumb') }}</x-ui.breadcrumb.page>
+                            </x-ui.breadcrumb.item>
+                        </x-ui.breadcrumb.list>
+                    </x-ui.breadcrumb>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Dropdown')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('You can compose Breadcrumb with a DropdownMenu to create a dropdown in the breadcrumb.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb.list>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">{{ __('Home') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator>
+                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                            </x-ui.breadcrumb.separator>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.dropdown-menu>
+                                    <x-ui.dropdown-menu.trigger
+                                        class="[&>button]:inline-flex [&>button]:items-center [&>button]:gap-1 [&>button]:border-transparent [&>button]:bg-transparent [&>button]:p-0 [&>button]:text-sm [&>button]:shadow-none [&>button]:hover:bg-transparent [&>button]:hover:text-foreground [&>button]:focus-visible:ring-0"
+                                    >
+                                        {{ __('Components') }}
+                                        <x-ui.icon name="chevron-down" data-icon="inline-end" class="size-3.5" aria-hidden="true" />
+                                    </x-ui.dropdown-menu.trigger>
+                                    <x-ui.dropdown-menu.content align="start">
+                                        <x-ui.dropdown-menu.group>
+                                            <x-ui.dropdown-menu.item>{{ __('Documentation') }}</x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.item>{{ __('Themes') }}</x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.item>{{ __('GitHub') }}</x-ui.dropdown-menu.item>
+                                        </x-ui.dropdown-menu.group>
+                                    </x-ui.dropdown-menu.content>
+                                </x-ui.dropdown-menu>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator>
+                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                            </x-ui.breadcrumb.separator>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.page>{{ __('Breadcrumb') }}</x-ui.breadcrumb.page>
+                            </x-ui.breadcrumb.item>
+                        </x-ui.breadcrumb.list>
+                    </x-ui.breadcrumb>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Collapsed')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('We provide a BreadcrumbEllipsis component to show a collapsed state when the breadcrumb is too long.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb.list>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">{{ __('Home') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.ellipsis />
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">{{ __('Components') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.page>{{ __('Breadcrumb') }}</x-ui.breadcrumb.page>
+                            </x-ui.breadcrumb.item>
+                        </x-ui.breadcrumb.list>
+                    </x-ui.breadcrumb>
+                </x-docs.section>
+
+                <x-docs.section :label="__('Link component')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('To use a custom link component from your routing library, you can use the render prop on BreadcrumbLink.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.breadcrumb>
+                        <x-ui.breadcrumb.list>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#link-component">{{ __('Home') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#link-component">{{ __('Components') }}</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator />
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.page>{{ __('Breadcrumb') }}</x-ui.breadcrumb.page>
+                            </x-ui.breadcrumb.item>
+                        </x-ui.breadcrumb.list>
+                    </x-ui.breadcrumb>
+                </x-docs.section>
+
+                <x-docs.section :label="__('RTL')">
+                    <x-ui.typography.muted class="text-sm">
+                        {{ __('Right-to-left layout with Arabic content.') }}
+                    </x-ui.typography.muted>
+
+                    <x-ui.breadcrumb dir="rtl">
+                        <x-ui.breadcrumb.list>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.link href="#">الرئيسية</x-ui.breadcrumb.link>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator>
+                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                            </x-ui.breadcrumb.separator>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.dropdown-menu>
+                                    <x-ui.dropdown-menu.trigger
+                                        class="[&>button]:inline-flex [&>button]:items-center [&>button]:gap-1 [&>button]:border-transparent [&>button]:bg-transparent [&>button]:p-0 [&>button]:text-sm [&>button]:shadow-none [&>button]:hover:bg-transparent [&>button]:hover:text-foreground [&>button]:focus-visible:ring-0"
+                                    >
+                                        المكونات
+                                        <x-ui.icon name="chevron-down" data-icon="inline-end" class="size-3.5" aria-hidden="true" />
+                                    </x-ui.dropdown-menu.trigger>
+                                    <x-ui.dropdown-menu.content align="end" dir="rtl">
+                                        <x-ui.dropdown-menu.group>
+                                            <x-ui.dropdown-menu.item>التوثيق</x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.item>السمات</x-ui.dropdown-menu.item>
+                                            <x-ui.dropdown-menu.item>جيت هاب</x-ui.dropdown-menu.item>
+                                        </x-ui.dropdown-menu.group>
+                                    </x-ui.dropdown-menu.content>
+                                </x-ui.dropdown-menu>
+                            </x-ui.breadcrumb.item>
+                            <x-ui.breadcrumb.separator>
+                                <x-ui.icon name="dot" class="size-3.5" aria-hidden="true" />
+                            </x-ui.breadcrumb.separator>
+                            <x-ui.breadcrumb.item>
+                                <x-ui.breadcrumb.page>مسار التنقل</x-ui.breadcrumb.page>
+                            </x-ui.breadcrumb.item>
+                        </x-ui.breadcrumb.list>
+                    </x-ui.breadcrumb>
+                </x-docs.section>
+            </x-ui.card.content>
+        </x-ui.card>
+
+        <x-ui.card>
+            <x-ui.card.header>
                 <x-ui.card.title>{{ __('Aspect Ratio') }}</x-ui.card.title>
                 <x-ui.card.description>
                     {{ __('Examples from the official shadcn/ui aspect-ratio documentation.') }}

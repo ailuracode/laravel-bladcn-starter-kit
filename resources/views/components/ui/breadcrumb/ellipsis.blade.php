@@ -23,6 +23,6 @@
     {{ $attributes->merge($presetAttributes)->class([$presetClass, $class]) }}>
     <x-ui.icon aria-hidden="true"
         class="size-4"
-        name="ellipsis" />
+        name="more-horizontal" />
     <span class="sr-only">More</span>
 </span>
